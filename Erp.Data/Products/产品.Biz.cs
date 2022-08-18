@@ -1,4 +1,6 @@
-﻿using NewLife;
+﻿using System.ComponentModel;
+using Erp.Data.Models;
+using NewLife;
 using NewLife.Data;
 using XCode;
 using XCode.Membership;
@@ -51,6 +53,43 @@ public partial class Product : Entity<Product>
 
         // 检查唯一索引
         // CheckExist(isNew, nameof(Code));
+    }
+
+    /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    protected override void InitData()
+    {
+        // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
+        if (Meta.Session.Count > 0) return;
+
+        var entity = new Product
+        {
+            Code = "A2",
+            Name = "工业计算机",
+            Title = "A2工业计算机 物联网 边缘网关",
+            CategoryId = 1,
+            Kind = ProductKinds.实物,
+            Enable = true,
+            Unit = "台",
+            Quantity = 100,
+            Price = 1500,
+            Units = 2,
+        };
+        entity.Insert();
+
+        entity = new Product
+        {
+            Code = "A2-4G",
+            Name = "工业计算机4G版",
+            Title = "A2工业计算机 4G 物联网 边缘网关",
+            CategoryId = 1,
+            Kind = ProductKinds.实物,
+            Enable = true,
+            Unit = "台",
+            Quantity = 100,
+            Price = 1800,
+        };
+        entity.Insert();
     }
     #endregion
 

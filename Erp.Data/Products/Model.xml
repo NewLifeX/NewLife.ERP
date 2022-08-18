@@ -33,6 +33,7 @@
       <Column Name="Unit" DataType="String" Description="单位" />
       <Column Name="Price" DataType="Decimal" Description="价格" />
       <Column Name="Units" DataType="Int32" Description="单元数。拥有多少种不同的规格" />
+      <Column Name="Image" DataType="Int32" ItemType="Image" Description="图片" />
       <Column Name="Specification" DataType="String" Length="200" Description="规格" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
@@ -51,10 +52,13 @@
   <Table Name="ProductUnit" Description="产品单元。产品在某些规格细节上有所不同时，计为不同单元，例如不同颜色">
     <Columns>
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="Code" DataType="String" Nullable="False" Description="编码" />
+      <Column Name="ProductId" DataType="Int32" Description="产品" />
       <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
       <Column Name="Quantity" DataType="Int32" Description="数量" />
+      <Column Name="AlonePrice" DataType="Boolean" Description="独立价格。是否使用不同于主产品的独立价格" />
       <Column Name="Price" DataType="Decimal" Description="价格" />
+      <Column Name="Image" DataType="Int32" ItemType="Image" Description="图片" />
+      <Column Name="Specification" DataType="String" Length="200" Description="规格" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
@@ -66,7 +70,7 @@
       <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
     </Columns>
     <Indexes>
-      <Index Columns="Code" Unique="True" />
+      <Index Columns="ProductId,Name" Unique="True" />
     </Indexes>
   </Table>
   <Table Name="Warehouse" Description="仓库。用于存储货物的场所">

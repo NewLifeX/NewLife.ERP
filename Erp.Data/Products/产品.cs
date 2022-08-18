@@ -107,6 +107,14 @@ namespace Erp.Data.Products
         [BindColumn("Units", "单元数。拥有多少种不同的规格", "")]
         public Int32 Units { get => _Units; set { if (OnPropertyChanging("Units", value)) { _Units = value; OnPropertyChanged("Units"); } } }
 
+        private Int32 _Image;
+        /// <summary>图片</summary>
+        [DisplayName("图片")]
+        [Description("图片")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Image", "图片", "", ItemType = "Image")]
+        public Int32 Image { get => _Image; set { if (OnPropertyChanging("Image", value)) { _Image = value; OnPropertyChanged("Image"); } } }
+
         private String _Specification;
         /// <summary>规格</summary>
         [DisplayName("规格")]
@@ -218,6 +226,7 @@ namespace Erp.Data.Products
                     case "Unit": return _Unit;
                     case "Price": return _Price;
                     case "Units": return _Units;
+                    case "Image": return _Image;
                     case "Specification": return _Specification;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
@@ -246,6 +255,7 @@ namespace Erp.Data.Products
                     case "Unit": _Unit = Convert.ToString(value); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
                     case "Units": _Units = value.ToInt(); break;
+                    case "Image": _Image = value.ToInt(); break;
                     case "Specification": _Specification = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
@@ -298,6 +308,9 @@ namespace Erp.Data.Products
 
             /// <summary>单元数。拥有多少种不同的规格</summary>
             public static readonly Field Units = FindByName("Units");
+
+            /// <summary>图片</summary>
+            public static readonly Field Image = FindByName("Image");
 
             /// <summary>规格</summary>
             public static readonly Field Specification = FindByName("Specification");
@@ -367,6 +380,9 @@ namespace Erp.Data.Products
 
             /// <summary>单元数。拥有多少种不同的规格</summary>
             public const String Units = "Units";
+
+            /// <summary>图片</summary>
+            public const String Image = "Image";
 
             /// <summary>规格</summary>
             public const String Specification = "Specification";
