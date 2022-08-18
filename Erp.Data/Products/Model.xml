@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Tables xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:schemaLocation="https://newlifex.com https://newlifex.com/Model2022.xsd" NameSpace="Erp.Data.Products" ConnName="Erp" Output="" BaseClass="Entity" Version="11.1.2022.0523" Document="https://newlifex.com/xcode/model" xmlns="https://newlifex.com/Model2022.xsd">
+  <Table Name="ProductCategory" Description="产品类别" BaseClass="EntityTree">
+    <Columns>
+      <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
+      <Column Name="ParentId" DataType="Int32" Description="父级" />
+      <Column Name="Sort" DataType="Int32" Description="排序" />
+      <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
+      <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
+      <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
+      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" Category="扩展" />
+      <Column Name="UpdateUser" DataType="String" Description="更新者" Category="扩展" />
+      <Column Name="UpdateUserID" DataType="Int32" Description="更新人" Category="扩展" />
+      <Column Name="UpdateIP" DataType="String" Description="更新地址" Category="扩展" />
+      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" Category="扩展" />
+      <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
+    </Columns>
+    <Indexes>
+      <Index Columns="ParentId,Name" Unique="True" />
+    </Indexes>
+  </Table>
+  <Table Name="Product" Description="产品。企业内采购、生产、库存、销售的物品，包括虚拟物品">
+    <Columns>
+      <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="Code" DataType="String" Nullable="False" Description="编码。全局唯一编码" />
+      <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
+      <Column Name="CategoryId" DataType="Int32" Description="类别" />
+      <Column Name="Kind" DataType="Int32" Description="种类。实物、虚拟、组合" Type="Erp.Data.Models.ProductKinds" />
+      <Column Name="Title" DataType="String" Description="标题。产品的概要描述信息" />
+      <Column Name="Enable" DataType="Boolean" Description="启用" />
+      <Column Name="Quantity" DataType="Int32" Description="数量" />
+      <Column Name="Unit" DataType="String" Description="单位" />
+      <Column Name="Price" DataType="Decimal" Description="价格" />
+      <Column Name="Units" DataType="Int32" Description="单元数。拥有多少种不同的规格" />
+      <Column Name="Specification" DataType="String" Length="200" Description="规格" />
+      <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
+      <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
+      <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
+      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" Category="扩展" />
+      <Column Name="UpdateUser" DataType="String" Description="更新者" Category="扩展" />
+      <Column Name="UpdateUserID" DataType="Int32" Description="更新人" Category="扩展" />
+      <Column Name="UpdateIP" DataType="String" Description="更新地址" Category="扩展" />
+      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" Category="扩展" />
+      <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Code" Unique="True" />
+    </Indexes>
+  </Table>
+  <Table Name="ProductUnit" Description="产品单元。产品在某些规格细节上有所不同时，计为不同单元，例如不同颜色">
+    <Columns>
+      <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="Code" DataType="String" Nullable="False" Description="编码" />
+      <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
+      <Column Name="Quantity" DataType="Int32" Description="数量" />
+      <Column Name="Price" DataType="Decimal" Description="价格" />
+      <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
+      <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
+      <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
+      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" Category="扩展" />
+      <Column Name="UpdateUser" DataType="String" Description="更新者" Category="扩展" />
+      <Column Name="UpdateUserID" DataType="Int32" Description="更新人" Category="扩展" />
+      <Column Name="UpdateIP" DataType="String" Description="更新地址" Category="扩展" />
+      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" Category="扩展" />
+      <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Code" Unique="True" />
+    </Indexes>
+  </Table>
+  <Table Name="Warehouse" Description="仓库。用于存储货物的场所">
+    <Columns>
+      <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
+      <Column Name="Enable" DataType="Boolean" Description="启用" />
+      <Column Name="Address" DataType="String" Description="地址" />
+      <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
+      <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
+      <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
+      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" Category="扩展" />
+      <Column Name="UpdateUser" DataType="String" Description="更新者" Category="扩展" />
+      <Column Name="UpdateUserID" DataType="Int32" Description="更新人" Category="扩展" />
+      <Column Name="UpdateIP" DataType="String" Description="更新地址" Category="扩展" />
+      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" Category="扩展" />
+      <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
+    </Columns>
+    <Indexes>
+      <Index Columns="Name" Unique="True" />
+    </Indexes>
+  </Table>
+  <Table Name="ProductStock" Description="产品库存。产品存放在每一个仓库的数量">
+    <Columns>
+      <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
+      <Column Name="ProductId" DataType="Int32" Description="产品" />
+      <Column Name="WarehouseId" DataType="Int32" Description="仓库" />
+      <Column Name="Quantity" DataType="Int32" Description="数量" />
+      <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
+      <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
+      <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
+      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" Category="扩展" />
+      <Column Name="UpdateUser" DataType="String" Description="更新者" Category="扩展" />
+      <Column Name="UpdateUserID" DataType="Int32" Description="更新人" Category="扩展" />
+      <Column Name="UpdateIP" DataType="String" Description="更新地址" Category="扩展" />
+      <Column Name="UpdateTime" DataType="DateTime" Description="更新时间" Category="扩展" />
+      <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
+    </Columns>
+    <Indexes>
+      <Index Columns="ProductId,WarehouseId" Unique="True" />
+    </Indexes>
+  </Table>
+  <Table Name="StockHistory" Description="库存历史。对仓库中产品进行出入库管理" InsertOnly="True">
+    <Columns>
+      <Column Name="Id" DataType="Int64" PrimaryKey="True" Description="编号" />
+      <Column Name="ProductId" DataType="Int32" Description="产品" />
+      <Column Name="WarehouseId" DataType="Int32" Description="仓库" />
+      <Column Name="Operation" DataType="Int32" Description="操作。出库、入库、移库、盘点、报废等" Type="Erp.Data.Models.StockOperations" />
+      <Column Name="Quantity" DataType="Int32" Description="数量。本次操作涉及产品数量" />
+      <Column Name="OldQuantity" DataType="Int32" Description="原数量。操作前数量" />
+      <Column Name="NewQuantity" DataType="Int32" Description="新数量。操作后数量" />
+      <Column Name="OrderId" DataType="String" Description="关联订单。" />
+      <Column Name="OrderTitle" DataType="String" Description="订单标题" />
+      <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
+      <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
+      <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
+      <Column Name="CreateTime" DataType="DateTime" Description="创建时间" Category="扩展" />
+      <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
+    </Columns>
+    <Indexes>
+      <Index Columns="ProductId,WarehouseId" />
+      <Index Columns="WarehouseId" />
+      <Index Columns="Operation" />
+    </Indexes>
+  </Table>
+</Tables>

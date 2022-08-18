@@ -1,22 +1,20 @@
 ﻿using Erp.Data.Customers;
 using NewLife.Cube;
 using NewLife.Web;
-using System;
-using System.Collections.Generic;
 
-namespace NewLife.ERP.Areas.Customers.Controllers
+namespace NewLife.ERP.Areas.Customers.Controllers;
+
+[CustomersArea]
+[Menu(80)]
+public class CustomerController : EntityController<Customer>
 {
-    [CustomersArea]
-    public class CustomerController : EntityController<Customer>
+    static CustomerController() => LogOnChange = true;
+
+    protected override IEnumerable<Customer> Search(Pager p)
     {
-        static CustomerController() => MenuOrder = 80;
+        var start = p["dtStart"].ToDateTime();
+        var end = p["dtEnd"].ToDateTime();
 
-        protected override IEnumerable<Customer> Search(Pager p)
-        {
-            var start = p["dtStart"].ToDateTime();
-            var end = p["dtEnd"].ToDateTime();
-
-            return Customer.Search(start, end, p["Q"], p);
-        }
+        return Customer.Search(start, end, p["Q"], p);
     }
 }
