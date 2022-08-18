@@ -99,14 +99,6 @@ namespace Erp.Data.Products
         [BindColumn("Price", "价格", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
-        private Int32 _Units;
-        /// <summary>单元数。拥有多少种不同的规格</summary>
-        [DisplayName("单元数")]
-        [Description("单元数。拥有多少种不同的规格")]
-        [DataObjectField(false, false, false, 0)]
-        [BindColumn("Units", "单元数。拥有多少种不同的规格", "")]
-        public Int32 Units { get => _Units; set { if (OnPropertyChanging("Units", value)) { _Units = value; OnPropertyChanged("Units"); } } }
-
         private Int32 _Image;
         /// <summary>图片</summary>
         [DisplayName("图片")]
@@ -225,7 +217,6 @@ namespace Erp.Data.Products
                     case "Quantity": return _Quantity;
                     case "Unit": return _Unit;
                     case "Price": return _Price;
-                    case "Units": return _Units;
                     case "Image": return _Image;
                     case "Specification": return _Specification;
                     case "CreateUser": return _CreateUser;
@@ -254,7 +245,6 @@ namespace Erp.Data.Products
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Unit": _Unit = Convert.ToString(value); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
-                    case "Units": _Units = value.ToInt(); break;
                     case "Image": _Image = value.ToInt(); break;
                     case "Specification": _Specification = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
@@ -305,9 +295,6 @@ namespace Erp.Data.Products
 
             /// <summary>价格</summary>
             public static readonly Field Price = FindByName("Price");
-
-            /// <summary>单元数。拥有多少种不同的规格</summary>
-            public static readonly Field Units = FindByName("Units");
 
             /// <summary>图片</summary>
             public static readonly Field Image = FindByName("Image");
@@ -377,9 +364,6 @@ namespace Erp.Data.Products
 
             /// <summary>价格</summary>
             public const String Price = "Price";
-
-            /// <summary>单元数。拥有多少种不同的规格</summary>
-            public const String Units = "Units";
 
             /// <summary>图片</summary>
             public const String Image = "Image";

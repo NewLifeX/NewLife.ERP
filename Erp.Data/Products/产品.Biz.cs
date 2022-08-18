@@ -73,7 +73,7 @@ public partial class Product : Entity<Product>
             Unit = "台",
             Quantity = 100,
             Price = 1500,
-            Units = 2,
+            //Units = 2,
         };
         entity.Insert();
 

@@ -19,6 +19,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Products\Controllers\ProductUnitController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NewLife.Cube.Core" Version="5.5.2022.816-beta0753" />
     <PackageReference Include="NewLife.Redis" Version="5.0.2022.813-beta1456" />
     <PackageReference Include="NewLife.Stardust.Extensions" Version="2.3.2022.816-beta1410" />
