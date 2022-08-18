@@ -1,4 +1,5 @@
-﻿using Erp.Data.Products;
+﻿using Erp.Data.Models;
+using Erp.Data.Products;
 using NewLife.Cube;
 using NewLife.Web;
 
@@ -10,9 +11,13 @@ public class StockHistoryController : ReadOnlyEntityController<StockHistory>
 {
     protected override IEnumerable<StockHistory> Search(Pager p)
     {
+        var productId = p["productId"].ToInt(-1);
+        var warehouseId = p["warehouseId"].ToInt(-1);
+        var operation = (StockOperations)p["operation"].ToInt(-1);
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return StockHistory.Search(start, end, p["Q"], p);
+        return StockHistory.Search(productId, warehouseId, operation, start, end, p["Q"], p);
     }
 }

@@ -136,7 +136,7 @@ public partial class StockHistory : Entity<StockHistory>
     /// <param name="key">关键字</param>
     /// <param name="page">分页参数信息。可携带统计和数据权限扩展查询等信息</param>
     /// <returns>实体列表</returns>
-    public static IList<StockHistory> Search(Int32 productId, Int32 warehouseId, Int32 operation, DateTime start, DateTime end, String key, PageParameter page)
+    public static IList<StockHistory> Search(Int32 productId, Int32 warehouseId, StockOperations operation, DateTime start, DateTime end, String key, PageParameter page)
     {
         var exp = new WhereExpression();
 

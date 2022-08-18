@@ -51,6 +51,14 @@ namespace Erp.Data.Products
         [BindColumn("Sort", "排序", "")]
         public Int32 Sort { get => _Sort; set { if (OnPropertyChanging("Sort", value)) { _Sort = value; OnPropertyChanged("Sort"); } } }
 
+        private Int32 _Products;
+        /// <summary>产品数</summary>
+        [DisplayName("产品数")]
+        [Description("产品数")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Products", "产品数", "")]
+        public Int32 Products { get => _Products; set { if (OnPropertyChanging("Products", value)) { _Products = value; OnPropertyChanged("Products"); } } }
+
         private String _CreateUser;
         /// <summary>创建者</summary>
         [Category("扩展")]
@@ -147,6 +155,7 @@ namespace Erp.Data.Products
                     case "Name": return _Name;
                     case "ParentId": return _ParentId;
                     case "Sort": return _Sort;
+                    case "Products": return _Products;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
                     case "CreateIP": return _CreateIP;
@@ -167,6 +176,7 @@ namespace Erp.Data.Products
                     case "Name": _Name = Convert.ToString(value); break;
                     case "ParentId": _ParentId = value.ToInt(); break;
                     case "Sort": _Sort = value.ToInt(); break;
+                    case "Products": _Products = value.ToInt(); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
                     case "CreateIP": _CreateIP = Convert.ToString(value); break;
@@ -197,6 +207,9 @@ namespace Erp.Data.Products
 
             /// <summary>排序</summary>
             public static readonly Field Sort = FindByName("Sort");
+
+            /// <summary>产品数</summary>
+            public static readonly Field Products = FindByName("Products");
 
             /// <summary>创建者</summary>
             public static readonly Field CreateUser = FindByName("CreateUser");
@@ -242,6 +255,9 @@ namespace Erp.Data.Products
 
             /// <summary>排序</summary>
             public const String Sort = "Sort";
+
+            /// <summary>产品数</summary>
+            public const String Products = "Products";
 
             /// <summary>创建者</summary>
             public const String CreateUser = "CreateUser";

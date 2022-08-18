@@ -6,6 +6,7 @@
       <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
       <Column Name="ParentId" DataType="Int32" Description="父级" />
       <Column Name="Sort" DataType="Int32" Description="排序" />
+      <Column Name="Products" DataType="Int32" Description="产品数" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
@@ -29,9 +30,11 @@
       <Column Name="Kind" DataType="Int32" Description="种类。实物、虚拟、组合" Type="Erp.Data.Models.ProductKinds" />
       <Column Name="Title" DataType="String" Description="标题。产品的概要描述信息" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
-      <Column Name="Quantity" DataType="Int32" Description="数量" />
+      <Column Name="Quantity" DataType="Int32" Description="数量。真实数量以各仓库库存量为准" />
       <Column Name="Unit" DataType="String" Description="单位" />
       <Column Name="Price" DataType="Decimal" Description="价格" />
+      <Column Name="Weight" DataType="Double" Description="重量" />
+      <Column Name="Dimension" DataType="String" Description="尺寸。长宽高LWH" />
       <Column Name="Image" DataType="Int32" ItemType="Image" Description="图片" />
       <Column Name="Specification" DataType="String" Length="200" Description="规格" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />

@@ -12,9 +12,12 @@ public class ProductStockController : EntityController<ProductStock>
 
     protected override IEnumerable<ProductStock> Search(Pager p)
     {
+        var productId = p["productId"].ToInt(-1);
+        var warehouseId = p["warehouseId"].ToInt(-1);
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return ProductStock.Search(start, end, p["Q"], p);
+        return ProductStock.Search(productId, warehouseId, start, end, p["Q"], p);
     }
 }

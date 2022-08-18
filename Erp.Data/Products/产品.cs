@@ -76,11 +76,11 @@ namespace Erp.Data.Products
         public Boolean Enable { get => _Enable; set { if (OnPropertyChanging("Enable", value)) { _Enable = value; OnPropertyChanged("Enable"); } } }
 
         private Int32 _Quantity;
-        /// <summary>数量</summary>
+        /// <summary>数量。真实数量以各仓库库存量为准</summary>
         [DisplayName("数量")]
-        [Description("数量")]
+        [Description("数量。真实数量以各仓库库存量为准")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Quantity", "数量", "")]
+        [BindColumn("Quantity", "数量。真实数量以各仓库库存量为准", "")]
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private String _Unit;
@@ -98,6 +98,22 @@ namespace Erp.Data.Products
         [DataObjectField(false, false, false, 0)]
         [BindColumn("Price", "价格", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
+
+        private Double _Weight;
+        /// <summary>重量</summary>
+        [DisplayName("重量")]
+        [Description("重量")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Weight", "重量", "")]
+        public Double Weight { get => _Weight; set { if (OnPropertyChanging("Weight", value)) { _Weight = value; OnPropertyChanged("Weight"); } } }
+
+        private String _Dimension;
+        /// <summary>尺寸。长宽高LWH</summary>
+        [DisplayName("尺寸")]
+        [Description("尺寸。长宽高LWH")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Dimension", "尺寸。长宽高LWH", "")]
+        public String Dimension { get => _Dimension; set { if (OnPropertyChanging("Dimension", value)) { _Dimension = value; OnPropertyChanged("Dimension"); } } }
 
         private Int32 _Image;
         /// <summary>图片</summary>
@@ -217,6 +233,8 @@ namespace Erp.Data.Products
                     case "Quantity": return _Quantity;
                     case "Unit": return _Unit;
                     case "Price": return _Price;
+                    case "Weight": return _Weight;
+                    case "Dimension": return _Dimension;
                     case "Image": return _Image;
                     case "Specification": return _Specification;
                     case "CreateUser": return _CreateUser;
@@ -245,6 +263,8 @@ namespace Erp.Data.Products
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Unit": _Unit = Convert.ToString(value); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
+                    case "Weight": _Weight = value.ToDouble(); break;
+                    case "Dimension": _Dimension = Convert.ToString(value); break;
                     case "Image": _Image = value.ToInt(); break;
                     case "Specification": _Specification = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
@@ -287,7 +307,7 @@ namespace Erp.Data.Products
             /// <summary>启用</summary>
             public static readonly Field Enable = FindByName("Enable");
 
-            /// <summary>数量</summary>
+            /// <summary>数量。真实数量以各仓库库存量为准</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
             /// <summary>单位</summary>
@@ -295,6 +315,12 @@ namespace Erp.Data.Products
 
             /// <summary>价格</summary>
             public static readonly Field Price = FindByName("Price");
+
+            /// <summary>重量</summary>
+            public static readonly Field Weight = FindByName("Weight");
+
+            /// <summary>尺寸。长宽高LWH</summary>
+            public static readonly Field Dimension = FindByName("Dimension");
 
             /// <summary>图片</summary>
             public static readonly Field Image = FindByName("Image");
@@ -356,7 +382,7 @@ namespace Erp.Data.Products
             /// <summary>启用</summary>
             public const String Enable = "Enable";
 
-            /// <summary>数量</summary>
+            /// <summary>数量。真实数量以各仓库库存量为准</summary>
             public const String Quantity = "Quantity";
 
             /// <summary>单位</summary>
@@ -364,6 +390,12 @@ namespace Erp.Data.Products
 
             /// <summary>价格</summary>
             public const String Price = "Price";
+
+            /// <summary>重量</summary>
+            public const String Weight = "Weight";
+
+            /// <summary>尺寸。长宽高LWH</summary>
+            public const String Dimension = "Dimension";
 
             /// <summary>图片</summary>
             public const String Image = "Image";

@@ -133,11 +133,15 @@ public partial class Product : Entity<Product>
     /// <param name="key">关键字</param>
     /// <param name="page">分页参数信息。可携带统计和数据权限扩展查询等信息</param>
     /// <returns>实体列表</returns>
-    public static IList<Product> Search(String code, DateTime start, DateTime end, String key, PageParameter page)
+    public static IList<Product> Search(String code, Int32 categoryId, ProductKinds kind, Boolean? enable, DateTime start, DateTime end, String key, PageParameter page)
     {
         var exp = new WhereExpression();
 
         if (!code.IsNullOrEmpty()) exp &= _.Code == code;
+        if (categoryId >= 0) exp &= _.CategoryId == categoryId;
+        if (kind > 0) exp &= _.Kind == kind;
+        if (enable != null) exp &= _.Enable == enable;
+
         exp &= _.UpdateTime.Between(start, end);
         if (!key.IsNullOrEmpty()) exp &= _.Code.Contains(key) | _.Name.Contains(key) | _.Title.Contains(key) | _.Unit.Contains(key) | _.Specification.Contains(key) | _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
 
