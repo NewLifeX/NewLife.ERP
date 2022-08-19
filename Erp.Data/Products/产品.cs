@@ -92,11 +92,11 @@ namespace Erp.Data.Products
         public String Unit { get => _Unit; set { if (OnPropertyChanging("Unit", value)) { _Unit = value; OnPropertyChanged("Unit"); } } }
 
         private Decimal _Price;
-        /// <summary>价格</summary>
+        /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
         [DisplayName("价格")]
-        [Description("价格")]
+        [Description("价格。销售参考价，仅用于评估库存价值")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价格", "")]
+        [BindColumn("Price", "价格。销售参考价，仅用于评估库存价值", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private Double _Weight;
@@ -313,7 +313,7 @@ namespace Erp.Data.Products
             /// <summary>单位</summary>
             public static readonly Field Unit = FindByName("Unit");
 
-            /// <summary>价格</summary>
+            /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>重量</summary>
@@ -388,7 +388,7 @@ namespace Erp.Data.Products
             /// <summary>单位</summary>
             public const String Unit = "Unit";
 
-            /// <summary>价格</summary>
+            /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
             public const String Price = "Price";
 
             /// <summary>重量</summary>

@@ -32,7 +32,7 @@
       <Column Name="Enable" DataType="Boolean" Description="启用" />
       <Column Name="Quantity" DataType="Int32" Description="数量。真实数量以各仓库库存量为准" />
       <Column Name="Unit" DataType="String" Description="单位" />
-      <Column Name="Price" DataType="Decimal" Description="价格" />
+      <Column Name="Price" DataType="Decimal" Description="价格。销售参考价，仅用于评估库存价值" />
       <Column Name="Weight" DataType="Double" Description="重量" />
       <Column Name="Dimension" DataType="String" Description="尺寸。长宽高LWH" />
       <Column Name="Image" DataType="Int32" ItemType="Image" Description="图片" />
