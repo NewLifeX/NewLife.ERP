@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>ErpWeb</AssemblyName>
+    <RootNamespace>NewLife.ERP</RootNamespace>
     <AssemblyTitle>新生命ERP</AssemblyTitle>
     <Description>数据管理平台</Description>
     <Company>新生命开发团队</Company>
