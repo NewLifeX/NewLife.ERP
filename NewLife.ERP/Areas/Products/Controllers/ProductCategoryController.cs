@@ -5,7 +5,7 @@ using NewLife.Web;
 namespace NewLife.ERP.Areas.Products.Controllers;
 
 [ProductsArea]
-[Menu(80)]
+[Menu(10)]
 public class ProductCategoryController : EntityTreeController<ProductCategory>
 {
     //static ProductCategoryController() => LogOnChange = true;

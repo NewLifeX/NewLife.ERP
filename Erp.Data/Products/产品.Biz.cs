@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using Erp.Data.Models;
 using NewLife;
 using NewLife.Data;
@@ -94,6 +96,13 @@ public partial class Product : Entity<Product>
     #endregion
 
     #region 扩展属性
+    /// <summary>类别</summary>
+    [XmlIgnore, IgnoreDataMember]
+    public ProductCategory Category => Extends.Get(nameof(Category), k => ProductCategory.FindById(CategoryId));
+
+    /// <summary>类别</summary>
+    [Map(nameof(CategoryId), typeof(ProductCategory), "Id")]
+    public String CategoryName => Category?.Name;
     #endregion
 
     #region 扩展查询

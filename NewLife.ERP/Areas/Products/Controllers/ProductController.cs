@@ -13,13 +13,17 @@ public class ProductController : EntityController<Product>
     {
         LogOnChange = true;
 
+        ListFields.RemoveCreateField();
+        ListFields.RemoveUpdateField();
+        ListFields.RemoveRemarkField();
+
         {
-            var df = ListFields.AddListField("Stock", "CreateUser");
+            var df = ListFields.AddListField("Stock", "Weight");
             df.DisplayName = "库存";
             df.Url = "ProductStock?productId={Id}";
         }
         {
-            var df = ListFields.AddListField("History", "CreateUser");
+            var df = ListFields.AddListField("History", "Weight");
             df.DisplayName = "库存历史";
             df.Url = "StockHistory?productId={Id}";
         }
