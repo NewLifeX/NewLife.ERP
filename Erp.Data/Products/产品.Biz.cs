@@ -169,5 +169,16 @@ public partial class Product : Entity<Product>
     #endregion
 
     #region 业务操作
+    /// <summary>修正关联数据</summary>
+    public void Fix()
+    {
+        var us = ProductUnit.FindAllByProduct(Id);
+        Units = us.Count;
+
+        if (us.Count > 0)
+        {
+            Quantity = us.Sum(e => e.Quantity);
+        }
+    }
     #endregion
 }

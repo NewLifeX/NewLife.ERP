@@ -17,6 +17,7 @@ public class ProductController : EntityController<Product>
         ListFields.RemoveCreateField();
         ListFields.RemoveUpdateField();
         ListFields.RemoveRemarkField();
+        ListFields.RemoveField("Image", "Specification");
 
         {
             var df = ListFields.GetField("Units") as ListField;
@@ -59,5 +60,12 @@ public class ProductController : EntityController<Product>
         var end = p["dtEnd"].ToDateTime();
 
         return Product.Search(code, categoryId, kind, enable, start, end, p["Q"], p);
+    }
+
+    protected override Int32 OnUpdate(Product entity)
+    {
+        entity.Fix();
+
+        return base.OnUpdate(entity);
     }
 }

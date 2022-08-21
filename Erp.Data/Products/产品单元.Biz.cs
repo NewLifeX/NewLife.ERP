@@ -1,28 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.ComponentModel;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Script.Serialization;
 using System.Xml.Serialization;
 using NewLife;
 using NewLife.Data;
-using NewLife.Log;
-using NewLife.Model;
-using NewLife.Reflection;
-using NewLife.Threading;
-using NewLife.Web;
 using XCode;
-using XCode.Cache;
-using XCode.Configuration;
-using XCode.DataAccessLayer;
 using XCode.Membership;
-using XCode.Shards;
 
 namespace Erp.Data.Products;
 
@@ -82,6 +64,7 @@ public partial class ProductUnit : Entity<ProductUnit>
 
         var entity = new ProductUnit
         {
+            ProductId = 1,
             Name = "卧式挂耳",
             Quantity = 50,
         };
@@ -89,6 +72,7 @@ public partial class ProductUnit : Entity<ProductUnit>
 
         entity = new ProductUnit
         {
+            ProductId = 1,
             Name = "侧方卡槽",
             Quantity = 50,
         };
@@ -132,9 +116,20 @@ public partial class ProductUnit : Entity<ProductUnit>
     public static ProductUnit FindByProductIdAndName(Int32 productId, String name)
     {
         // 实体缓存
-        if (Meta.Session.Count < 1000) return Meta.Cache.Find(e => e.ProductId == productId && e.Name.EqualIgnoreCase(name));
+        return Meta.Session.Count < 1000
+            ? Meta.Cache.Find(e => e.ProductId == productId && e.Name.EqualIgnoreCase(name))
+            : Find(_.ProductId == productId & _.Name == name);
+    }
 
-        return Find(_.ProductId == productId & _.Name == name);
+    /// <summary>根据产品查找</summary>
+    /// <param name="productId"></param>
+    /// <returns></returns>
+    public static IList<ProductUnit> FindAllByProduct(Int32 productId)
+    {
+        if (productId <= 0) return new List<ProductUnit>();
+
+        // 实体缓存
+        return Meta.Session.Count < 1000 ? Meta.Cache.FindAll(e => e.ProductId == productId) : FindAll(_.ProductId == productId);
     }
     #endregion
 
