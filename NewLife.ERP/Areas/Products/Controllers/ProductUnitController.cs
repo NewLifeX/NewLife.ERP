@@ -12,9 +12,11 @@ public class ProductUnitController : EntityController<ProductUnit>
 
     protected override IEnumerable<ProductUnit> Search(Pager p)
     {
+        var productId = p["productId"].ToInt(-1);
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return ProductUnit.Search(start, end, p["Q"], p);
+        return ProductUnit.Search(productId, null, start, end, p["Q"], p);
     }
 }

@@ -10,12 +10,12 @@ using XCode.DataAccessLayer;
 
 namespace Erp.Data.Products
 {
-    /// <summary>产品单元。产品在某些规格细节上有所不同时，计为不同单元，例如不同颜色</summary>
+    /// <summary>产品单元。产品在某些规格细节上有所不同时，计为不同SKU单元，例如不同颜色</summary>
     [Serializable]
     [DataObject]
-    [Description("产品单元。产品在某些规格细节上有所不同时，计为不同单元，例如不同颜色")]
+    [Description("产品单元。产品在某些规格细节上有所不同时，计为不同SKU单元，例如不同颜色")]
     [BindIndex("IU_ProductUnit_ProductId_Name", true, "ProductId,Name")]
-    [BindTable("ProductUnit", Description = "产品单元。产品在某些规格细节上有所不同时，计为不同单元，例如不同颜色", ConnName = "Erp", DbType = DatabaseType.None)]
+    [BindTable("ProductUnit", Description = "产品单元。产品在某些规格细节上有所不同时，计为不同SKU单元，例如不同颜色", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class ProductUnit
     {
         #region 属性
@@ -51,29 +51,21 @@ namespace Erp.Data.Products
         [BindColumn("Quantity", "数量", "")]
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
-        private Boolean _AlonePrice;
-        /// <summary>独立价格。是否使用不同于主产品的独立价格</summary>
-        [DisplayName("独立价格")]
-        [Description("独立价格。是否使用不同于主产品的独立价格")]
-        [DataObjectField(false, false, false, 0)]
-        [BindColumn("AlonePrice", "独立价格。是否使用不同于主产品的独立价格", "")]
-        public Boolean AlonePrice { get => _AlonePrice; set { if (OnPropertyChanging("AlonePrice", value)) { _AlonePrice = value; OnPropertyChanged("AlonePrice"); } } }
-
         private Decimal _Price;
-        /// <summary>价格</summary>
+        /// <summary>价格。如果价格为零，则使用产品价格</summary>
         [DisplayName("价格")]
-        [Description("价格")]
+        [Description("价格。如果价格为零，则使用产品价格")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价格", "")]
+        [BindColumn("Price", "价格。如果价格为零，则使用产品价格", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
-        private Int32 _Image;
+        private String _Image;
         /// <summary>图片</summary>
         [DisplayName("图片")]
         [Description("图片")]
-        [DataObjectField(false, false, false, 0)]
+        [DataObjectField(false, false, true, 50)]
         [BindColumn("Image", "图片", "", ItemType = "Image")]
-        public Int32 Image { get => _Image; set { if (OnPropertyChanging("Image", value)) { _Image = value; OnPropertyChanged("Image"); } } }
+        public String Image { get => _Image; set { if (OnPropertyChanging("Image", value)) { _Image = value; OnPropertyChanged("Image"); } } }
 
         private String _Specification;
         /// <summary>规格</summary>
@@ -179,7 +171,6 @@ namespace Erp.Data.Products
                     case "ProductId": return _ProductId;
                     case "Name": return _Name;
                     case "Quantity": return _Quantity;
-                    case "AlonePrice": return _AlonePrice;
                     case "Price": return _Price;
                     case "Image": return _Image;
                     case "Specification": return _Specification;
@@ -203,9 +194,8 @@ namespace Erp.Data.Products
                     case "ProductId": _ProductId = value.ToInt(); break;
                     case "Name": _Name = Convert.ToString(value); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
-                    case "AlonePrice": _AlonePrice = value.ToBoolean(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
-                    case "Image": _Image = value.ToInt(); break;
+                    case "Image": _Image = Convert.ToString(value); break;
                     case "Specification": _Specification = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
@@ -238,10 +228,7 @@ namespace Erp.Data.Products
             /// <summary>数量</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
-            /// <summary>独立价格。是否使用不同于主产品的独立价格</summary>
-            public static readonly Field AlonePrice = FindByName("AlonePrice");
-
-            /// <summary>价格</summary>
+            /// <summary>价格。如果价格为零，则使用产品价格</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>图片</summary>
@@ -295,10 +282,7 @@ namespace Erp.Data.Products
             /// <summary>数量</summary>
             public const String Quantity = "Quantity";
 
-            /// <summary>独立价格。是否使用不同于主产品的独立价格</summary>
-            public const String AlonePrice = "AlonePrice";
-
-            /// <summary>价格</summary>
+            /// <summary>价格。如果价格为零，则使用产品价格</summary>
             public const String Price = "Price";
 
             /// <summary>图片</summary>

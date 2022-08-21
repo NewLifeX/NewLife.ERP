@@ -67,6 +67,14 @@ namespace Erp.Data.Products
         [BindColumn("Title", "标题。产品的概要描述信息", "")]
         public String Title { get => _Title; set { if (OnPropertyChanging("Title", value)) { _Title = value; OnPropertyChanged("Title"); } } }
 
+        private Int32 _Units;
+        /// <summary>单元数。不同规格的种类，如多颜色</summary>
+        [DisplayName("单元数")]
+        [Description("单元数。不同规格的种类，如多颜色")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Units", "单元数。不同规格的种类，如多颜色", "")]
+        public Int32 Units { get => _Units; set { if (OnPropertyChanging("Units", value)) { _Units = value; OnPropertyChanged("Units"); } } }
+
         private Boolean _Enable;
         /// <summary>启用</summary>
         [DisplayName("启用")]
@@ -92,11 +100,11 @@ namespace Erp.Data.Products
         public String Unit { get => _Unit; set { if (OnPropertyChanging("Unit", value)) { _Unit = value; OnPropertyChanged("Unit"); } } }
 
         private Decimal _Price;
-        /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
+        /// <summary>价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格</summary>
         [DisplayName("价格")]
-        [Description("价格。销售参考价，仅用于评估库存价值")]
+        [Description("价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价格。销售参考价，仅用于评估库存价值", "")]
+        [BindColumn("Price", "价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private Double _Weight;
@@ -115,13 +123,13 @@ namespace Erp.Data.Products
         [BindColumn("Dimension", "尺寸。长宽高LWH", "")]
         public String Dimension { get => _Dimension; set { if (OnPropertyChanging("Dimension", value)) { _Dimension = value; OnPropertyChanged("Dimension"); } } }
 
-        private Int32 _Image;
+        private String _Image;
         /// <summary>图片</summary>
         [DisplayName("图片")]
         [Description("图片")]
-        [DataObjectField(false, false, false, 0)]
+        [DataObjectField(false, false, true, 50)]
         [BindColumn("Image", "图片", "", ItemType = "Image")]
-        public Int32 Image { get => _Image; set { if (OnPropertyChanging("Image", value)) { _Image = value; OnPropertyChanged("Image"); } } }
+        public String Image { get => _Image; set { if (OnPropertyChanging("Image", value)) { _Image = value; OnPropertyChanged("Image"); } } }
 
         private String _Specification;
         /// <summary>规格</summary>
@@ -229,6 +237,7 @@ namespace Erp.Data.Products
                     case "CategoryId": return _CategoryId;
                     case "Kind": return _Kind;
                     case "Title": return _Title;
+                    case "Units": return _Units;
                     case "Enable": return _Enable;
                     case "Quantity": return _Quantity;
                     case "Unit": return _Unit;
@@ -259,13 +268,14 @@ namespace Erp.Data.Products
                     case "CategoryId": _CategoryId = value.ToInt(); break;
                     case "Kind": _Kind = (Erp.Data.Models.ProductKinds)value.ToInt(); break;
                     case "Title": _Title = Convert.ToString(value); break;
+                    case "Units": _Units = value.ToInt(); break;
                     case "Enable": _Enable = value.ToBoolean(); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Unit": _Unit = Convert.ToString(value); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
                     case "Weight": _Weight = value.ToDouble(); break;
                     case "Dimension": _Dimension = Convert.ToString(value); break;
-                    case "Image": _Image = value.ToInt(); break;
+                    case "Image": _Image = Convert.ToString(value); break;
                     case "Specification": _Specification = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
@@ -304,6 +314,9 @@ namespace Erp.Data.Products
             /// <summary>标题。产品的概要描述信息</summary>
             public static readonly Field Title = FindByName("Title");
 
+            /// <summary>单元数。不同规格的种类，如多颜色</summary>
+            public static readonly Field Units = FindByName("Units");
+
             /// <summary>启用</summary>
             public static readonly Field Enable = FindByName("Enable");
 
@@ -313,7 +326,7 @@ namespace Erp.Data.Products
             /// <summary>单位</summary>
             public static readonly Field Unit = FindByName("Unit");
 
-            /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
+            /// <summary>价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>重量</summary>
@@ -379,6 +392,9 @@ namespace Erp.Data.Products
             /// <summary>标题。产品的概要描述信息</summary>
             public const String Title = "Title";
 
+            /// <summary>单元数。不同规格的种类，如多颜色</summary>
+            public const String Units = "Units";
+
             /// <summary>启用</summary>
             public const String Enable = "Enable";
 
@@ -388,7 +404,7 @@ namespace Erp.Data.Products
             /// <summary>单位</summary>
             public const String Unit = "Unit";
 
-            /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
+            /// <summary>价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格</summary>
             public const String Price = "Price";
 
             /// <summary>重量</summary>

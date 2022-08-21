@@ -67,7 +67,7 @@ public partial class Product : Entity<Product>
         var entity = new Product
         {
             Code = "A2",
-            Name = "工业计算机",
+            Name = "A2工业计算机",
             Title = "A2工业计算机 物联网 边缘网关",
             CategoryId = 1,
             Kind = ProductKinds.实物,
@@ -82,7 +82,7 @@ public partial class Product : Entity<Product>
         entity = new Product
         {
             Code = "A2-4G",
-            Name = "工业计算机4G版",
+            Name = "A2工业计算机4G版",
             Title = "A2工业计算机 4G 物联网 边缘网关",
             CategoryId = 1,
             Kind = ProductKinds.实物,

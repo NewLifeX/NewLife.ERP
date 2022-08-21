@@ -1,6 +1,7 @@
 ﻿using Erp.Data.Models;
 using Erp.Data.Products;
 using NewLife.Cube;
+using NewLife.Cube.ViewModels;
 using NewLife.Web;
 
 namespace NewLife.ERP.Areas.Products.Controllers;
@@ -17,6 +18,12 @@ public class ProductController : EntityController<Product>
         ListFields.RemoveUpdateField();
         ListFields.RemoveRemarkField();
 
+        {
+            var df = ListFields.GetField("Units") as ListField;
+            df.DisplayName = "{Units}";
+            df.Title = "管理产品SKU单元";
+            df.Url = "ProductUnit?productId={Id}";
+        }
         {
             var df = ListFields.AddListField("Stock", "Weight");
             df.DisplayName = "库存";

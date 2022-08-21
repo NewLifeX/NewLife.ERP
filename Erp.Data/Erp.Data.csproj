@@ -17,11 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Products\产品单元.Biz.cs" />
-    <Compile Remove="Products\产品单元.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="NewLife.Core" Version="10.0.2022.818-beta0241" />
     <PackageReference Include="NewLife.XCode" Version="11.3.2022.816-beta0752" />
   </ItemGroup>
