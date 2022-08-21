@@ -122,5 +122,10 @@ public partial class ProductCategory : EntityTree<ProductCategory>
     #endregion
 
     #region 业务操作
+    /// <summary>修正关联数据</summary>
+    public void Fix()
+    {
+        Products = Product.FindCountByCategory(Id);
+    }
     #endregion
 }

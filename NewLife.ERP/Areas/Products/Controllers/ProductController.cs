@@ -1,4 +1,5 @@
-﻿using Erp.Data.Models;
+﻿using System.ComponentModel;
+using Erp.Data.Models;
 using Erp.Data.Products;
 using NewLife.Cube;
 using NewLife.Cube.ViewModels;
@@ -67,5 +68,24 @@ public class ProductController : EntityController<Product>
         entity.Fix();
 
         return base.OnUpdate(entity);
+    }
+
+    protected override Boolean Valid(Product entity, DataObjectMethodType type, Boolean post)
+    {
+        if (!base.Valid(entity, type, post)) return false;
+
+        if (post)
+        {
+            entity.Fix();
+
+            var cat = entity.Category;
+            if (cat != null)
+            {
+                cat.Fix();
+                cat.Update();
+            }
+        }
+
+        return true;
     }
 }

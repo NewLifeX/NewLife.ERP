@@ -132,6 +132,14 @@ public partial class Product : Entity<Product>
 
         return Find(_.Code == code);
     }
+
+    public static Int32 FindCountByCategory(Int32 categoryId)
+    {
+        // 实体缓存
+        if (Meta.Session.Count < 1000) return Meta.Cache.Entities.Count(e => e.CategoryId == categoryId);
+
+        return (Int32)FindCount(_.CategoryId == categoryId);
+    }
     #endregion
 
     #region 高级查询
