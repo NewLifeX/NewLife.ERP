@@ -16,6 +16,12 @@ public class ProductUnitController : EntityController<ProductUnit>
         ListFields.RemoveUpdateField();
         ListFields.RemoveRemarkField();
         ListFields.RemoveField("Image", "Specification");
+
+        {
+            var df = ListFields.AddListField("Stock", "Image");
+            df.DisplayName = "库存";
+            df.Url = "ProductStock?productId={ProductId}&unitName={Name}";
+        }
     }
 
     protected override IEnumerable<ProductUnit> Search(Pager p)

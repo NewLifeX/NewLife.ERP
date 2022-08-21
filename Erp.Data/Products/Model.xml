@@ -57,7 +57,7 @@
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="ProductId" DataType="Int32" Description="产品" />
       <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
-      <Column Name="Quantity" DataType="Int32" Description="数量" />
+      <Column Name="Quantity" DataType="Int32" Description="数量。真实数量以各仓库库存量为准" />
       <Column Name="Price" DataType="Decimal" Description="价格。如果价格为零，则使用产品价格" />
       <Column Name="Image" DataType="String" ItemType="Image" Description="图片" />
       <Column Name="Specification" DataType="String" Length="200" Description="规格" />
@@ -99,6 +99,7 @@
     <Columns>
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="ProductId" DataType="Int32" Description="产品" />
+      <Column Name="UnitName" DataType="String" Description="SKU单元" />
       <Column Name="WarehouseId" DataType="Int32" Description="仓库" />
       <Column Name="Quantity" DataType="Int32" Description="数量" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
@@ -112,7 +113,9 @@
       <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
     </Columns>
     <Indexes>
-      <Index Columns="ProductId,WarehouseId" Unique="True" />
+      <Index Columns="ProductId,UnitName,WarehouseId" Unique="True" />
+      <Index Columns="ProductId,WarehouseId" />
+      <Index Columns="WarehouseId" />
     </Indexes>
   </Table>
   <Table Name="StockHistory" Description="库存历史。对仓库中产品进行出入库管理" InsertOnly="True">

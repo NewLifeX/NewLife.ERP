@@ -9,6 +9,22 @@ using XCode;
 // 启用控制台日志，拦截所有异常
 XTrace.UseConsole();
 
+// 调增配置
+var set = NewLife.Setting.Current;
+if (set.IsNew)
+{
+    set.DataPath = "../Data";
+    set.LogPath = "../Log";
+    set.Save();
+}
+var set2 = NewLife.Cube.Setting.Current;
+if (set2.IsNew)
+{
+    set2.UploadPath = "../Uploads";
+    set2.AvatarPath = "../Avatars";
+    set2.Save();
+}
+
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 

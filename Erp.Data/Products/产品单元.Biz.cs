@@ -65,7 +65,7 @@ public partial class ProductUnit : Entity<ProductUnit>
         var entity = new ProductUnit
         {
             ProductId = 1,
-            Name = "卧式挂耳",
+            Name = "挂耳",
             Quantity = 50,
         };
         entity.Insert();
@@ -73,7 +73,7 @@ public partial class ProductUnit : Entity<ProductUnit>
         entity = new ProductUnit
         {
             ProductId = 1,
-            Name = "侧方卡槽",
+            Name = "侧方",
             Quantity = 50,
         };
         entity.Insert();

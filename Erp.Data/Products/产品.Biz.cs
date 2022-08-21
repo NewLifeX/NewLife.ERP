@@ -180,13 +180,29 @@ public partial class Product : Entity<Product>
     /// <summary>修正关联数据</summary>
     public void Fix()
     {
+        // 库存
+        var stocks = ProductStock.FindAllByProduct(Id);
+
+        // SKU
         var us = ProductUnit.FindAllByProduct(Id);
         Units = us.Count;
 
-        if (us.Count > 0)
+        // 各SKU库存来自于仓库数量
+        foreach (var unit in us)
         {
-            Quantity = us.Sum(e => e.Quantity);
+            var st = stocks.FirstOrDefault(s => s.UnitName == unit.Name);
+            if (st != null)
+            {
+                unit.Quantity = st.Quantity;
+                unit.Update();
+            }
         }
+
+        // 优先以仓库数量累加产品库存，因为部分库存可能未登记SKU
+        if (stocks.Count > 0)
+            Quantity = stocks.Sum(e => e.Quantity);
+        else if (us.Count > 0)
+            Quantity = us.Sum(e => e.Quantity);
     }
     #endregion
 }

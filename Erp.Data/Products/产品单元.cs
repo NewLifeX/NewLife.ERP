@@ -44,11 +44,11 @@ namespace Erp.Data.Products
         public String Name { get => _Name; set { if (OnPropertyChanging("Name", value)) { _Name = value; OnPropertyChanged("Name"); } } }
 
         private Int32 _Quantity;
-        /// <summary>数量</summary>
+        /// <summary>数量。真实数量以各仓库库存量为准</summary>
         [DisplayName("数量")]
-        [Description("数量")]
+        [Description("数量。真实数量以各仓库库存量为准")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Quantity", "数量", "")]
+        [BindColumn("Quantity", "数量。真实数量以各仓库库存量为准", "")]
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Decimal _Price;
@@ -225,7 +225,7 @@ namespace Erp.Data.Products
             /// <summary>名称</summary>
             public static readonly Field Name = FindByName("Name");
 
-            /// <summary>数量</summary>
+            /// <summary>数量。真实数量以各仓库库存量为准</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
             /// <summary>价格。如果价格为零，则使用产品价格</summary>
@@ -279,7 +279,7 @@ namespace Erp.Data.Products
             /// <summary>名称</summary>
             public const String Name = "Name";
 
-            /// <summary>数量</summary>
+            /// <summary>数量。真实数量以各仓库库存量为准</summary>
             public const String Quantity = "Quantity";
 
             /// <summary>价格。如果价格为零，则使用产品价格</summary>

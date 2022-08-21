@@ -14,7 +14,9 @@ namespace Erp.Data.Products
     [Serializable]
     [DataObject]
     [Description("产品库存。产品存放在每一个仓库的数量")]
-    [BindIndex("IU_ProductStock_ProductId_WarehouseId", true, "ProductId,WarehouseId")]
+    [BindIndex("IU_ProductStock_ProductId_UnitName_WarehouseId", true, "ProductId,UnitName,WarehouseId")]
+    [BindIndex("IX_ProductStock_ProductId_WarehouseId", false, "ProductId,WarehouseId")]
+    [BindIndex("IX_ProductStock_WarehouseId", false, "WarehouseId")]
     [BindTable("ProductStock", Description = "产品库存。产品存放在每一个仓库的数量", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class ProductStock
     {
@@ -34,6 +36,14 @@ namespace Erp.Data.Products
         [DataObjectField(false, false, false, 0)]
         [BindColumn("ProductId", "产品", "")]
         public Int32 ProductId { get => _ProductId; set { if (OnPropertyChanging("ProductId", value)) { _ProductId = value; OnPropertyChanged("ProductId"); } } }
+
+        private String _UnitName;
+        /// <summary>SKU单元</summary>
+        [DisplayName("SKU单元")]
+        [Description("SKU单元")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("UnitName", "SKU单元", "")]
+        public String UnitName { get => _UnitName; set { if (OnPropertyChanging("UnitName", value)) { _UnitName = value; OnPropertyChanged("UnitName"); } } }
 
         private Int32 _WarehouseId;
         /// <summary>仓库</summary>
@@ -145,6 +155,7 @@ namespace Erp.Data.Products
                 {
                     case "Id": return _Id;
                     case "ProductId": return _ProductId;
+                    case "UnitName": return _UnitName;
                     case "WarehouseId": return _WarehouseId;
                     case "Quantity": return _Quantity;
                     case "CreateUser": return _CreateUser;
@@ -165,6 +176,7 @@ namespace Erp.Data.Products
                 {
                     case "Id": _Id = value.ToInt(); break;
                     case "ProductId": _ProductId = value.ToInt(); break;
+                    case "UnitName": _UnitName = Convert.ToString(value); break;
                     case "WarehouseId": _WarehouseId = value.ToInt(); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
@@ -191,6 +203,9 @@ namespace Erp.Data.Products
 
             /// <summary>产品</summary>
             public static readonly Field ProductId = FindByName("ProductId");
+
+            /// <summary>SKU单元</summary>
+            public static readonly Field UnitName = FindByName("UnitName");
 
             /// <summary>仓库</summary>
             public static readonly Field WarehouseId = FindByName("WarehouseId");
@@ -236,6 +251,9 @@ namespace Erp.Data.Products
 
             /// <summary>产品</summary>
             public const String ProductId = "ProductId";
+
+            /// <summary>SKU单元</summary>
+            public const String UnitName = "UnitName";
 
             /// <summary>仓库</summary>
             public const String WarehouseId = "WarehouseId";
