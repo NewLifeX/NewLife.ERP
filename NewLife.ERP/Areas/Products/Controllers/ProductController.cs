@@ -67,25 +67,43 @@ public class ProductController : EntityController<Product>
     {
         entity.Fix();
 
-        return base.OnUpdate(entity);
-    }
+        var rs = base.OnUpdate(entity);
 
-    protected override Boolean Valid(Product entity, DataObjectMethodType type, Boolean post)
-    {
-        if (!base.Valid(entity, type, post)) return false;
-
-        if (post)
+        var cat = entity.Category;
+        if (cat != null)
         {
-            entity.Fix();
-
-            var cat = entity.Category;
-            if (cat != null)
-            {
-                cat.Fix();
-                cat.Update();
-            }
+            cat.Fix();
+            cat.Update();
         }
 
-        return true;
+        return rs;
+    }
+
+    protected override Int32 OnInsert(Product entity)
+    {
+        var rs = base.OnInsert(entity);
+
+        var cat = entity.Category;
+        if (cat != null)
+        {
+            cat.Fix();
+            cat.Update();
+        }
+
+        return rs;
+    }
+
+    protected override Int32 OnDelete(Product entity)
+    {
+        var rs = base.OnDelete(entity);
+
+        var cat = entity.Category;
+        if (cat != null)
+        {
+            cat.Fix();
+            cat.Update();
+        }
+
+        return rs;
     }
 }
