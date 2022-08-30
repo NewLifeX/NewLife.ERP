@@ -15,6 +15,8 @@ namespace Erp.Data.Products
     [DataObject]
     [Description("产品。企业内采购、生产、库存、销售的物品，包括虚拟物品")]
     [BindIndex("IU_Product_Code", true, "Code")]
+    [BindIndex("IX_Product_CategoryId", false, "CategoryId")]
+    [BindIndex("IX_Product_Kind", false, "Kind")]
     [BindTable("Product", Description = "产品。企业内采购、生产、库存、销售的物品，包括虚拟物品", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class Product
     {
@@ -28,11 +30,11 @@ namespace Erp.Data.Products
         public Int32 Id { get => _Id; set { if (OnPropertyChanging("Id", value)) { _Id = value; OnPropertyChanged("Id"); } } }
 
         private String _Code;
-        /// <summary>编码。全局唯一编码</summary>
+        /// <summary>编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码</summary>
         [DisplayName("编码")]
-        [Description("编码。全局唯一编码")]
+        [Description("编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码")]
         [DataObjectField(false, false, false, 50)]
-        [BindColumn("Code", "编码。全局唯一编码", "")]
+        [BindColumn("Code", "编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码", "")]
         public String Code { get => _Code; set { if (OnPropertyChanging("Code", value)) { _Code = value; OnPropertyChanged("Code"); } } }
 
         private String _Name;
@@ -60,20 +62,12 @@ namespace Erp.Data.Products
         public Erp.Data.Models.ProductKinds Kind { get => _Kind; set { if (OnPropertyChanging("Kind", value)) { _Kind = value; OnPropertyChanged("Kind"); } } }
 
         private String _Title;
-        /// <summary>标题。产品的概要描述信息</summary>
+        /// <summary>标题。概要描述信息</summary>
         [DisplayName("标题")]
-        [Description("标题。产品的概要描述信息")]
-        [DataObjectField(false, false, true, 50)]
-        [BindColumn("Title", "标题。产品的概要描述信息", "")]
+        [Description("标题。概要描述信息")]
+        [DataObjectField(false, false, true, 200)]
+        [BindColumn("Title", "标题。概要描述信息", "")]
         public String Title { get => _Title; set { if (OnPropertyChanging("Title", value)) { _Title = value; OnPropertyChanged("Title"); } } }
-
-        private Int32 _Units;
-        /// <summary>单元数。不同规格的种类，如多颜色</summary>
-        [DisplayName("单元数")]
-        [Description("单元数。不同规格的种类，如多颜色")]
-        [DataObjectField(false, false, false, 0)]
-        [BindColumn("Units", "单元数。不同规格的种类，如多颜色", "")]
-        public Int32 Units { get => _Units; set { if (OnPropertyChanging("Units", value)) { _Units = value; OnPropertyChanged("Units"); } } }
 
         private Boolean _Enable;
         /// <summary>启用</summary>
@@ -100,11 +94,11 @@ namespace Erp.Data.Products
         public String Unit { get => _Unit; set { if (OnPropertyChanging("Unit", value)) { _Unit = value; OnPropertyChanged("Unit"); } } }
 
         private Decimal _Price;
-        /// <summary>价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格</summary>
+        /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
         [DisplayName("价格")]
-        [Description("价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格")]
+        [Description("价格。销售参考价，仅用于评估库存价值")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格", "")]
+        [BindColumn("Price", "价格。销售参考价，仅用于评估库存价值", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private Double _Weight;
@@ -237,7 +231,6 @@ namespace Erp.Data.Products
                     case "CategoryId": return _CategoryId;
                     case "Kind": return _Kind;
                     case "Title": return _Title;
-                    case "Units": return _Units;
                     case "Enable": return _Enable;
                     case "Quantity": return _Quantity;
                     case "Unit": return _Unit;
@@ -268,7 +261,6 @@ namespace Erp.Data.Products
                     case "CategoryId": _CategoryId = value.ToInt(); break;
                     case "Kind": _Kind = (Erp.Data.Models.ProductKinds)value.ToInt(); break;
                     case "Title": _Title = Convert.ToString(value); break;
-                    case "Units": _Units = value.ToInt(); break;
                     case "Enable": _Enable = value.ToBoolean(); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Unit": _Unit = Convert.ToString(value); break;
@@ -299,7 +291,7 @@ namespace Erp.Data.Products
             /// <summary>编号</summary>
             public static readonly Field Id = FindByName("Id");
 
-            /// <summary>编码。全局唯一编码</summary>
+            /// <summary>编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码</summary>
             public static readonly Field Code = FindByName("Code");
 
             /// <summary>名称</summary>
@@ -311,11 +303,8 @@ namespace Erp.Data.Products
             /// <summary>种类。实物、虚拟、组合</summary>
             public static readonly Field Kind = FindByName("Kind");
 
-            /// <summary>标题。产品的概要描述信息</summary>
+            /// <summary>标题。概要描述信息</summary>
             public static readonly Field Title = FindByName("Title");
-
-            /// <summary>单元数。不同规格的种类，如多颜色</summary>
-            public static readonly Field Units = FindByName("Units");
 
             /// <summary>启用</summary>
             public static readonly Field Enable = FindByName("Enable");
@@ -326,7 +315,7 @@ namespace Erp.Data.Products
             /// <summary>单位</summary>
             public static readonly Field Unit = FindByName("Unit");
 
-            /// <summary>价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格</summary>
+            /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>重量</summary>
@@ -377,7 +366,7 @@ namespace Erp.Data.Products
             /// <summary>编号</summary>
             public const String Id = "Id";
 
-            /// <summary>编码。全局唯一编码</summary>
+            /// <summary>编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码</summary>
             public const String Code = "Code";
 
             /// <summary>名称</summary>
@@ -389,11 +378,8 @@ namespace Erp.Data.Products
             /// <summary>种类。实物、虚拟、组合</summary>
             public const String Kind = "Kind";
 
-            /// <summary>标题。产品的概要描述信息</summary>
+            /// <summary>标题。概要描述信息</summary>
             public const String Title = "Title";
-
-            /// <summary>单元数。不同规格的种类，如多颜色</summary>
-            public const String Units = "Units";
 
             /// <summary>启用</summary>
             public const String Enable = "Enable";
@@ -404,7 +390,7 @@ namespace Erp.Data.Products
             /// <summary>单位</summary>
             public const String Unit = "Unit";
 
-            /// <summary>价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格</summary>
+            /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
             public const String Price = "Price";
 
             /// <summary>重量</summary>

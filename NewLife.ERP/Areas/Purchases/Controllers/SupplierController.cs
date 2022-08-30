@@ -8,7 +8,21 @@ namespace NewLife.ERP.Areas.Purchases.Controllers;
 [Menu(80)]
 public class SupplierController : EntityController<Supplier>
 {
-    static SupplierController() => LogOnChange = true;
+    static SupplierController()
+    {
+        LogOnChange = true;
+
+        {
+            var df = ListFields.AddListField("Order", "CreateUser");
+            df.DisplayName = "采购单";
+            df.Url = "PurchaseOrder?supplierId={Id}";
+        }
+        {
+            var df = ListFields.AddListField("Log", "CreateUser");
+            df.DisplayName = "日志";
+            df.Url = "/Admin/Log?category=供应商&linkId={Id}";
+        }
+    }
 
     protected override IEnumerable<Supplier> Search(Pager p)
     {

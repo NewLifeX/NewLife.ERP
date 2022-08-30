@@ -60,20 +60,20 @@ public partial class ProductStock : Entity<ProductStock>
         var entity = new ProductStock
         {
             ProductId = 1,
-            UnitName = "挂耳",
+            //UnitName = "挂耳",
             WarehouseId = 1,
             Quantity = 40,
         };
         entity.Insert();
 
-        entity = new ProductStock
-        {
-            ProductId = 1,
-            UnitName = "侧方",
-            WarehouseId = 1,
-            Quantity = 50,
-        };
-        entity.Insert();
+        //entity = new ProductStock
+        //{
+        //    ProductId = 1,
+        //    //UnitName = "侧方",
+        //    WarehouseId = 1,
+        //    Quantity = 50,
+        //};
+        //entity.Insert();
 
         entity = new ProductStock
         {

@@ -14,7 +14,7 @@ namespace Erp.Data.Products
     [Serializable]
     [DataObject]
     [Description("库存历史。对仓库中产品进行出入库管理")]
-    [BindIndex("IX_StockHistory_ProductId_WarehouseId", false, "ProductId,WarehouseId")]
+    [BindIndex("IX_StockHistory_ProductId_WarehouseId_Operation", false, "ProductId,WarehouseId,Operation")]
     [BindIndex("IX_StockHistory_WarehouseId", false, "WarehouseId")]
     [BindIndex("IX_StockHistory_Operation", false, "Operation")]
     [BindTable("StockHistory", Description = "库存历史。对仓库中产品进行出入库管理", ConnName = "Erp", DbType = DatabaseType.None)]
@@ -54,11 +54,11 @@ namespace Erp.Data.Products
         public Erp.Data.Models.StockOperations Operation { get => _Operation; set { if (OnPropertyChanging("Operation", value)) { _Operation = value; OnPropertyChanged("Operation"); } } }
 
         private Int32 _Quantity;
-        /// <summary>数量。本次操作涉及产品数量</summary>
+        /// <summary>数量。本次操作涉及产品数量，可能是负数</summary>
         [DisplayName("数量")]
-        [Description("数量。本次操作涉及产品数量")]
+        [Description("数量。本次操作涉及产品数量，可能是负数")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Quantity", "数量。本次操作涉及产品数量", "")]
+        [BindColumn("Quantity", "数量。本次操作涉及产品数量，可能是负数", "")]
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Int32 _OldQuantity;
@@ -206,7 +206,7 @@ namespace Erp.Data.Products
             /// <summary>操作。出库、入库、移库、盘点、报废等</summary>
             public static readonly Field Operation = FindByName("Operation");
 
-            /// <summary>数量。本次操作涉及产品数量</summary>
+            /// <summary>数量。本次操作涉及产品数量，可能是负数</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
             /// <summary>原数量。操作前数量</summary>
@@ -254,7 +254,7 @@ namespace Erp.Data.Products
             /// <summary>操作。出库、入库、移库、盘点、报废等</summary>
             public const String Operation = "Operation";
 
-            /// <summary>数量。本次操作涉及产品数量</summary>
+            /// <summary>数量。本次操作涉及产品数量，可能是负数</summary>
             public const String Quantity = "Quantity";
 
             /// <summary>原数量。操作前数量</summary>

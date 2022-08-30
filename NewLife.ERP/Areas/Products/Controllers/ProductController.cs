@@ -20,12 +20,12 @@ public class ProductController : EntityController<Product>
         ListFields.RemoveRemarkField();
         ListFields.RemoveField("Image", "Specification");
 
-        {
-            var df = ListFields.GetField("Units") as ListField;
-            df.DisplayName = "{Units}";
-            df.Title = "管理产品SKU单元";
-            df.Url = "ProductUnit?productId={Id}";
-        }
+        //{
+        //    var df = ListFields.GetField("Units") as ListField;
+        //    df.DisplayName = "{Units}";
+        //    df.Title = "管理产品SKU单元";
+        //    df.Url = "ProductUnit?productId={Id}";
+        //}
         {
             var df = ListFields.AddListField("Stock", "Weight");
             df.DisplayName = "库存";

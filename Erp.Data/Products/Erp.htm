@@ -239,7 +239,7 @@
             <td></td>
             <td title="唯一索引">UQ</td>
             <td>N</td>
-            <td>全局唯一编码</td>
+            <td>全局唯一编码，外观或颜色不同的产品，可以使用不同编码</td>
         </tr>
 
         <tr>
@@ -279,22 +279,11 @@
             <td>Title</td>
             <td>标题</td>
             <td>String</td>
-            <td>50</td>
+            <td>200</td>
             <td></td>
             <td></td>
             <td></td>
-            <td>产品的概要描述信息</td>
-        </tr>
-
-        <tr>
-            <td>Units</td>
-            <td>单元数</td>
-            <td>Int32</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>N</td>
-            <td>不同规格的种类，如多颜色</td>
+            <td>概要描述信息</td>
         </tr>
 
         <tr>
@@ -338,7 +327,7 @@
             <td></td>
             <td></td>
             <td>N</td>
-            <td>销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格</td>
+            <td>销售参考价，仅用于评估库存价值</td>
         </tr>
 
         <tr>
@@ -877,17 +866,6 @@
         </tr>
 
         <tr>
-            <td>UnitName</td>
-            <td>SKU单元</td>
-            <td>String</td>
-            <td>50</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-
-        <tr>
             <td>WarehouseId</td>
             <td>仓库</td>
             <td>Int32</td>
@@ -1077,7 +1055,7 @@
             <td></td>
             <td></td>
             <td>N</td>
-            <td>本次操作涉及产品数量</td>
+            <td>本次操作涉及产品数量，可能是负数</td>
         </tr>
 
         <tr>

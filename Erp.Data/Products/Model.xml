@@ -24,16 +24,15 @@
   <Table Name="Product" Description="产品。企业内采购、生产、库存、销售的物品，包括虚拟物品">
     <Columns>
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
-      <Column Name="Code" DataType="String" Nullable="False" Description="编码。全局唯一编码" />
+      <Column Name="Code" DataType="String" Nullable="False" Description="编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码" />
       <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
       <Column Name="CategoryId" DataType="Int32" Description="类别" />
       <Column Name="Kind" DataType="Int32" Description="种类。实物、虚拟、组合" Type="Erp.Data.Models.ProductKinds" />
       <Column Name="Title" DataType="String" Length="200" Description="标题。概要描述信息" />
-      <Column Name="Units" DataType="Int32" Description="单元数。不同规格的种类，如多颜色" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
       <Column Name="Quantity" DataType="Int32" Description="数量。真实数量以各仓库库存量为准" />
       <Column Name="Unit" DataType="String" Description="单位" />
-      <Column Name="Price" DataType="Decimal" Description="价格。销售参考价，仅用于评估库存价值，多SKU时可以使用SKU价格" />
+      <Column Name="Price" DataType="Decimal" Description="价格。销售参考价，仅用于评估库存价值" />
       <Column Name="Weight" DataType="Double" Description="重量" />
       <Column Name="Dimension" DataType="String" Description="尺寸。长宽高LWH" />
       <Column Name="Image" DataType="String" ItemType="Image" Description="图片" />
@@ -50,6 +49,8 @@
     </Columns>
     <Indexes>
       <Index Columns="Code" Unique="True" />
+      <Index Columns="CategoryId" />
+      <Index Columns="Kind" />
     </Indexes>
   </Table>
   <Table Name="ProductUnit" Description="产品单元。产品在某些规格细节上有所不同时，计为不同SKU单元，例如不同颜色">
@@ -99,7 +100,6 @@
     <Columns>
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="ProductId" DataType="Int32" Description="产品" />
-      <Column Name="UnitName" DataType="String" Description="SKU单元" />
       <Column Name="WarehouseId" DataType="Int32" Description="仓库" />
       <Column Name="Quantity" DataType="Int32" Description="数量" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
@@ -113,8 +113,7 @@
       <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
     </Columns>
     <Indexes>
-      <Index Columns="ProductId,UnitName,WarehouseId" Unique="True" />
-      <Index Columns="ProductId,WarehouseId" />
+      <Index Columns="ProductId,WarehouseId" Unique="True" />
       <Index Columns="WarehouseId" />
     </Indexes>
   </Table>
@@ -136,7 +135,7 @@
       <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
     </Columns>
     <Indexes>
-      <Index Columns="ProductId,WarehouseId" />
+      <Index Columns="ProductId,WarehouseId,Operation" />
       <Index Columns="WarehouseId" />
       <Index Columns="Operation" />
     </Indexes>

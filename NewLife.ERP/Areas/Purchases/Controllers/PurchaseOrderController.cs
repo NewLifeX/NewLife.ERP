@@ -8,7 +8,19 @@ namespace NewLife.ERP.Areas.Purchases.Controllers;
 [Menu(70)]
 public class PurchaseOrderController : EntityController<PurchaseOrder>
 {
-    //static PurchaseOrderController() => LogOnChange = true;
+    static PurchaseOrderController()
+    {
+        {
+            var df = ListFields.AddListField("Items", "CreateUser");
+            df.DisplayName = "订单明细";
+            df.Url = "PurchaseOrderItem?orderId={Id}";
+        }
+        {
+            var df = ListFields.AddListField("History", "CreateUser");
+            df.DisplayName = "历史";
+            df.Url = "PurchaseOrderHistory?orderId={Id}";
+        }
+    }
 
     protected override IEnumerable<PurchaseOrder> Search(Pager p)
     {
