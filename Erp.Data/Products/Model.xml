@@ -28,7 +28,7 @@
       <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
       <Column Name="CategoryId" DataType="Int32" Description="类别" />
       <Column Name="Kind" DataType="Int32" Description="种类。实物、虚拟、组合" Type="Erp.Data.Models.ProductKinds" />
-      <Column Name="Title" DataType="String" Description="标题。产品的概要描述信息" />
+      <Column Name="Title" DataType="String" Length="200" Description="标题。概要描述信息" />
       <Column Name="Units" DataType="Int32" Description="单元数。不同规格的种类，如多颜色" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
       <Column Name="Quantity" DataType="Int32" Description="数量。真实数量以各仓库库存量为准" />
