@@ -124,7 +124,7 @@
       <Column Name="ProductId" DataType="Int32" Description="产品" />
       <Column Name="WarehouseId" DataType="Int32" Description="仓库" />
       <Column Name="Operation" DataType="Int32" Description="操作。出库、入库、移库、盘点、报废等" Type="Erp.Data.Models.StockOperations" />
-      <Column Name="Quantity" DataType="Int32" Description="数量。本次操作涉及产品数量" />
+      <Column Name="Quantity" DataType="Int32" Description="数量。本次操作涉及产品数量，可能是负数" />
       <Column Name="OldQuantity" DataType="Int32" Description="原数量。操作前数量" />
       <Column Name="NewQuantity" DataType="Int32" Description="新数量。操作后数量" />
       <Column Name="OrderId" DataType="String" Description="关联订单。" />
