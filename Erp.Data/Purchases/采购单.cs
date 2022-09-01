@@ -68,6 +68,14 @@ namespace Erp.Data.Purchases
         [BindColumn("WarehouseId", "仓库。进入的仓库", "")]
         public Int32 WarehouseId { get => _WarehouseId; set { if (OnPropertyChanging("WarehouseId", value)) { _WarehouseId = value; OnPropertyChanged("WarehouseId"); } } }
 
+        private Erp.Data.Models.OrderStatus _Status;
+        /// <summary>状态</summary>
+        [DisplayName("状态")]
+        [Description("状态")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Status", "状态", "")]
+        public Erp.Data.Models.OrderStatus Status { get => _Status; set { if (OnPropertyChanging("Status", value)) { _Status = value; OnPropertyChanged("Status"); } } }
+
         private DateTime _OccurTime;
         /// <summary>发生时间</summary>
         [DisplayName("发生时间")]
@@ -198,6 +206,7 @@ namespace Erp.Data.Purchases
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
                     case "WarehouseId": return _WarehouseId;
+                    case "Status": return _Status;
                     case "OccurTime": return _OccurTime;
                     case "ContractNo": return _ContractNo;
                     case "BillCode": return _BillCode;
@@ -224,6 +233,7 @@ namespace Erp.Data.Purchases
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
                     case "WarehouseId": _WarehouseId = value.ToInt(); break;
+                    case "Status": _Status = (Erp.Data.Models.OrderStatus)value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "ContractNo": _ContractNo = Convert.ToString(value); break;
                     case "BillCode": _BillCode = Convert.ToString(value); break;
@@ -264,6 +274,9 @@ namespace Erp.Data.Purchases
 
             /// <summary>仓库。进入的仓库</summary>
             public static readonly Field WarehouseId = FindByName("WarehouseId");
+
+            /// <summary>状态</summary>
+            public static readonly Field Status = FindByName("Status");
 
             /// <summary>发生时间</summary>
             public static readonly Field OccurTime = FindByName("OccurTime");
@@ -327,6 +340,9 @@ namespace Erp.Data.Purchases
 
             /// <summary>仓库。进入的仓库</summary>
             public const String WarehouseId = "WarehouseId";
+
+            /// <summary>状态</summary>
+            public const String Status = "Status";
 
             /// <summary>发生时间</summary>
             public const String OccurTime = "OccurTime";

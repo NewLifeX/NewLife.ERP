@@ -14,10 +14,10 @@ namespace Erp.Data.Purchases
     [Serializable]
     [DataObject]
     [Description("采购单明细。采购单包含的每一种产品")]
-    [BindIndex("IX_PurchaseOrderItem_OrderId", false, "OrderId")]
-    [BindIndex("IX_PurchaseOrderItem_ProductId", false, "ProductId")]
-    [BindTable("PurchaseOrderItem", Description = "采购单明细。采购单包含的每一种产品", ConnName = "Erp", DbType = DatabaseType.None)]
-    public partial class PurchaseOrderItem
+    [BindIndex("IX_PurchaseOrderLine_OrderId", false, "OrderId")]
+    [BindIndex("IX_PurchaseOrderLine_ProductId", false, "ProductId")]
+    [BindTable("PurchaseOrderLine", Description = "采购单明细。采购单包含的每一种产品", ConnName = "Erp", DbType = DatabaseType.None)]
+    public partial class PurchaseOrderLine
     {
         #region 属性
         private Int32 _Id;

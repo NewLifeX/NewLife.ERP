@@ -6,13 +6,13 @@ namespace NewLife.ERP.Areas.Purchases.Controllers;
 
 [PurchasesArea]
 [Menu(0, false)]
-public class PurchaseOrderItemController : EntityController<PurchaseOrderItem>
+public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
 {
-    protected override IEnumerable<PurchaseOrderItem> Search(Pager p)
+    protected override IEnumerable<PurchaseOrderLine> Search(Pager p)
     {
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return PurchaseOrderItem.Search(start, end, p["Q"], p);
+        return PurchaseOrderLine.Search(start, end, p["Q"], p);
     }
 }

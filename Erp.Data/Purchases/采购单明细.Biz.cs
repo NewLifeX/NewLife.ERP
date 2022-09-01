@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -26,10 +26,10 @@ using XCode.Shards;
 
 namespace Erp.Data.Purchases
 {
-    public partial class PurchaseOrderItem : Entity<PurchaseOrderItem>
+    public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
     {
         #region 对象操作
-        static PurchaseOrderItem()
+        static PurchaseOrderLine()
         {
             // 累加字段，生成 Update xx Set Count=Count+1234 Where xxx
             //var df = Meta.Factory.AdditionalFields;
@@ -117,7 +117,7 @@ namespace Erp.Data.Purchases
         /// <summary>根据编号查找</summary>
         /// <param name="id">编号</param>
         /// <returns>实体对象</returns>
-        public static PurchaseOrderItem FindById(Int32 id)
+        public static PurchaseOrderLine FindById(Int32 id)
         {
             if (id <= 0) return null;
 
@@ -133,7 +133,7 @@ namespace Erp.Data.Purchases
         /// <summary>根据订单查找</summary>
         /// <param name="orderId">订单</param>
         /// <returns>实体列表</returns>
-        public static IList<PurchaseOrderItem> FindAllByOrderId(Int32 orderId)
+        public static IList<PurchaseOrderLine> FindAllByOrderId(Int32 orderId)
         {
             // 实体缓存
             if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.OrderId == orderId);
@@ -144,7 +144,7 @@ namespace Erp.Data.Purchases
         /// <summary>根据产品查找</summary>
         /// <param name="productId">产品</param>
         /// <returns>实体列表</returns>
-        public static IList<PurchaseOrderItem> FindAllByProductId(Int32 productId)
+        public static IList<PurchaseOrderLine> FindAllByProductId(Int32 productId)
         {
             // 实体缓存
             if (Meta.Session.Count < 1000) return Meta.Cache.FindAll(e => e.ProductId == productId);
@@ -162,7 +162,7 @@ namespace Erp.Data.Purchases
         /// <param name="key">关键字</param>
         /// <param name="page">分页参数信息。可携带统计和数据权限扩展查询等信息</param>
         /// <returns>实体列表</returns>
-        public static IList<PurchaseOrderItem> Search(Int32 orderId, Int32 productId, DateTime start, DateTime end, String key, PageParameter page)
+        public static IList<PurchaseOrderLine> Search(Int32 orderId, Int32 productId, DateTime start, DateTime end, String key, PageParameter page)
         {
             var exp = new WhereExpression();
 
