@@ -11,9 +11,9 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
     static PurchaseOrderController()
     {
         {
-            var df = ListFields.AddListField("Items", "CreateUser");
+            var df = ListFields.AddListField("Lines", "CreateUser");
             df.DisplayName = "订单明细";
-            df.Url = "PurchaseOrderItem?orderId={Id}";
+            df.Url = "PurchaseOrderLine?orderId={Id}";
         }
         {
             var df = ListFields.AddListField("History", "CreateUser");
