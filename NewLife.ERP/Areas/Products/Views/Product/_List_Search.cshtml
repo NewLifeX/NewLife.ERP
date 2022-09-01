@@ -1,0 +1,16 @@
+﻿@using Erp.Data.Products
+@using NewLife;
+@using NewLife.Web;
+@using NewLife.Cube;
+@using XCode;
+@using Zero.Data.Projects;
+@{
+    var fact = ViewBag.Factory as IEntityFactory;
+    var page = ViewBag.Page as Pager;
+}
+<div class="form-group">
+    <label for="categoryId" class="control-label">类别：</label>
+    @Html.ForDropDownList("categoryId", ProductCategory.FindAllWithCache(), page["categoryId"], "全部", true)
+</div>
+@await Html.PartialAsync("_Enable", "")
+@await Html.PartialAsync("_DateRange")

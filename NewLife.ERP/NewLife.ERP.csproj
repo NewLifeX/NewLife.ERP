@@ -34,4 +34,8 @@
     <ProjectReference Include="..\Erp.Data\Erp.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Purchases\Views\PurchaseOrder\" />
+  </ItemGroup>
+
 </Project>
