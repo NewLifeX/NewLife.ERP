@@ -11,7 +11,7 @@ namespace NewLife.ERP.Areas.Products.Controllers;
 
 [ProductsArea]
 [Menu(0, false)]
-public class ProductStockController : EntityController<ProductStock>
+public class ProductStockController : ReadOnlyEntityController<ProductStock>
 {
     private readonly StockService _stockService;
 
@@ -56,9 +56,9 @@ public class ProductStockController : EntityController<ProductStock>
         return ProductStock.Search(productId, warehouseId, start, end, p["Q"], p);
     }
 
-    public override ActionResult Add() => throw new NotSupportedException();
+    //public override ActionResult Add() => throw new NotSupportedException();
 
-    public override ActionResult Edit(String id) => throw new NotSupportedException();
+    //public override ActionResult Edit(String id) => throw new NotSupportedException();
 
     /// <summary>移库</summary>
     /// <returns></returns>
