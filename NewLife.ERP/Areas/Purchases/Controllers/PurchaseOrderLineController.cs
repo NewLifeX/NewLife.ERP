@@ -43,6 +43,13 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
             order.Update();
         }
 
+        var prd = entity.Product;
+        if (prd != null)
+        {
+            prd.Fix();
+            prd.Update();
+        }
+
         return rs;
     }
 
@@ -55,6 +62,13 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
         {
             order.Fix();
             order.Update();
+        }
+
+        var prd = entity.Product;
+        if (prd != null)
+        {
+            prd.Fix();
+            prd.Update();
         }
 
         return rs;

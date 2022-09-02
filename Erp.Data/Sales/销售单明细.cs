@@ -44,6 +44,14 @@ namespace Erp.Data.Sales
         [BindColumn("ProductId", "产品", "")]
         public Int32 ProductId { get => _ProductId; set { if (OnPropertyChanging("ProductId", value)) { _ProductId = value; OnPropertyChanged("ProductId"); } } }
 
+        private Int32 _WarehouseId;
+        /// <summary>仓库。出货的仓库</summary>
+        [DisplayName("仓库")]
+        [Description("仓库。出货的仓库")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("WarehouseId", "仓库。出货的仓库", "")]
+        public Int32 WarehouseId { get => _WarehouseId; set { if (OnPropertyChanging("WarehouseId", value)) { _WarehouseId = value; OnPropertyChanged("WarehouseId"); } } }
+
         private Int32 _Quantity;
         /// <summary>数量</summary>
         [DisplayName("数量")]
@@ -155,6 +163,7 @@ namespace Erp.Data.Sales
                     case "Id": return _Id;
                     case "OrderId": return _OrderId;
                     case "ProductId": return _ProductId;
+                    case "WarehouseId": return _WarehouseId;
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
                     case "CreateUser": return _CreateUser;
@@ -176,6 +185,7 @@ namespace Erp.Data.Sales
                     case "Id": _Id = value.ToInt(); break;
                     case "OrderId": _OrderId = value.ToInt(); break;
                     case "ProductId": _ProductId = value.ToInt(); break;
+                    case "WarehouseId": _WarehouseId = value.ToInt(); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
@@ -205,6 +215,9 @@ namespace Erp.Data.Sales
 
             /// <summary>产品</summary>
             public static readonly Field ProductId = FindByName("ProductId");
+
+            /// <summary>仓库。出货的仓库</summary>
+            public static readonly Field WarehouseId = FindByName("WarehouseId");
 
             /// <summary>数量</summary>
             public static readonly Field Quantity = FindByName("Quantity");
@@ -253,6 +266,9 @@ namespace Erp.Data.Sales
 
             /// <summary>产品</summary>
             public const String ProductId = "ProductId";
+
+            /// <summary>仓库。出货的仓库</summary>
+            public const String WarehouseId = "WarehouseId";
 
             /// <summary>数量</summary>
             public const String Quantity = "Quantity";

@@ -59,14 +59,6 @@ namespace Erp.Data.Sales
         [BindColumn("Price", "价值。总价值", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
-        private Int32 _WarehouseId;
-        /// <summary>仓库。进入的仓库</summary>
-        [DisplayName("仓库")]
-        [Description("仓库。进入的仓库")]
-        [DataObjectField(false, false, false, 0)]
-        [BindColumn("WarehouseId", "仓库。进入的仓库", "")]
-        public Int32 WarehouseId { get => _WarehouseId; set { if (OnPropertyChanging("WarehouseId", value)) { _WarehouseId = value; OnPropertyChanged("WarehouseId"); } } }
-
         private Erp.Data.Models.OrderStatus _Status;
         /// <summary>状态</summary>
         [DisplayName("状态")]
@@ -204,7 +196,6 @@ namespace Erp.Data.Sales
                     case "Title": return _Title;
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
-                    case "WarehouseId": return _WarehouseId;
                     case "Status": return _Status;
                     case "OccurTime": return _OccurTime;
                     case "ContractNo": return _ContractNo;
@@ -231,7 +222,6 @@ namespace Erp.Data.Sales
                     case "Title": _Title = Convert.ToString(value); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
-                    case "WarehouseId": _WarehouseId = value.ToInt(); break;
                     case "Status": _Status = (Erp.Data.Models.OrderStatus)value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "ContractNo": _ContractNo = Convert.ToString(value); break;
@@ -270,9 +260,6 @@ namespace Erp.Data.Sales
 
             /// <summary>价值。总价值</summary>
             public static readonly Field Price = FindByName("Price");
-
-            /// <summary>仓库。进入的仓库</summary>
-            public static readonly Field WarehouseId = FindByName("WarehouseId");
 
             /// <summary>状态</summary>
             public static readonly Field Status = FindByName("Status");
@@ -336,9 +323,6 @@ namespace Erp.Data.Sales
 
             /// <summary>价值。总价值</summary>
             public const String Price = "Price";
-
-            /// <summary>仓库。进入的仓库</summary>
-            public const String WarehouseId = "WarehouseId";
 
             /// <summary>状态</summary>
             public const String Status = "Status";

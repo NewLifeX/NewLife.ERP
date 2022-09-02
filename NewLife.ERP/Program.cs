@@ -45,6 +45,7 @@ else
 // 注册服务
 services.AddSingleton<StockService>();
 services.AddSingleton<PurchaseService>();
+services.AddSingleton<SaleService>();
 
 // 启用接口响应压缩
 services.AddResponseCompression();

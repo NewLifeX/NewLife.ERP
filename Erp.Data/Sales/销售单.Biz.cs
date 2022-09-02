@@ -1,7 +1,4 @@
-﻿using System.Runtime.Serialization;
-using System.Xml.Serialization;
-using Erp.Data.Models;
-using Erp.Data.Products;
+﻿using Erp.Data.Models;
 using NewLife;
 using NewLife.Data;
 using XCode;
@@ -45,14 +42,6 @@ public partial class SaleOrder : Entity<SaleOrder>
     #endregion
 
     #region 扩展属性
-    /// <summary>仓库</summary>
-    [XmlIgnore, IgnoreDataMember]
-    //[ScriptIgnore]
-    public Warehouse Warehouse => Extends.Get(nameof(Warehouse), k => Warehouse.FindById(WarehouseId));
-
-    /// <summary>仓库</summary>
-    [Map(nameof(WarehouseId), typeof(Warehouse), "Id")]
-    public String WarehouseName => Warehouse?.Name;
     #endregion
 
     #region 扩展查询
@@ -126,7 +115,7 @@ public partial class SaleOrder : Entity<SaleOrder>
             Quantity = list.Sum(e => e.Quantity);
             Price = list.Sum(e => e.Quantity * e.Price);
 
-            if (Title.IsNullOrEmpty())
+            if (Title.IsNullOrEmpty() || Title.Length < 50)
             {
                 var txt = list.Join("、", e => e.ProductName);
                 Title = txt.Cut(50);

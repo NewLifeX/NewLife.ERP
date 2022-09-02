@@ -7,7 +7,6 @@
       <Column Name="Title" DataType="String" Master="True" Length="200" Description="标题。概要描述信息" />
       <Column Name="Quantity" DataType="Int32" Description="数量。总件数" />
       <Column Name="Price" DataType="Decimal" Description="价值。总价值" />
-      <Column Name="WarehouseId" DataType="Int32" Description="仓库。进入的仓库" />
       <Column Name="Status" DataType="Int32" Description="状态" Type="Erp.Data.Models.OrderStatus" />
       <Column Name="OccurTime" DataType="DateTime" Description="发生时间" />
       <Column Name="ContractNo" DataType="String" Description="合同编号" />
@@ -32,6 +31,7 @@
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="OrderId" DataType="Int32" Description="订单" />
       <Column Name="ProductId" DataType="Int32" Description="产品" />
+      <Column Name="WarehouseId" DataType="Int32" Description="仓库。出货的仓库" />
       <Column Name="Quantity" DataType="Int32" Description="数量" />
       <Column Name="Price" DataType="Decimal" Description="价格。采购价" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />

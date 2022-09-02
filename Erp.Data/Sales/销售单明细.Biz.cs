@@ -71,6 +71,15 @@ namespace Erp.Data.Sales
         /// <summary>产品</summary>
         [Map(nameof(ProductId), typeof(Product), "Id")]
         public String ProductName => Product?.Name;
+
+        /// <summary>仓库</summary>
+        [XmlIgnore, IgnoreDataMember]
+        //[ScriptIgnore]
+        public Warehouse Warehouse => Extends.Get(nameof(Warehouse), k => Warehouse.FindById(WarehouseId));
+
+        /// <summary>仓库</summary>
+        [Map(nameof(WarehouseId), typeof(Warehouse), "Id")]
+        public String WarehouseName => Warehouse?.Name;
         #endregion
 
         #region 扩展查询
