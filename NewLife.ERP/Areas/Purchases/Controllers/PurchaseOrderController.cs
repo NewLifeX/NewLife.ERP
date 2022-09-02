@@ -63,4 +63,28 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
 
         return JsonRefresh($"共处理[{count}]个订单");
     }
+
+    /// <summary>批量取消入库</summary>
+    /// <returns></returns>
+    [EntityAuthorize(PermissionFlags.Update)]
+    public ActionResult CancelIn()
+    {
+        var count = 0;
+        var ids = GetRequest("keys").SplitAsInt();
+        if (ids.Length > 0)
+        {
+            using var tran = PurchaseOrder.Meta.CreateTrans();
+
+            foreach (var id in ids)
+            {
+                var entity = PurchaseOrder.FindById(id);
+                if (entity != null)
+                    count += _purchaseService.CancelIn(entity);
+            }
+
+            tran.Commit();
+        }
+
+        return JsonRefresh($"共处理[{count}]个订单");
+    }
 }

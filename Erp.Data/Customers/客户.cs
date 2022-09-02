@@ -43,8 +43,41 @@ namespace Erp.Data.Customers
         [BindColumn("FullName", "全名", "")]
         public String FullName { get => _FullName; set { if (OnPropertyChanging("FullName", value)) { _FullName = value; OnPropertyChanged("FullName"); } } }
 
+        private Boolean _Enable;
+        /// <summary>启用</summary>
+        [DisplayName("启用")]
+        [Description("启用")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Enable", "启用", "")]
+        public Boolean Enable { get => _Enable; set { if (OnPropertyChanging("Enable", value)) { _Enable = value; OnPropertyChanged("Enable"); } } }
+
+        private String _Contact;
+        /// <summary>联系人</summary>
+        [DisplayName("联系人")]
+        [Description("联系人")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Contact", "联系人", "")]
+        public String Contact { get => _Contact; set { if (OnPropertyChanging("Contact", value)) { _Contact = value; OnPropertyChanged("Contact"); } } }
+
+        private String _Phone;
+        /// <summary>电话</summary>
+        [DisplayName("电话")]
+        [Description("电话")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Phone", "电话", "")]
+        public String Phone { get => _Phone; set { if (OnPropertyChanging("Phone", value)) { _Phone = value; OnPropertyChanged("Phone"); } } }
+
+        private String _Address;
+        /// <summary>地址</summary>
+        [DisplayName("地址")]
+        [Description("地址")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Address", "地址", "")]
+        public String Address { get => _Address; set { if (OnPropertyChanging("Address", value)) { _Address = value; OnPropertyChanged("Address"); } } }
+
         private String _CreateUser;
         /// <summary>创建者</summary>
+        [Category("扩展")]
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 50)]
@@ -53,6 +86,7 @@ namespace Erp.Data.Customers
 
         private Int32 _CreateUserID;
         /// <summary>创建人</summary>
+        [Category("扩展")]
         [DisplayName("创建人")]
         [Description("创建人")]
         [DataObjectField(false, false, false, 0)]
@@ -61,6 +95,7 @@ namespace Erp.Data.Customers
 
         private String _CreateIP;
         /// <summary>创建地址</summary>
+        [Category("扩展")]
         [DisplayName("创建地址")]
         [Description("创建地址")]
         [DataObjectField(false, false, true, 50)]
@@ -69,6 +104,7 @@ namespace Erp.Data.Customers
 
         private DateTime _CreateTime;
         /// <summary>创建时间</summary>
+        [Category("扩展")]
         [DisplayName("创建时间")]
         [Description("创建时间")]
         [DataObjectField(false, false, true, 0)]
@@ -77,6 +113,7 @@ namespace Erp.Data.Customers
 
         private String _UpdateUser;
         /// <summary>更新者</summary>
+        [Category("扩展")]
         [DisplayName("更新者")]
         [Description("更新者")]
         [DataObjectField(false, false, true, 50)]
@@ -85,6 +122,7 @@ namespace Erp.Data.Customers
 
         private Int32 _UpdateUserID;
         /// <summary>更新人</summary>
+        [Category("扩展")]
         [DisplayName("更新人")]
         [Description("更新人")]
         [DataObjectField(false, false, false, 0)]
@@ -93,6 +131,7 @@ namespace Erp.Data.Customers
 
         private String _UpdateIP;
         /// <summary>更新地址</summary>
+        [Category("扩展")]
         [DisplayName("更新地址")]
         [Description("更新地址")]
         [DataObjectField(false, false, true, 50)]
@@ -101,6 +140,7 @@ namespace Erp.Data.Customers
 
         private DateTime _UpdateTime;
         /// <summary>更新时间</summary>
+        [Category("扩展")]
         [DisplayName("更新时间")]
         [Description("更新时间")]
         [DataObjectField(false, false, true, 0)]
@@ -109,6 +149,7 @@ namespace Erp.Data.Customers
 
         private String _Remark;
         /// <summary>备注</summary>
+        [Category("扩展")]
         [DisplayName("备注")]
         [Description("备注")]
         [DataObjectField(false, false, true, 500)]
@@ -129,6 +170,10 @@ namespace Erp.Data.Customers
                     case "Id": return _Id;
                     case "Name": return _Name;
                     case "FullName": return _FullName;
+                    case "Enable": return _Enable;
+                    case "Contact": return _Contact;
+                    case "Phone": return _Phone;
+                    case "Address": return _Address;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
                     case "CreateIP": return _CreateIP;
@@ -148,6 +193,10 @@ namespace Erp.Data.Customers
                     case "Id": _Id = value.ToInt(); break;
                     case "Name": _Name = Convert.ToString(value); break;
                     case "FullName": _FullName = Convert.ToString(value); break;
+                    case "Enable": _Enable = value.ToBoolean(); break;
+                    case "Contact": _Contact = Convert.ToString(value); break;
+                    case "Phone": _Phone = Convert.ToString(value); break;
+                    case "Address": _Address = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
                     case "CreateIP": _CreateIP = Convert.ToString(value); break;
@@ -175,6 +224,18 @@ namespace Erp.Data.Customers
 
             /// <summary>全名</summary>
             public static readonly Field FullName = FindByName("FullName");
+
+            /// <summary>启用</summary>
+            public static readonly Field Enable = FindByName("Enable");
+
+            /// <summary>联系人</summary>
+            public static readonly Field Contact = FindByName("Contact");
+
+            /// <summary>电话</summary>
+            public static readonly Field Phone = FindByName("Phone");
+
+            /// <summary>地址</summary>
+            public static readonly Field Address = FindByName("Address");
 
             /// <summary>创建者</summary>
             public static readonly Field CreateUser = FindByName("CreateUser");
@@ -217,6 +278,18 @@ namespace Erp.Data.Customers
 
             /// <summary>全名</summary>
             public const String FullName = "FullName";
+
+            /// <summary>启用</summary>
+            public const String Enable = "Enable";
+
+            /// <summary>联系人</summary>
+            public const String Contact = "Contact";
+
+            /// <summary>电话</summary>
+            public const String Phone = "Phone";
+
+            /// <summary>地址</summary>
+            public const String Address = "Address";
 
             /// <summary>创建者</summary>
             public const String CreateUser = "CreateUser";
