@@ -34,12 +34,13 @@ public class StockService
             Quantity = qty,
 
             Operation = StockOperations.入库,
-            OldQuantity = ps.Quantity,
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
         };
 
+        // 修改库存
+        hi.OldQuantity = ps.Quantity;
         ps.Quantity += qty;
         hi.NewQuantity = ps.Quantity;
 
@@ -77,12 +78,13 @@ public class StockService
             Quantity = -qty,
 
             Operation = StockOperations.出库,
-            OldQuantity = ps.Quantity,
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
         };
 
+        // 修改库存
+        hi.OldQuantity = ps.Quantity;
         ps.Quantity -= qty;
         hi.NewQuantity = ps.Quantity;
 
@@ -125,7 +127,6 @@ public class StockService
             Quantity = -qty,
 
             Operation = StockOperations.移库,
-            OldQuantity = ps.Quantity,
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
@@ -138,19 +139,23 @@ public class StockService
             Quantity = qty,
 
             Operation = StockOperations.移库,
-            OldQuantity = ps2.Quantity,
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
         };
 
+        // 修改库存
+        hi.OldQuantity = ps.Quantity;
         ps.Quantity -= qty;
         hi.NewQuantity = ps.Quantity;
+
+        hi2.OldQuantity = ps2.Quantity;
         ps2.Quantity += qty;
         hi2.NewQuantity = ps2.Quantity;
 
         ps.Update();
         hi.Insert();
+
         ps2.Save();
         hi2.Insert();
 

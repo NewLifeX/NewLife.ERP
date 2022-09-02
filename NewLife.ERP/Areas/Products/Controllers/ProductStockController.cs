@@ -2,7 +2,6 @@
 using Erp.Data.Products;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
-using NewLife.Cube.Extensions;
 using NewLife.ERP.Areas.Products.Models;
 using NewLife.ERP.Services;
 using NewLife.Web;
@@ -66,7 +65,7 @@ public class ProductStockController : EntityController<ProductStock>
             {
                 ProductId = ps.ProductId,
                 WarehouseId = ps.WarehouseId,
-                Quantity = ps.Quantity,
+                Quantity = model.Quantity,
             };
 
             _stockService.Move(stockModel, model.WarehouseId);
