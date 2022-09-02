@@ -20,7 +20,7 @@ public class StockService
         if (model.WarehouseId == 0) throw new ArgumentOutOfRangeException(nameof(model));
 
         // 开启事务保护
-        var tran = ProductStock.Meta.CreateTrans();
+        using var tran = ProductStock.Meta.CreateTrans();
 
         var ps = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, model.WarehouseId);
         ps ??= new ProductStock { ProductId = model.ProductId, WarehouseId = model.WarehouseId };
@@ -64,7 +64,7 @@ public class StockService
         if (model.WarehouseId == 0) throw new ArgumentOutOfRangeException(nameof(model));
 
         // 开启事务保护
-        var tran = ProductStock.Meta.CreateTrans();
+        using var tran = ProductStock.Meta.CreateTrans();
 
         var ps = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, model.WarehouseId);
         if (ps == null) return null;
@@ -110,7 +110,7 @@ public class StockService
         if (destWarehourseId == 0 || destWarehourseId == model.WarehouseId) throw new ArgumentOutOfRangeException(nameof(destWarehourseId));
 
         // 开启事务保护
-        var tran = ProductStock.Meta.CreateTrans();
+        using var tran = ProductStock.Meta.CreateTrans();
 
         var ps = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, model.WarehouseId);
         if (ps == null) return null;
