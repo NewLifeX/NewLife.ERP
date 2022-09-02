@@ -70,6 +70,7 @@ public class StockService
         if (ps == null) return null;
 
         var qty = Math.Abs(model.Quantity);
+        if (ps.Quantity < qty) throw new Exception($"[{ps.ProductName}]在[{ps.WarehouseName}]仓库的库存不足");
 
         var hi = new StockHistory
         {
@@ -119,6 +120,7 @@ public class StockService
         ps2 ??= new ProductStock { ProductId = model.ProductId, WarehouseId = destWarehourseId };
 
         var qty = Math.Abs(model.Quantity);
+        if (ps.Quantity < qty) throw new Exception($"[{ps.ProductName}]在[{ps.WarehouseName}]仓库的库存不足");
 
         var hi = new StockHistory
         {
