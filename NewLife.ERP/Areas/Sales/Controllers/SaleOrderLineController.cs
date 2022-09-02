@@ -10,6 +10,13 @@ namespace NewLife.ERP.Areas.Sales.Controllers;
 [Menu(0, false)]
 public class SaleOrderLineController : EntityController<SaleOrderLine>
 {
+    static SaleOrderLineController()
+    {
+        LogOnChange = true;
+
+        ListFields.RemoveRemarkField();
+    }
+
     protected override IEnumerable<SaleOrderLine> Search(Pager p)
     {
         var orderId = p["orderId"].ToInt(-1);

@@ -16,9 +16,12 @@ public class PurchaseOrderHistoryController : ReadOnlyEntityController<PurchaseO
 
     protected override IEnumerable<PurchaseOrderHistory> Search(Pager p)
     {
+        var orderId = p["orderId"].ToInt(-1);
+        //var productId = p["productId"].ToInt(-1);
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return PurchaseOrderHistory.Search(start, end, p["Q"], p);
+        return PurchaseOrderHistory.Search(orderId, start, end, p["Q"], p);
     }
 }

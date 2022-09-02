@@ -15,6 +15,8 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
 
     static PurchaseOrderController()
     {
+        LogOnChange = true;
+
         ListFields.RemoveField("ContractNo", "BillCode");
         ListFields.RemoveCreateField();
         ListFields.RemoveRemarkField();

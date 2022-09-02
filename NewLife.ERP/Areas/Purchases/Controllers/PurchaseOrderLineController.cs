@@ -9,6 +9,13 @@ namespace NewLife.ERP.Areas.Purchases.Controllers;
 [Menu(0, false)]
 public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
 {
+    static PurchaseOrderLineController()
+    {
+        LogOnChange = true;
+
+        ListFields.RemoveRemarkField();
+    }
+
     protected override IEnumerable<PurchaseOrderLine> Search(Pager p)
     {
         var orderId = p["orderId"].ToInt(-1);

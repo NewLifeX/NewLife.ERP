@@ -16,9 +16,12 @@ public class SaleOrderHistoryController : ReadOnlyEntityController<SaleOrderHist
 
     protected override IEnumerable<SaleOrderHistory> Search(Pager p)
     {
+        var orderId = p["orderId"].ToInt(-1);
+        //var productId = p["productId"].ToInt(-1);
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return SaleOrderHistory.Search(start, end, p["Q"], p);
+        return SaleOrderHistory.Search(orderId, start, end, p["Q"], p);
     }
 }
