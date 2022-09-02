@@ -12,6 +12,8 @@ public class WarehouseController : EntityController<Warehouse>
     {
         LogOnChange = true;
 
+        ListFields.RemoveRemarkField();
+
         {
             var df = ListFields.AddListField("Stock", "CreateUser");
             df.DisplayName = "库存";

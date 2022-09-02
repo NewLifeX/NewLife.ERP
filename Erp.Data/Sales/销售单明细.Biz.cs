@@ -23,7 +23,7 @@ namespace Erp.Data.Sales
             Meta.Modules.Add<TimeModule>();
             Meta.Modules.Add<IPModule>();
 
-            Meta.Factory.SelectStat = _.Quantity.Sum() & "Quantity*Price as Price";
+            Meta.Factory.SelectStat = _.Quantity.Sum() & "Sum(Quantity*Price) as Price";
         }
 
         /// <summary>验证并修补数据，通过抛出异常的方式提示验证失败。</summary>

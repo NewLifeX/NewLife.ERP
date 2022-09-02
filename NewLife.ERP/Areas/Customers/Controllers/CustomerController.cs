@@ -8,7 +8,12 @@ namespace NewLife.ERP.Areas.Customers.Controllers;
 [Menu(80)]
 public class CustomerController : EntityController<Customer>
 {
-    static CustomerController() => LogOnChange = true;
+    static CustomerController()
+    {
+        LogOnChange = true;
+
+        ListFields.RemoveRemarkField();
+    }
 
     protected override IEnumerable<Customer> Search(Pager p)
     {

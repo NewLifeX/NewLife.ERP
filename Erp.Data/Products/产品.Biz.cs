@@ -23,7 +23,7 @@ public partial class Product : Entity<Product>
         Meta.Modules.Add<TimeModule>();
         Meta.Modules.Add<IPModule>();
 
-        Meta.Factory.SelectStat = _.Quantity.Sum() & "Quantity*Price as Price" & "Quantity*Weight as Weight";
+        Meta.Factory.SelectStat = _.Quantity.Sum() & "Sum(Quantity*Price) as Price" & "Sum(Quantity*Weight) as Weight";
     }
 
     /// <summary>验证并修补数据，通过抛出异常的方式提示验证失败。</summary>
