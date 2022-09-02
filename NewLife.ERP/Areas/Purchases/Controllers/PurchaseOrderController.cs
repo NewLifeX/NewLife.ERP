@@ -1,6 +1,7 @@
 ﻿using Erp.Data.Purchases;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
+using NewLife.ERP.Services;
 using NewLife.Web;
 using XCode.Membership;
 
@@ -10,6 +11,8 @@ namespace NewLife.ERP.Areas.Purchases.Controllers;
 [Menu(70)]
 public class PurchaseOrderController : EntityController<PurchaseOrder>
 {
+    private readonly PurchaseService _purchaseService;
+
     static PurchaseOrderController()
     {
         {
@@ -22,6 +25,11 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
             df.DisplayName = "历史";
             df.Url = "PurchaseOrderHistory?orderId={Id}";
         }
+    }
+
+    public PurchaseOrderController(PurchaseService purchaseService)
+    {
+        _purchaseService = purchaseService;
     }
 
     protected override IEnumerable<PurchaseOrder> Search(Pager p)
@@ -41,15 +49,18 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
         var ids = GetRequest("keys").SplitAsInt();
         if (ids.Length > 0)
         {
+            using var tran = PurchaseOrder.Meta.CreateTrans();
+
             foreach (var id in ids)
             {
                 var entity = PurchaseOrder.FindById(id);
                 if (entity != null)
-                {
-                }
+                    count += _purchaseService.SetIn(entity);
             }
+
+            tran.Commit();
         }
 
-        return JsonRefresh($"共刷新[{count}]个团队");
+        return JsonRefresh($"共处理[{count}]个订单");
     }
 }
