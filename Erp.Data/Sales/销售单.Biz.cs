@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Xml.Serialization;
+using Erp.Data.Models;
 using Erp.Data.Products;
 using Erp.Data.Purchases;
 using NewLife;
@@ -56,7 +57,9 @@ namespace Erp.Data.Sales
             // 在新插入数据或者修改了指定字段时进行修正
             // 货币保留6位小数
             Price = Math.Round(Price, 6);
-        
+
+            if (Status <= 0) Status = OrderStatus.录入;
+
             if (OccurTime.Year < 2000) OccurTime = DateTime.Now;
         }
         #endregion
@@ -142,6 +145,12 @@ namespace Erp.Data.Sales
             {
                 Quantity = list.Sum(e => e.Quantity);
                 Price = list.Sum(e => e.Price);
+
+                if (Title.IsNullOrEmpty())
+                {
+                    var txt = list.Join("、", e => e.ProductName);
+                    Title = txt.Cut(50);
+                }
             }
         }
         #endregion

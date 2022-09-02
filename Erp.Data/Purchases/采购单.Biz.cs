@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Erp.Data.Models;
 using Erp.Data.Products;
 using NewLife;
 using NewLife.Data;
@@ -37,7 +38,10 @@ namespace Erp.Data.Purchases
             // 货币保留6位小数
             Price = Math.Round(Price, 6);
 
+            if (Status <= 0) Status = OrderStatus.录入;
+
             if (OccurTime.Year < 2000) OccurTime = DateTime.Now;
+            if (isNew && Receiver.IsNullOrEmpty()) Receiver = CreateUser;
         }
         #endregion
 
@@ -145,6 +149,12 @@ namespace Erp.Data.Purchases
             {
                 Quantity = list.Sum(e => e.Quantity);
                 Price = list.Sum(e => e.Price);
+
+                if (Title.IsNullOrEmpty())
+                {
+                    var txt = list.Join("、", e => e.ProductName);
+                    Title = txt.Cut(50);
+                }
             }
         }
         #endregion

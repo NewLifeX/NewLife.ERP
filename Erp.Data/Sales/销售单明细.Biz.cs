@@ -5,6 +5,7 @@ using NewLife;
 using NewLife.Data;
 using XCode;
 using XCode.Membership;
+using Erp.Data.Products;
 
 namespace Erp.Data.Sales
 {
@@ -21,6 +22,8 @@ namespace Erp.Data.Sales
             Meta.Modules.Add<UserModule>();
             Meta.Modules.Add<TimeModule>();
             Meta.Modules.Add<IPModule>();
+
+            Meta.Factory.SelectStat = _.Quantity.Sum() & "Quantity*Price as Price";
         }
 
         /// <summary>验证并修补数据，通过抛出异常的方式提示验证失败。</summary>
@@ -59,6 +62,15 @@ namespace Erp.Data.Sales
         /// <summary>订单</summary>
         [Map(nameof(OrderId), typeof(SaleOrder), "Id")]
         public String OrderTitle => Order?.Title;
+
+        /// <summary>产品</summary>
+        [XmlIgnore, IgnoreDataMember]
+        //[ScriptIgnore]
+        public Product Product => Extends.Get(nameof(Product), k => Product.FindById(ProductId));
+
+        /// <summary>产品</summary>
+        [Map(nameof(ProductId), typeof(Product), "Id")]
+        public String ProductName => Product?.Name;
         #endregion
 
         #region 扩展查询

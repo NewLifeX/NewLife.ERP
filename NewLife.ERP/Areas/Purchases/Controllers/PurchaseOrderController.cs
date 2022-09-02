@@ -15,16 +15,23 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
 
     static PurchaseOrderController()
     {
+        ListFields.RemoveField("ContractNo", "BillCode");
+        ListFields.RemoveCreateField();
+        ListFields.RemoveRemarkField();
+
         {
-            var df = ListFields.AddListField("Lines", "CreateUser");
+            var df = ListFields.AddListField("Lines", "OccurTime");
             df.DisplayName = "订单明细";
             df.Url = "PurchaseOrderLine?orderId={Id}";
         }
         {
-            var df = ListFields.AddListField("History", "CreateUser");
+            var df = ListFields.AddListField("History", "OccurTime");
             df.DisplayName = "历史";
             df.Url = "PurchaseOrderHistory?orderId={Id}";
         }
+
+        AddFormFields.RemoveField("Status");
+        EditFormFields.RemoveField("Status");
     }
 
     public PurchaseOrderController(PurchaseService purchaseService)
@@ -36,6 +43,8 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
     {
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
+
+        p.RetrieveState = true;
 
         return PurchaseOrder.Search(start, end, p["Q"], p);
     }
