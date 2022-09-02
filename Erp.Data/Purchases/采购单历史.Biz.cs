@@ -65,6 +65,14 @@ namespace Erp.Data.Purchases
         #endregion
 
         #region 扩展属性
+        /// <summary>订单</summary>
+        [XmlIgnore, IgnoreDataMember]
+        //[ScriptIgnore]
+        public PurchaseOrder Order => Extends.Get(nameof(Order), k => PurchaseOrder.FindById(OrderId));
+
+        /// <summary>订单</summary>
+        [Map(nameof(OrderId), typeof(PurchaseOrder), "Id")]
+        public String OrderTitle => Order?.Title;
         #endregion
 
         #region 扩展查询

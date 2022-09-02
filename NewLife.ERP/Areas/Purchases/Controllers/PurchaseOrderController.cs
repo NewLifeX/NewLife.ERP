@@ -40,6 +40,13 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
         return PurchaseOrder.Search(start, end, p["Q"], p);
     }
 
+    protected override Int32 OnUpdate(PurchaseOrder entity)
+    {
+        entity.Fix();
+
+        return base.OnUpdate(entity);
+    }
+
     /// <summary>批量入库</summary>
     /// <returns></returns>
     [EntityAuthorize(PermissionFlags.Update)]

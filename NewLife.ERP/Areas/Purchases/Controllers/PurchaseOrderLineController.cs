@@ -15,4 +15,32 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
 
         return PurchaseOrderLine.Search(start, end, p["Q"], p);
     }
+
+    protected override Int32 OnInsert(PurchaseOrderLine entity)
+    {
+        var rs = base.OnInsert(entity);
+
+        var order = entity.Order;
+        if(order != null)
+        {
+            order.Fix();
+            order.Update();
+        }
+
+        return rs;
+    }
+
+    protected override Int32 OnUpdate(PurchaseOrderLine entity)
+    {
+        var rs = base.OnUpdate(entity);
+
+        var order = entity.Order;
+        if (order != null)
+        {
+            order.Fix();
+            order.Update();
+        }
+
+        return rs;
+    }
 }
