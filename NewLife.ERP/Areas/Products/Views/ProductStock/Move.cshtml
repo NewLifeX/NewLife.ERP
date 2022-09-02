@@ -1,0 +1,67 @@
+﻿@model MoveStockModel
+@using NewLife.ERP.Areas.Products.Models
+@using Erp.Data.Products;
+@{
+    var entity = Model;
+
+    var ps = ProductStock.FindById(entity.Id);
+}
+
+<div class="form-horizontal">
+    @await Html.PartialAsync("_Form_Header", entity)
+    @using (Html.BeginForm("MoveSave", null, new { id = entity.Id }))
+    {
+        <ul>
+            @foreach (var item in ViewData.ModelState.Values)
+            {
+                foreach (var error in item.Errors)
+                {
+                    <li>@error.Exception</li>
+                }
+            }
+        </ul>
+
+        <div class="form-group col-sm-12">
+            <label class="control-label col-xs-3 col-sm-3">产品</label>
+            <div class="input-group col-xs-9 col-sm-5">
+                <label class="control-label">@ps.ProductName</label>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12">
+            <label class="control-label col-xs-3 col-sm-3">数量</label>
+            <div class="input-group col-xs-9 col-sm-5">
+                <label class="control-label">@ps.Quantity.ToString("n0")</label>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12">
+            <label class="control-label col-xs-3 col-sm-3">目标仓库</label>
+            <div class="input-group col-xs-9 col-sm-5">
+                @{
+                    //var dic = Warehouse.FindAllWithCache().Where(e => e.Enable).ToDictionary(e => e.Id, e => e.Name);
+                    //var data = new SelectList(dic, "Key", "Value", entity.WarehouseId);
+                    // 剔除当前仓库
+                    var list = Warehouse.FindAllWithCache().Where(e => e.Enable && e.Id != ps.WarehouseId).ToList();
+                    var data = new SelectList(list, "Id", "Name", entity.WarehouseId);
+                }
+                @Html.DropDownList("warehouseId", data, null, new { @class = "multiselect" })
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12">
+            <label class="control-label col-xs-3 col-sm-3">转移数量</label>
+            <div class="input-group col-xs-9 col-sm-5">
+                @Html.TextBox("quantity", entity.Quantity, null, new{@class="form-control",role="number"})
+            </div>
+        </div>
+
+        @await Html.PartialAsync("_Form_Footer", entity)
+
+        <div class="clearfix form-actions col-xs-12 col-sm-12 col-md-12">
+            <label class="control-label col-xs-4 col-sm-5 col-md-5"></label>
+            <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-save"></i><strong>转移</strong></button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="history.go(-1);"><i class="glyphicon glyphicon-remove"></i><strong>取消</strong></button>
+        </div>
+    }
+</div>
