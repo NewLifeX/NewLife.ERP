@@ -19,10 +19,17 @@ public class ProductStockController : EntityController<ProductStock>
     {
         LogOnChange = true;
 
+        ListFields.RemoveRemarkField();
+
         {
             var df = ListFields.AddListField("Move", null, "Quantity");
             df.DisplayName = "移库";
             df.Url = "ProductStock/Move?id={Id}";
+        }
+        {
+            var df = ListFields.AddListField("History", "CreateUser");
+            df.DisplayName = "库存历史";
+            df.Url = "StockHistory?productId={ProductId}&warehouseId={WarehouseId}";
         }
     }
 
@@ -43,6 +50,8 @@ public class ProductStockController : EntityController<ProductStock>
 
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
+
+        p.RetrieveState = true;
 
         return ProductStock.Search(productId, warehouseId, start, end, p["Q"], p);
     }

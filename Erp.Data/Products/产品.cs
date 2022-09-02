@@ -102,19 +102,19 @@ namespace Erp.Data.Products
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private Double _Weight;
-        /// <summary>重量</summary>
+        /// <summary>重量。单位kg</summary>
         [DisplayName("重量")]
-        [Description("重量")]
+        [Description("重量。单位kg")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Weight", "重量", "")]
+        [BindColumn("Weight", "重量。单位kg", "")]
         public Double Weight { get => _Weight; set { if (OnPropertyChanging("Weight", value)) { _Weight = value; OnPropertyChanged("Weight"); } } }
 
         private String _Dimension;
-        /// <summary>尺寸。长宽高LWH</summary>
+        /// <summary>尺寸。长宽高LWH，单位cm</summary>
         [DisplayName("尺寸")]
-        [Description("尺寸。长宽高LWH")]
+        [Description("尺寸。长宽高LWH，单位cm")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("Dimension", "尺寸。长宽高LWH", "")]
+        [BindColumn("Dimension", "尺寸。长宽高LWH，单位cm", "")]
         public String Dimension { get => _Dimension; set { if (OnPropertyChanging("Dimension", value)) { _Dimension = value; OnPropertyChanged("Dimension"); } } }
 
         private String _Image;
@@ -318,10 +318,10 @@ namespace Erp.Data.Products
             /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
             public static readonly Field Price = FindByName("Price");
 
-            /// <summary>重量</summary>
+            /// <summary>重量。单位kg</summary>
             public static readonly Field Weight = FindByName("Weight");
 
-            /// <summary>尺寸。长宽高LWH</summary>
+            /// <summary>尺寸。长宽高LWH，单位cm</summary>
             public static readonly Field Dimension = FindByName("Dimension");
 
             /// <summary>图片</summary>
@@ -393,10 +393,10 @@ namespace Erp.Data.Products
             /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
             public const String Price = "Price";
 
-            /// <summary>重量</summary>
+            /// <summary>重量。单位kg</summary>
             public const String Weight = "Weight";
 
-            /// <summary>尺寸。长宽高LWH</summary>
+            /// <summary>尺寸。长宽高LWH，单位cm</summary>
             public const String Dimension = "Dimension";
 
             /// <summary>图片</summary>

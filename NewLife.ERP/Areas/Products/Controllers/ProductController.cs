@@ -60,6 +60,8 @@ public class ProductController : EntityController<Product>
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
+        p.RetrieveState = true;
+
         return Product.Search(code, categoryId, kind, enable, start, end, p["Q"], p);
     }
 
