@@ -43,7 +43,7 @@ public class StockService
         ps.Quantity += qty;
         hi.NewQuantity = ps.Quantity;
 
-        ps.Update();
+        ps.Save();
         hi.Insert();
 
         tran.Commit();
@@ -151,7 +151,7 @@ public class StockService
 
         ps.Update();
         hi.Insert();
-        ps2.Update();
+        ps2.Save();
         hi2.Insert();
 
         tran.Commit();

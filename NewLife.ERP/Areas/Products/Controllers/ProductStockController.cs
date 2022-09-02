@@ -2,6 +2,7 @@
 using Erp.Data.Products;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
+using NewLife.Cube.Extensions;
 using NewLife.ERP.Areas.Products.Models;
 using NewLife.ERP.Services;
 using NewLife.Web;

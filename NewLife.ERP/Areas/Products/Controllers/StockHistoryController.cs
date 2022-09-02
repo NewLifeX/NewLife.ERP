@@ -1,6 +1,7 @@
 ﻿using Erp.Data.Models;
 using Erp.Data.Products;
 using NewLife.Cube;
+using NewLife.Cube.Extensions;
 using NewLife.Web;
 
 namespace NewLife.ERP.Areas.Products.Controllers;
@@ -9,6 +10,11 @@ namespace NewLife.ERP.Areas.Products.Controllers;
 [Menu(0, false)]
 public class StockHistoryController : ReadOnlyEntityController<StockHistory>
 {
+    static StockHistoryController()
+    {
+        ListFields.TraceUrl("TraceId");
+    }
+
     protected override IEnumerable<StockHistory> Search(Pager p)
     {
         var productId = p["productId"].ToInt(-1);

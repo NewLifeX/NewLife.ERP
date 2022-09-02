@@ -128,6 +128,7 @@
       <Column Name="NewQuantity" DataType="Int32" Description="新数量。操作后数量" />
       <Column Name="OrderId" DataType="String" Description="关联订单。" />
       <Column Name="OrderTitle" DataType="String" Description="订单标题" />
+      <Column Name="TraceId" DataType="String" Description="性能追踪。用于APM性能追踪定位，还原该事件的调用链" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />

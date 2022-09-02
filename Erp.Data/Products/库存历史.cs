@@ -93,6 +93,14 @@ namespace Erp.Data.Products
         [BindColumn("OrderTitle", "订单标题", "")]
         public String OrderTitle { get => _OrderTitle; set { if (OnPropertyChanging("OrderTitle", value)) { _OrderTitle = value; OnPropertyChanged("OrderTitle"); } } }
 
+        private String _TraceId;
+        /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+        [DisplayName("性能追踪")]
+        [Description("性能追踪。用于APM性能追踪定位，还原该事件的调用链")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("TraceId", "性能追踪。用于APM性能追踪定位，还原该事件的调用链", "")]
+        public String TraceId { get => _TraceId; set { if (OnPropertyChanging("TraceId", value)) { _TraceId = value; OnPropertyChanged("TraceId"); } } }
+
         private String _CreateUser;
         /// <summary>创建者</summary>
         [Category("扩展")]
@@ -158,6 +166,7 @@ namespace Erp.Data.Products
                     case "NewQuantity": return _NewQuantity;
                     case "OrderId": return _OrderId;
                     case "OrderTitle": return _OrderTitle;
+                    case "TraceId": return _TraceId;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
                     case "CreateIP": return _CreateIP;
@@ -179,6 +188,7 @@ namespace Erp.Data.Products
                     case "NewQuantity": _NewQuantity = value.ToInt(); break;
                     case "OrderId": _OrderId = Convert.ToString(value); break;
                     case "OrderTitle": _OrderTitle = Convert.ToString(value); break;
+                    case "TraceId": _TraceId = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
                     case "CreateIP": _CreateIP = Convert.ToString(value); break;
@@ -220,6 +230,9 @@ namespace Erp.Data.Products
 
             /// <summary>订单标题</summary>
             public static readonly Field OrderTitle = FindByName("OrderTitle");
+
+            /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+            public static readonly Field TraceId = FindByName("TraceId");
 
             /// <summary>创建者</summary>
             public static readonly Field CreateUser = FindByName("CreateUser");
@@ -268,6 +281,9 @@ namespace Erp.Data.Products
 
             /// <summary>订单标题</summary>
             public const String OrderTitle = "OrderTitle";
+
+            /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+            public const String TraceId = "TraceId";
 
             /// <summary>创建者</summary>
             public const String CreateUser = "CreateUser";
