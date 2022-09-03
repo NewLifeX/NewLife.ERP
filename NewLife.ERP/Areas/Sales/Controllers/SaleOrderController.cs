@@ -1,10 +1,13 @@
-﻿using Erp.Data.Purchases;
+﻿using Erp.Data.Models;
+using Erp.Data.Purchases;
+using System.ComponentModel;
 using Erp.Data.Sales;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
 using NewLife.ERP.Services;
 using NewLife.Web;
 using XCode.Membership;
+using XCode;
 
 namespace NewLife.ERP.Areas.Sales.Controllers;
 
@@ -32,6 +35,12 @@ public class SaleOrderController : EntityController<SaleOrder>
             df.DisplayName = "历史";
             df.Url = "SaleOrderHistory?orderId={Id}";
         }
+
+        AddFormFields.RemoveField("Status");
+        AddFormFields.RemoveField("Title", "Quantity", "Price", "OccurTime");
+
+        EditFormFields.RemoveField("Status");
+        EditFormFields.RemoveField("Title", "Quantity", "Price", "OccurTime");
     }
 
     public SaleOrderController(SaleService saleService)
@@ -49,6 +58,29 @@ public class SaleOrderController : EntityController<SaleOrder>
         p.RetrieveState = true;
 
         return SaleOrder.Search(customerId, start, end, p["Q"], p);
+    }
+
+    static String[] _protects = new[] { "CustomerId", "OccurTime" };
+    protected override Boolean Valid(SaleOrder entity, DataObjectMethodType type, Boolean post)
+    {
+        if (post)
+        {
+            switch (type)
+            {
+                case DataObjectMethodType.Update:
+                    var order = entity as IEntity;
+                    if (order.Dirtys.Any(d => d.EqualIgnoreCase(_protects)))
+                    {
+                        if (entity.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单禁止修改！");
+                    }
+                    break;
+                case DataObjectMethodType.Delete:
+                    if (entity.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单删除修改！");
+                    break;
+            }
+        }
+
+        return base.Valid(entity, type, post);
     }
 
     protected override Int32 OnUpdate(SaleOrder entity)

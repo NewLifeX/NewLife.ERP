@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Erp.Data.Models;
 using Erp.Data.Purchases;
 using NewLife.Cube;
 using NewLife.Web;
@@ -33,6 +34,8 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
     {
         if (post)
         {
+            if (entity.Order.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单禁止修改！");
+
             if (entity.Price <= 0 && entity.Product != null) entity.Price = entity.Product.Price;
         }
 

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Erp.Data.Sales;
 using NewLife.Cube;
 using NewLife.Web;
+using Erp.Data.Models;
 
 namespace NewLife.ERP.Areas.Sales.Controllers;
 
@@ -34,6 +35,8 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
     {
         if (post)
         {
+            if (entity.Order.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单禁止修改！");
+
             if (entity.Price <= 0 && entity.Product != null) entity.Price = entity.Product.Price;
         }
 

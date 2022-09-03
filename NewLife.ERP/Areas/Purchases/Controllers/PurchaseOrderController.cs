@@ -1,9 +1,12 @@
-﻿using Erp.Data.Purchases;
+﻿using Erp.Data.Models;
+using System.ComponentModel;
+using Erp.Data.Purchases;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
 using NewLife.ERP.Services;
 using NewLife.Web;
 using XCode.Membership;
+using XCode;
 
 namespace NewLife.ERP.Areas.Purchases.Controllers;
 
@@ -33,7 +36,10 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
         }
 
         AddFormFields.RemoveField("Status");
+        AddFormFields.RemoveField("Title", "Quantity", "Price", "OccurTime");
+
         EditFormFields.RemoveField("Status");
+        EditFormFields.RemoveField("Title", "Quantity", "Price", "OccurTime");
     }
 
     public PurchaseOrderController(PurchaseService purchaseService)
@@ -52,6 +58,29 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
         p.RetrieveState = true;
 
         return PurchaseOrder.Search(supplierId, warehouseId, start, end, p["Q"], p);
+    }
+
+    static String[] _protects = new[] { "SupplierId", "WarehouseId", "OccurTime" };
+    protected override Boolean Valid(PurchaseOrder entity, DataObjectMethodType type, Boolean post)
+    {
+        if (post)
+        {
+            switch (type)
+            {
+                case DataObjectMethodType.Update:
+                    var order = entity as IEntity;
+                    if (order.Dirtys.Any(d => d.EqualIgnoreCase(_protects)))
+                    {
+                        if (entity.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单禁止修改！");
+                    }
+                    break;
+                case DataObjectMethodType.Delete:
+                    if (entity.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单删除修改！");
+                    break;
+            }
+        }
+
+        return base.Valid(entity, type, post);
     }
 
     protected override Int32 OnUpdate(PurchaseOrder entity)
