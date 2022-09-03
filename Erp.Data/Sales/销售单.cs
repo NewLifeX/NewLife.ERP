@@ -14,7 +14,7 @@ namespace Erp.Data.Sales
     [Serializable]
     [DataObject]
     [Description("销售单。销售订单")]
-    [BindIndex("IX_SaleOrder_CustomerId", false, "CustomerId")]
+    [BindIndex("IX_SaleOrder_CustomerId_OccurTime", false, "CustomerId,OccurTime")]
     [BindTable("SaleOrder", Description = "销售单。销售订单", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class SaleOrder
     {

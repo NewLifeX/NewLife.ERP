@@ -137,7 +137,7 @@ namespace Erp.Data.Sales
 
             if (orderId >= 0) exp &= _.OrderId == orderId;
             if (productId >= 0) exp &= _.ProductId == productId;
-            exp &= _.UpdateTime.Between(start, end);
+            exp &= _.OccurTime.Between(start, end);
             if (!key.IsNullOrEmpty()) exp &= _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
 
             return FindAll(exp, page);

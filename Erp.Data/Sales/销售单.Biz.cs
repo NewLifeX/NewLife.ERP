@@ -100,7 +100,7 @@ public partial class SaleOrder : Entity<SaleOrder>
         var exp = new WhereExpression();
 
         if (customerId >= 0) exp &= _.CustomerId == customerId;
-        exp &= _.UpdateTime.Between(start, end);
+        exp &= _.OccurTime.Between(start, end);
         if (!key.IsNullOrEmpty()) exp &= _.Title.Contains(key) | _.ContractNo.Contains(key) | _.BillCode.Contains(key) | _.Receiver.Contains(key) | _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
 
         return FindAll(exp, page);

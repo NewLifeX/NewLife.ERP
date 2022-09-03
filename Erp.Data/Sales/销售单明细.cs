@@ -15,7 +15,7 @@ namespace Erp.Data.Sales
     [DataObject]
     [Description("销售单明细。销售单包含的每一种产品")]
     [BindIndex("IX_SaleOrderLine_OrderId", false, "OrderId")]
-    [BindIndex("IX_SaleOrderLine_ProductId", false, "ProductId")]
+    [BindIndex("IX_SaleOrderLine_ProductId_OccurTime", false, "ProductId,OccurTime")]
     [BindTable("SaleOrderLine", Description = "销售单明细。销售单包含的每一种产品", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class SaleOrderLine
     {
@@ -67,6 +67,14 @@ namespace Erp.Data.Sales
         [DataObjectField(false, false, false, 0)]
         [BindColumn("Price", "价格。采购价", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
+
+        private DateTime _OccurTime;
+        /// <summary>发生时间</summary>
+        [DisplayName("发生时间")]
+        [Description("发生时间")]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("OccurTime", "发生时间", "")]
+        public DateTime OccurTime { get => _OccurTime; set { if (OnPropertyChanging("OccurTime", value)) { _OccurTime = value; OnPropertyChanged("OccurTime"); } } }
 
         private String _CreateUser;
         /// <summary>创建者</summary>
@@ -166,6 +174,7 @@ namespace Erp.Data.Sales
                     case "WarehouseId": return _WarehouseId;
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
+                    case "OccurTime": return _OccurTime;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
                     case "CreateIP": return _CreateIP;
@@ -188,6 +197,7 @@ namespace Erp.Data.Sales
                     case "WarehouseId": _WarehouseId = value.ToInt(); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
+                    case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
                     case "CreateIP": _CreateIP = Convert.ToString(value); break;
@@ -224,6 +234,9 @@ namespace Erp.Data.Sales
 
             /// <summary>价格。采购价</summary>
             public static readonly Field Price = FindByName("Price");
+
+            /// <summary>发生时间</summary>
+            public static readonly Field OccurTime = FindByName("OccurTime");
 
             /// <summary>创建者</summary>
             public static readonly Field CreateUser = FindByName("CreateUser");
@@ -275,6 +288,9 @@ namespace Erp.Data.Sales
 
             /// <summary>价格。采购价</summary>
             public const String Price = "Price";
+
+            /// <summary>发生时间</summary>
+            public const String OccurTime = "OccurTime";
 
             /// <summary>创建者</summary>
             public const String CreateUser = "CreateUser";

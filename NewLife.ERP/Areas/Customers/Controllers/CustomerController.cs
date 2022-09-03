@@ -13,6 +13,17 @@ public class CustomerController : EntityController<Customer>
         LogOnChange = true;
 
         ListFields.RemoveRemarkField();
+
+        {
+            var df = ListFields.AddListField("Order", "CreateUser");
+            df.DisplayName = "销售单";
+            df.Url = "../Sales/SaleOrder?customerId={Id}";
+        }
+        {
+            var df = ListFields.AddListField("Log", "CreateUser");
+            df.DisplayName = "日志";
+            df.Url = "/Admin/Log?category=供应商&linkId={Id}";
+        }
     }
 
     protected override IEnumerable<Customer> Search(Pager p)

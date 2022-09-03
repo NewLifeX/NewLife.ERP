@@ -41,9 +41,11 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
 
     protected override Int32 OnInsert(PurchaseOrderLine entity)
     {
+        var order = entity.Order;
+        if (order != null) entity.OccurTime = order.OccurTime;
+
         var rs = base.OnInsert(entity);
 
-        var order = entity.Order;
         if (order != null)
         {
             order.Fix();
@@ -55,9 +57,11 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
 
     protected override Int32 OnUpdate(PurchaseOrderLine entity)
     {
+        var order = entity.Order;
+        if (order != null) entity.OccurTime = order.OccurTime;
+
         var rs = base.OnUpdate(entity);
 
-        var order = entity.Order;
         if (order != null)
         {
             order.Fix();

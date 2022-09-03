@@ -123,7 +123,7 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
 
         if (supplierId >= 0) exp &= _.SupplierId == supplierId;
         if (warehouseId >= 0) exp &= _.WarehouseId == warehouseId;
-        exp &= _.UpdateTime.Between(start, end);
+        exp &= _.OccurTime.Between(start, end);
         if (!key.IsNullOrEmpty()) exp &= _.Title.Contains(key) | _.ContractNo.Contains(key) | _.BillCode.Contains(key) | _.Receiver.Contains(key) | _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
 
         return FindAll(exp, page);
@@ -154,7 +154,7 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
 
             if (Title.IsNullOrEmpty() || Title.Length < 50)
             {
-                var txt = list.Join("、", e => e.ProductName);
+                var txt = list.OrderByDescending(e => e.Quantity).Join("、", e => e.ProductName);
                 Title = txt.Cut(50);
             }
         }

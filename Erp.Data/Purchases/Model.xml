@@ -47,8 +47,8 @@
       <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
     </Columns>
     <Indexes>
-      <Index Columns="SupplierId,WarehouseId" />
-      <Index Columns="WarehouseId" />
+      <Index Columns="SupplierId,OccurTime" />
+      <Index Columns="WarehouseId,OccurTime" />
     </Indexes>
   </Table>
   <Table Name="PurchaseOrderLine" Description="采购单明细。采购单包含的每一种产品">
@@ -58,6 +58,7 @@
       <Column Name="ProductId" DataType="Int32" Description="产品" />
       <Column Name="Quantity" DataType="Int32" Description="数量" />
       <Column Name="Price" DataType="Decimal" Description="价格。采购价" />
+      <Column Name="OccurTime" DataType="DateTime" Description="发生时间" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
@@ -70,7 +71,7 @@
     </Columns>
     <Indexes>
       <Index Columns="OrderId" />
-      <Index Columns="ProductId" />
+      <Index Columns="ProductId,OccurTime" />
     </Indexes>
   </Table>
   <Table Name="PurchaseOrderHistory" Description="采购单历史。采购单变化历史" InsertOnly="True">

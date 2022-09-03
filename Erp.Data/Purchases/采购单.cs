@@ -14,8 +14,8 @@ namespace Erp.Data.Purchases
     [Serializable]
     [DataObject]
     [Description("采购单。采购订单")]
-    [BindIndex("IX_PurchaseOrder_SupplierId_WarehouseId", false, "SupplierId,WarehouseId")]
-    [BindIndex("IX_PurchaseOrder_WarehouseId", false, "WarehouseId")]
+    [BindIndex("IX_PurchaseOrder_SupplierId_OccurTime", false, "SupplierId,OccurTime")]
+    [BindIndex("IX_PurchaseOrder_WarehouseId_OccurTime", false, "WarehouseId,OccurTime")]
     [BindTable("PurchaseOrder", Description = "采购单。采购订单", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class PurchaseOrder
     {
