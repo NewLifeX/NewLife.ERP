@@ -36,6 +36,8 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
         // 建议先调用基类方法，基类方法会做一些统一处理
         base.Valid(isNew);
 
+        if (Title.IsNullOrEmpty()) Title = $"{SupplierName}的订单";
+
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
