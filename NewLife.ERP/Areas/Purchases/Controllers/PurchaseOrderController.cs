@@ -77,6 +77,9 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
                 case DataObjectMethodType.Delete:
                     if (entity.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单删除修改！");
                     break;
+                case DataObjectMethodType.Insert:
+                    if (entity.Receiver.IsNullOrEmpty()) entity.Receiver = ManageProvider.User + "";
+                    break;
             }
         }
 
