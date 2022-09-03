@@ -26,6 +26,9 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
+        var order = SaleOrder.FindById(orderId);
+        if (order != null && order.Status != OrderStatus.录入) PageSetting.EnableAdd = false;
+
         p.RetrieveState = true;
 
         return SaleOrderLine.Search(orderId, productId, start, end, p["Q"], p);

@@ -156,7 +156,7 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
 
             if (Title.IsNullOrEmpty() || Title.Length < 50)
             {
-                var txt = list.OrderByDescending(e => e.Quantity).Join("、", e => e.ProductName);
+                var txt = list.OrderByDescending(e => e.Quantity * e.Price).Join("、", e => e.ProductName);
                 Title = txt.Cut(50);
             }
         }

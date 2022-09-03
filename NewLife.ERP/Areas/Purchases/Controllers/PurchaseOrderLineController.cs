@@ -25,6 +25,9 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
+        var order = PurchaseOrder.FindById(orderId);
+        if (order != null && order.Status != OrderStatus.录入) PageSetting.EnableAdd = false;
+
         p.RetrieveState = true;
 
         return PurchaseOrderLine.Search(orderId, productId, start, end, p["Q"], p);
