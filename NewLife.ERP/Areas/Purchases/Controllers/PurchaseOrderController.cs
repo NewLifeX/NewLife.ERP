@@ -43,12 +43,15 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
 
     protected override IEnumerable<PurchaseOrder> Search(Pager p)
     {
+        var supplierId = p["supplierId"].ToInt(-1);
+        var warehouseId = p["warehouseId"].ToInt(-1);
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
         p.RetrieveState = true;
 
-        return PurchaseOrder.Search(start, end, p["Q"], p);
+        return PurchaseOrder.Search(supplierId, warehouseId, start, end, p["Q"], p);
     }
 
     protected override Int32 OnUpdate(PurchaseOrder entity)

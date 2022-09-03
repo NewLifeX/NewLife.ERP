@@ -41,12 +41,14 @@ public class SaleOrderController : EntityController<SaleOrder>
 
     protected override IEnumerable<SaleOrder> Search(Pager p)
     {
+        var customerId = p["customerId"].ToInt(-1);
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
         p.RetrieveState = true;
 
-        return SaleOrder.Search(start, end, p["Q"], p);
+        return SaleOrder.Search(customerId, start, end, p["Q"], p);
     }
 
     protected override Int32 OnUpdate(SaleOrder entity)

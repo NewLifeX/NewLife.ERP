@@ -12,6 +12,10 @@ public class SupplierController : EntityController<Supplier>
     {
         LogOnChange = true;
 
+        ListFields.RemoveField("Phone", "Address");
+        ListFields.RemoveCreateField();
+        ListFields.RemoveRemarkField();
+
         {
             var df = ListFields.AddListField("Order", "CreateUser");
             df.DisplayName = "采购单";

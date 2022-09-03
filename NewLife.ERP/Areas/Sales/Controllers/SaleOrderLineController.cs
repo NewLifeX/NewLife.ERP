@@ -51,13 +51,6 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
             order.Update();
         }
 
-        //var prd = entity.Product;
-        //if (prd != null)
-        //{
-        //    prd.Fix();
-        //    prd.Update();
-        //}
-
         return rs;
     }
 
@@ -71,13 +64,6 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
             order.Fix();
             order.Update();
         }
-
-        //var prd = entity.Product;
-        //if (prd != null)
-        //{
-        //    prd.Fix();
-        //    prd.Update();
-        //}
 
         return rs;
     }
