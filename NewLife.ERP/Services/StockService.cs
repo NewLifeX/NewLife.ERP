@@ -47,6 +47,14 @@ public class StockService
         ps.Save();
         hi.Insert();
 
+        // 修正产品关联数据
+        var product = ps.Product;
+        if (product != null)
+        {
+            product.Fix();
+            product.Update();
+        }
+
         tran.Commit();
 
         return hi;
@@ -91,6 +99,14 @@ public class StockService
 
         ps.Update();
         hi.Insert();
+
+        // 修正产品关联数据
+        var product = ps.Product;
+        if (product != null)
+        {
+            product.Fix();
+            product.Update();
+        }
 
         tran.Commit();
 
@@ -160,6 +176,8 @@ public class StockService
 
         ps2.Save();
         hi2.Insert();
+
+        // 移库不需要修正产品关联数据
 
         tran.Commit();
 
