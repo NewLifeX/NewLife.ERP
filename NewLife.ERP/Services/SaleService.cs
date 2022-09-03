@@ -27,6 +27,9 @@ public class SaleService
         {
             if (line.WarehouseId == 0) throw new Exception($"[{line.ProductName}]未指定仓库");
 
+            line.OccurTime = order.OccurTime;
+            line.Update();
+
             _stockService.Out(new StockModel
             {
                 ProductId = line.ProductId,

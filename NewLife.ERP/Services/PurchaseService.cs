@@ -25,6 +25,9 @@ public class PurchaseService
         var list = PurchaseOrderLine.FindAllByOrderId(order.Id);
         foreach (var line in list)
         {
+            line.OccurTime = order.OccurTime;
+            line.Update();
+
             _stockService.In(new StockModel
             {
                 ProductId = line.ProductId,
