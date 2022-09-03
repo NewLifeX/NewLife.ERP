@@ -1,0 +1,16 @@
+﻿@using Erp.Data.Sales
+@using NewLife.Common;
+@using NewLife.Cube
+@using XCode
+@{
+    var user = ViewBag.User as IUser ?? User.Identity as IUser;
+    var fact = ViewBag.Factory as IEntityFactory;
+    var set = ViewBag.PageSetting as PageSetting;
+    var page = ViewBag.Page as Pager;
+
+    var order = SaleOrder.FindById(page["orderId"].ToInt(-1));
+}
+@if (order != null)
+{
+    <a href="SaleOrder?id=@order.Id" title="返回">@order</a>
+}

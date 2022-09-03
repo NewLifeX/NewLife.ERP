@@ -1,11 +1,10 @@
-﻿using Erp.Data.Purchases;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Erp.Data.Products;
 using NewLife;
 using NewLife.Data;
 using XCode;
 using XCode.Membership;
-using Erp.Data.Products;
 
 namespace Erp.Data.Sales
 {
@@ -32,6 +31,10 @@ namespace Erp.Data.Sales
         {
             // 如果没有脏数据，则不需要进行任何处理
             if (!HasDirty) return;
+
+            if (ProductId <= 0) throw new ArgumentNullException(nameof(ProductId), "产品不能为空");
+            if (WarehouseId <= 0) throw new ArgumentNullException(nameof(WarehouseId), "仓库不能为空");
+            if (Quantity <= 0) throw new ArgumentNullException(nameof(Quantity), "数量不能为空");
 
             // 建议先调用基类方法，基类方法会做一些统一处理
             base.Valid(isNew);

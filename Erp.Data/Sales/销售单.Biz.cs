@@ -2,7 +2,6 @@
 using System.Xml.Serialization;
 using Erp.Data.Customers;
 using Erp.Data.Models;
-using Erp.Data.Purchases;
 using NewLife;
 using NewLife.Data;
 using XCode;
@@ -32,7 +31,7 @@ public partial class SaleOrder : Entity<SaleOrder>
         // 如果没有脏数据，则不需要进行任何处理
         if (!HasDirty) return;
 
-        if (CustomerId <= 0) throw new ArgumentNullException(nameof(CustomerId));
+        if (CustomerId <= 0) throw new ArgumentNullException(nameof(CustomerId), "客户不能为空");
 
         // 建议先调用基类方法，基类方法会做一些统一处理
         base.Valid(isNew);

@@ -1,4 +1,5 @@
 ﻿using Erp.Data.Customers;
+using Erp.Data.Purchases;
 using NewLife.Cube;
 using NewLife.Web;
 
@@ -28,6 +29,13 @@ public class CustomerController : EntityController<Customer>
 
     protected override IEnumerable<Customer> Search(Pager p)
     {
+        var id = p["Id"].ToInt(-1);
+        if (id > 0)
+        {
+            var entity = Customer.FindById(id);
+            if (entity != null) return new[] { entity };
+        }
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 

@@ -50,6 +50,13 @@ public class SaleOrderController : EntityController<SaleOrder>
 
     protected override IEnumerable<SaleOrder> Search(Pager p)
     {
+        var id = p["Id"].ToInt(-1);
+        if (id > 0)
+        {
+            var entity = SaleOrder.FindById(id);
+            if (entity != null) return new[] { entity };
+        }
+
         var customerId = p["customerId"].ToInt(-1);
 
         var start = p["dtStart"].ToDateTime();

@@ -49,6 +49,13 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
 
     protected override IEnumerable<PurchaseOrder> Search(Pager p)
     {
+        var id = p["Id"].ToInt(-1);
+        if (id > 0)
+        {
+            var entity = PurchaseOrder.FindById(id);
+            if (entity != null) return new[] { entity };
+        }
+
         var supplierId = p["supplierId"].ToInt(-1);
         var warehouseId = p["warehouseId"].ToInt(-1);
 
