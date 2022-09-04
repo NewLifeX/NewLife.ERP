@@ -90,7 +90,7 @@ public class StockService
         using var tran = ProductStock.Meta.CreateTrans();
 
         var ps = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, model.WarehouseId);
-        if (ps == null) return null;
+        if (ps == null) throw new Exception("产品在指定仓库中不存在！");
 
         var qty = Math.Abs(model.Quantity);
         if (ps.Quantity < qty) throw new Exception($"[{ps.ProductName}]在[{ps.WarehouseName}]仓库的库存不足");
@@ -150,7 +150,7 @@ public class StockService
         using var tran = ProductStock.Meta.CreateTrans();
 
         var ps = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, model.WarehouseId);
-        if (ps == null) return null;
+        if (ps == null) throw new Exception("产品在指定仓库中不存在！");
 
         var ps2 = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, destWarehourseId);
         ps2 ??= new ProductStock { ProductId = model.ProductId, WarehouseId = destWarehourseId };
