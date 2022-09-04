@@ -48,6 +48,7 @@ public class PurchaseService
         {
             OrderId = order.Id,
             Action = "采购入库",
+            OccurTime= order.OccurTime,
             Remark = order.ToJson(),
         };
         hi.Insert();
