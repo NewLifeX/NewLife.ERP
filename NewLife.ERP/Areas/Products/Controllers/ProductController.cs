@@ -1,9 +1,13 @@
 ﻿using System.ComponentModel;
 using Erp.Data.Models;
 using Erp.Data.Products;
+using Erp.Data.Purchases;
+using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
 using NewLife.Cube.ViewModels;
+using NewLife.ERP.Services;
 using NewLife.Web;
+using XCode.Membership;
 
 namespace NewLife.ERP.Areas.Products.Controllers;
 
@@ -35,6 +39,16 @@ public class ProductController : EntityController<Product>
             var df = ListFields.AddListField("History", "Weight");
             df.DisplayName = "库存历史";
             df.Url = "StockHistory?productId={Id}";
+        }
+        {
+            var df = ListFields.AddListField("Purchase", "Weight");
+            df.DisplayName = "采购记录";
+            df.Url = "/Purchases/PurchaseOrderLine?productId={Id}";
+        }
+        {
+            var df = ListFields.AddListField("Sale", "Weight");
+            df.DisplayName = "销售记录";
+            df.Url = "/Sales/SaleOrderLine?productId={Id}";
         }
         {
             var df = ListFields.AddListField("Log", "CreateUser");
@@ -107,5 +121,29 @@ public class ProductController : EntityController<Product>
         }
 
         return rs;
+    }
+
+    /// <summary>更新库存</summary>
+    /// <returns></returns>
+    [EntityAuthorize(PermissionFlags.Update)]
+    public ActionResult RefreshStock()
+    {
+        var count = 0;
+        var ids = GetRequest("keys").SplitAsInt();
+        if (ids.Length > 0)
+        {
+            foreach (var id in ids)
+            {
+                var entity = Product.FindById(id);
+                if (entity != null)
+                {
+                    entity.Fix();
+
+                    count += entity.Update();
+                }
+            }
+        }
+
+        return JsonRefresh($"共更新[{count}]个");
     }
 }
