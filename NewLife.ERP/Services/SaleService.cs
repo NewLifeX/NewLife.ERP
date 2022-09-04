@@ -95,6 +95,7 @@ public class SaleService
         {
             OrderId = order.Id,
             Action = "取消出库",
+            OccurTime = order.OccurTime,
             Remark = order.ToJson(),
         };
         hi.Insert();

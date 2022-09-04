@@ -91,6 +91,7 @@ public class PurchaseService
         {
             OrderId = order.Id,
             Action = "取消入库",
+            OccurTime= order.OccurTime,
             Remark = order.ToJson(),
         };
         hi.Insert();
