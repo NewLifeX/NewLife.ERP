@@ -38,11 +38,11 @@ namespace Erp.Data.Products
         public String Code { get => _Code; set { if (OnPropertyChanging("Code", value)) { _Code = value; OnPropertyChanged("Code"); } } }
 
         private String _Name;
-        /// <summary>名称</summary>
+        /// <summary>名称。简短而准确的名字</summary>
         [DisplayName("名称")]
-        [Description("名称")]
+        [Description("名称。简短而准确的名字")]
         [DataObjectField(false, false, false, 50)]
-        [BindColumn("Name", "名称", "", Master = true)]
+        [BindColumn("Name", "名称。简短而准确的名字", "", Master = true)]
         public String Name { get => _Name; set { if (OnPropertyChanging("Name", value)) { _Name = value; OnPropertyChanged("Name"); } } }
 
         private Int32 _CategoryId;
@@ -94,11 +94,11 @@ namespace Erp.Data.Products
         public String Unit { get => _Unit; set { if (OnPropertyChanging("Unit", value)) { _Unit = value; OnPropertyChanged("Unit"); } } }
 
         private Decimal _Price;
-        /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
+        /// <summary>价格。销售参考价，用于评估库存价值，以及采购销售默认价格</summary>
         [DisplayName("价格")]
-        [Description("价格。销售参考价，仅用于评估库存价值")]
+        [Description("价格。销售参考价，用于评估库存价值，以及采购销售默认价格")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价格。销售参考价，仅用于评估库存价值", "")]
+        [BindColumn("Price", "价格。销售参考价，用于评估库存价值，以及采购销售默认价格", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private Double _Weight;
@@ -294,7 +294,7 @@ namespace Erp.Data.Products
             /// <summary>编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码</summary>
             public static readonly Field Code = FindByName("Code");
 
-            /// <summary>名称</summary>
+            /// <summary>名称。简短而准确的名字</summary>
             public static readonly Field Name = FindByName("Name");
 
             /// <summary>类别</summary>
@@ -315,7 +315,7 @@ namespace Erp.Data.Products
             /// <summary>单位</summary>
             public static readonly Field Unit = FindByName("Unit");
 
-            /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
+            /// <summary>价格。销售参考价，用于评估库存价值，以及采购销售默认价格</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>重量。单位kg</summary>
@@ -369,7 +369,7 @@ namespace Erp.Data.Products
             /// <summary>编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码</summary>
             public const String Code = "Code";
 
-            /// <summary>名称</summary>
+            /// <summary>名称。简短而准确的名字</summary>
             public const String Name = "Name";
 
             /// <summary>类别</summary>
@@ -390,7 +390,7 @@ namespace Erp.Data.Products
             /// <summary>单位</summary>
             public const String Unit = "Unit";
 
-            /// <summary>价格。销售参考价，仅用于评估库存价值</summary>
+            /// <summary>价格。销售参考价，用于评估库存价值，以及采购销售默认价格</summary>
             public const String Price = "Price";
 
             /// <summary>重量。单位kg</summary>

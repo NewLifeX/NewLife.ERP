@@ -7,4 +7,6 @@ public class MoveStockModel
     public Int32 WarehouseId { get; set; }
 
     public Int32 Quantity { get; set; }
+
+    public DateTime OccurTime { get; set; }
 }

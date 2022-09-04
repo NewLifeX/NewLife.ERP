@@ -37,6 +37,7 @@ public class SaleService
                 WarehouseId = line.WarehouseId,
                 Quantity = line.Quantity,
 
+                OccurTime = order.OccurTime,
                 OrderId = $"Sale-{order.Id}",
                 OrderTitle = order.Title,
                 Remark = order.ToJson(),
@@ -81,6 +82,7 @@ public class SaleService
                 WarehouseId = line.WarehouseId,
                 Quantity = line.Quantity,
 
+                OccurTime = order.OccurTime,
                 OrderId = $"Sale-{order.Id}",
                 OrderTitle = order.Title,
                 Remark = order.ToJson(),

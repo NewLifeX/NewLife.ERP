@@ -63,7 +63,7 @@ public class ProductStockController : ReadOnlyEntityController<ProductStock>
     /// <summary>移库</summary>
     /// <returns></returns>
     [EntityAuthorize(PermissionFlags.Update)]
-    public ActionResult Move(Int32 id) => View("Move", new MoveStockModel { Id = id });
+    public ActionResult Move(Int32 id) => View("Move", new MoveStockModel { Id = id, OccurTime = DateTime.Now });
 
     /// <summary>移库</summary>
     /// <returns></returns>
@@ -79,7 +79,11 @@ public class ProductStockController : ReadOnlyEntityController<ProductStock>
                 ProductId = ps.ProductId,
                 WarehouseId = ps.WarehouseId,
                 Quantity = model.Quantity,
+                OccurTime = model.OccurTime,
+                OrderTitle = ps.Product?.Title ?? ps.Product?.Name,
             };
+
+            if (stockModel.OccurTime.Year < 2000) stockModel.OccurTime = DateTime.Now;
 
             _stockService.Move(stockModel, model.WarehouseId);
 

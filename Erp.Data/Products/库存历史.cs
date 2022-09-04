@@ -14,8 +14,9 @@ namespace Erp.Data.Products
     [Serializable]
     [DataObject]
     [Description("库存历史。对仓库中产品进行出入库管理")]
-    [BindIndex("IX_StockHistory_ProductId_WarehouseId_Operation", false, "ProductId,WarehouseId,Operation")]
-    [BindIndex("IX_StockHistory_WarehouseId", false, "WarehouseId")]
+    [BindIndex("IX_StockHistory_WarehouseId_ProductId", false, "WarehouseId,ProductId")]
+    [BindIndex("IX_StockHistory_ProductId_Operation", false, "ProductId,Operation")]
+    [BindIndex("IX_StockHistory_WarehouseId_Operation", false, "WarehouseId,Operation")]
     [BindIndex("IX_StockHistory_Operation", false, "Operation")]
     [BindTable("StockHistory", Description = "库存历史。对仓库中产品进行出入库管理", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class StockHistory
@@ -76,6 +77,14 @@ namespace Erp.Data.Products
         [DataObjectField(false, false, false, 0)]
         [BindColumn("NewQuantity", "新数量。操作后数量", "")]
         public Int32 NewQuantity { get => _NewQuantity; set { if (OnPropertyChanging("NewQuantity", value)) { _NewQuantity = value; OnPropertyChanged("NewQuantity"); } } }
+
+        private DateTime _OccurTime;
+        /// <summary>发生时间。实际出入库时间，不同于数据录入时间</summary>
+        [DisplayName("发生时间")]
+        [Description("发生时间。实际出入库时间，不同于数据录入时间")]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("OccurTime", "发生时间。实际出入库时间，不同于数据录入时间", "")]
+        public DateTime OccurTime { get => _OccurTime; set { if (OnPropertyChanging("OccurTime", value)) { _OccurTime = value; OnPropertyChanged("OccurTime"); } } }
 
         private String _OrderId;
         /// <summary>关联订单。</summary>
@@ -164,6 +173,7 @@ namespace Erp.Data.Products
                     case "Quantity": return _Quantity;
                     case "OldQuantity": return _OldQuantity;
                     case "NewQuantity": return _NewQuantity;
+                    case "OccurTime": return _OccurTime;
                     case "OrderId": return _OrderId;
                     case "OrderTitle": return _OrderTitle;
                     case "TraceId": return _TraceId;
@@ -186,6 +196,7 @@ namespace Erp.Data.Products
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "OldQuantity": _OldQuantity = value.ToInt(); break;
                     case "NewQuantity": _NewQuantity = value.ToInt(); break;
+                    case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "OrderId": _OrderId = Convert.ToString(value); break;
                     case "OrderTitle": _OrderTitle = Convert.ToString(value); break;
                     case "TraceId": _TraceId = Convert.ToString(value); break;
@@ -224,6 +235,9 @@ namespace Erp.Data.Products
 
             /// <summary>新数量。操作后数量</summary>
             public static readonly Field NewQuantity = FindByName("NewQuantity");
+
+            /// <summary>发生时间。实际出入库时间，不同于数据录入时间</summary>
+            public static readonly Field OccurTime = FindByName("OccurTime");
 
             /// <summary>关联订单。</summary>
             public static readonly Field OrderId = FindByName("OrderId");
@@ -275,6 +289,9 @@ namespace Erp.Data.Products
 
             /// <summary>新数量。操作后数量</summary>
             public const String NewQuantity = "NewQuantity";
+
+            /// <summary>发生时间。实际出入库时间，不同于数据录入时间</summary>
+            public const String OccurTime = "OccurTime";
 
             /// <summary>关联订单。</summary>
             public const String OrderId = "OrderId";

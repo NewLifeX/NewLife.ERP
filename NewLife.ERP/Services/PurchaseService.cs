@@ -35,6 +35,7 @@ public class PurchaseService
                 WarehouseId = order.WarehouseId,
                 Quantity = line.Quantity,
 
+                OccurTime = order.OccurTime,
                 OrderId = $"Purchase-{order.Id}",
                 OrderTitle = order.Title,
                 Remark = order.ToJson(),
@@ -77,6 +78,7 @@ public class PurchaseService
                 WarehouseId = order.WarehouseId,
                 Quantity = line.Quantity,
 
+                OccurTime = order.OccurTime,
                 OrderId = $"Purchase-{order.Id}",
                 OrderTitle = order.Title,
                 Remark = order.ToJson(),

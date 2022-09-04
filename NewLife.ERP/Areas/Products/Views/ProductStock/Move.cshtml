@@ -56,6 +56,14 @@
             </div>
         </div>
 
+        <div class="form-group col-sm-12">
+            <label class="control-label col-xs-3 col-sm-3">发生时间</label>
+            <div class="input-group col-xs-9 col-sm-5">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input autocomplete="off" class="form-control date form_datetime" id="OccurTime" name="OccurTime" type="text" value="@entity.OccurTime.ToFullString()" />
+            </div>
+        </div>
+
         @await Html.PartialAsync("_Form_Footer", entity)
 
         <div class="clearfix form-actions col-xs-12 col-sm-12 col-md-12">

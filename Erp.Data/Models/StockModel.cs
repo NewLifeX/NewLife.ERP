@@ -11,6 +11,8 @@ public class StockModel
 
     public Int32 Quantity { get; set; }
 
+    public DateTime OccurTime { get; set; }
+
     public String OrderId { get; set; }
 
     public String OrderTitle { get; set; }

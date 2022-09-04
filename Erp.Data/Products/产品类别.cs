@@ -10,12 +10,12 @@ using XCode.DataAccessLayer;
 
 namespace Erp.Data.Products
 {
-    /// <summary>产品类别</summary>
+    /// <summary>产品类别。多层级分类管理产品</summary>
     [Serializable]
     [DataObject]
-    [Description("产品类别")]
+    [Description("产品类别。多层级分类管理产品")]
     [BindIndex("IU_ProductCategory_ParentId_Name", true, "ParentId,Name")]
-    [BindTable("ProductCategory", Description = "产品类别", ConnName = "Erp", DbType = DatabaseType.None)]
+    [BindTable("ProductCategory", Description = "产品类别。多层级分类管理产品", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class ProductCategory
     {
         #region 属性

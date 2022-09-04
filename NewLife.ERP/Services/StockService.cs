@@ -34,6 +34,7 @@ public class StockService
             Quantity = qty,
 
             Operation = StockOperations.入库,
+            OccurTime = model.OccurTime,
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
@@ -89,6 +90,7 @@ public class StockService
             Quantity = -qty,
 
             Operation = StockOperations.出库,
+            OccurTime = model.OccurTime,
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
@@ -149,6 +151,7 @@ public class StockService
             Quantity = -qty,
 
             Operation = StockOperations.移库,
+            OccurTime = model.OccurTime,
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
@@ -163,6 +166,7 @@ public class StockService
             Quantity = qty,
 
             Operation = StockOperations.移库,
+            OccurTime = model.OccurTime,
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
