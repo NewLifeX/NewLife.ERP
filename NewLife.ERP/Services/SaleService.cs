@@ -1,5 +1,6 @@
 ﻿using Erp.Data.Models;
 using Erp.Data.Sales;
+using NewLife.Log;
 using NewLife.Serialization;
 
 namespace NewLife.ERP.Services;
@@ -7,8 +8,13 @@ namespace NewLife.ERP.Services;
 public class SaleService
 {
     private readonly StockService _stockService;
+    private readonly ITracer _tracer;
 
-    public SaleService(StockService stockService) => _stockService = stockService;
+    public SaleService(StockService stockService, ITracer tracer)
+    {
+        _stockService = stockService;
+        _tracer = tracer;
+    }
 
     /// <summary>
     /// 销售出库
@@ -22,6 +28,8 @@ public class SaleService
         if (order == null) throw new ArgumentNullException(nameof(order));
         if (order.Status != OrderStatus.录入) throw new InvalidOperationException($"订单[{order}]的状态[{order.Status}]异常");
         //if (order.WarehouseId == 0) throw new Exception("未指定仓库");
+
+        using var span = _tracer?.NewSpan("erp:Sale:SetOut", order);
 
         var list = SaleOrderLine.FindAllByOrderId(order.Id);
         foreach (var line in list)
@@ -71,6 +79,8 @@ public class SaleService
         if (order == null) throw new ArgumentNullException(nameof(order));
         if (order.Status == OrderStatus.录入) throw new InvalidOperationException("订单未入库");
         //if (order.WarehouseId == 0) throw new Exception("未指定仓库");
+
+        using var span = _tracer?.NewSpan("erp:Sale:CancelOut", order);
 
         var list = SaleOrderLine.FindAllByOrderId(order.Id);
         foreach (var line in list)

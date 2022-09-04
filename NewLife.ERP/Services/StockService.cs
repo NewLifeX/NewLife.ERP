@@ -1,5 +1,6 @@
 ﻿using Erp.Data.Models;
 using Erp.Data.Products;
+using NewLife.Log;
 
 namespace NewLife.ERP.Services;
 
@@ -8,6 +9,13 @@ namespace NewLife.ERP.Services;
 /// </summary>
 public class StockService
 {
+    private readonly ITracer _tracer;
+
+    public StockService(ITracer tracer)
+    {
+        _tracer = tracer;
+    }
+
     /// <summary>
     /// 入库操作
     /// </summary>
@@ -18,6 +26,8 @@ public class StockService
         if (model == null) throw new ArgumentNullException(nameof(model));
         if (model.ProductId == 0) throw new ArgumentOutOfRangeException(nameof(model));
         if (model.WarehouseId == 0) throw new ArgumentOutOfRangeException(nameof(model));
+
+        using var span = _tracer?.NewSpan("erp:Stock:In", model);
 
         // 开启事务保护
         using var tran = ProductStock.Meta.CreateTrans();
@@ -73,6 +83,8 @@ public class StockService
         if (model == null) throw new ArgumentNullException(nameof(model));
         if (model.ProductId == 0) throw new ArgumentOutOfRangeException(nameof(model));
         if (model.WarehouseId == 0) throw new ArgumentOutOfRangeException(nameof(model));
+
+        using var span = _tracer?.NewSpan("erp:Stock:Out", model);
 
         // 开启事务保护
         using var tran = ProductStock.Meta.CreateTrans();
@@ -131,6 +143,8 @@ public class StockService
         if (model.ProductId == 0) throw new ArgumentOutOfRangeException(nameof(model));
         if (model.WarehouseId == 0) throw new ArgumentOutOfRangeException(nameof(model));
         if (destWarehourseId == 0 || destWarehourseId == model.WarehouseId) throw new ArgumentOutOfRangeException(nameof(destWarehourseId));
+
+        using var span = _tracer?.NewSpan("erp:Stock:Move", model);
 
         // 开启事务保护
         using var tran = ProductStock.Meta.CreateTrans();
