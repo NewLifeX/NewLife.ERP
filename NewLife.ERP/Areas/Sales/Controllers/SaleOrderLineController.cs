@@ -40,7 +40,11 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
         {
             if (entity.Order.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单禁止修改！");
 
-            if (entity.Price <= 0 && entity.Product != null) entity.Price = entity.Product.Price;
+            // 新建时使用产品价格，但是后面可以修改为0价格
+            if (type == DataObjectMethodType.Insert)
+            {
+                if (entity.Price <= 0 && entity.Product != null) entity.Price = entity.Product.Price;
+            }
         }
 
         return base.Valid(entity, type, post);
