@@ -41,17 +41,12 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
-        // 处理当前已登录用户信息，可以由UserModule过滤器代劳
-        /*var user = ManageProvider.User;
-        if (user != null)
+
+        var order = Order;
+        if (order != null)
         {
-            if (isNew && !Dirtys[nameof(CreateUserID)]) CreateUserID = user.ID;
-            if (!Dirtys[nameof(UpdateUserID)]) UpdateUserID = user.ID;
-        }*/
-        //if (isNew && !Dirtys[nameof(CreateTime)]) CreateTime = DateTime.Now;
-        //if (!Dirtys[nameof(UpdateTime)]) UpdateTime = DateTime.Now;
-        //if (isNew && !Dirtys[nameof(CreateIP)]) CreateIP = ManageProvider.UserHost;
-        //if (!Dirtys[nameof(UpdateIP)]) UpdateIP = ManageProvider.UserHost;
+            if (OccurTime.Year < 2000) OccurTime = order.OccurTime;
+        }
     }
     #endregion
 

@@ -45,6 +45,14 @@ public partial class SaleOrder : Entity<SaleOrder>
         if (Status <= 0) Status = OrderStatus.录入;
 
         if (OccurTime.Year < 2000) OccurTime = DateTime.Now;
+
+        var customer = Customer;
+        if (customer != null)
+        {
+            if (Receiver.IsNullOrEmpty()) Receiver = customer.Contact;
+            if (Phone.IsNullOrEmpty()) Phone = customer.Phone;
+            if (Address.IsNullOrEmpty()) Address = customer.Address;
+        }
     }
     #endregion
 
@@ -128,7 +136,7 @@ public partial class SaleOrder : Entity<SaleOrder>
         if (list.Count > 0)
         {
             Quantity = list.Sum(e => e.Quantity);
-            Price = list.Sum(e => e.Quantity * e.Price);
+            Price = list.Sum(e => e.Quantity * e.Price) + Freight;
 
             if (Title.IsNullOrEmpty() || Title.Length < 50)
             {

@@ -61,19 +61,19 @@ namespace Erp.Data.Sales
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Decimal _Price;
-        /// <summary>价格。采购价</summary>
+        /// <summary>价格。销售价，如果含税，加上去</summary>
         [DisplayName("价格")]
-        [Description("价格。采购价")]
+        [Description("价格。销售价，如果含税，加上去")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价格。采购价", "")]
+        [BindColumn("Price", "价格。销售价，如果含税，加上去", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private DateTime _OccurTime;
-        /// <summary>发生时间</summary>
+        /// <summary>发生时间。来自订单</summary>
         [DisplayName("发生时间")]
-        [Description("发生时间")]
+        [Description("发生时间。来自订单")]
         [DataObjectField(false, false, true, 0)]
-        [BindColumn("OccurTime", "发生时间", "")]
+        [BindColumn("OccurTime", "发生时间。来自订单", "")]
         public DateTime OccurTime { get => _OccurTime; set { if (OnPropertyChanging("OccurTime", value)) { _OccurTime = value; OnPropertyChanged("OccurTime"); } } }
 
         private String _CreateUser;
@@ -232,10 +232,10 @@ namespace Erp.Data.Sales
             /// <summary>数量</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
-            /// <summary>价格。采购价</summary>
+            /// <summary>价格。销售价，如果含税，加上去</summary>
             public static readonly Field Price = FindByName("Price");
 
-            /// <summary>发生时间</summary>
+            /// <summary>发生时间。来自订单</summary>
             public static readonly Field OccurTime = FindByName("OccurTime");
 
             /// <summary>创建者</summary>
@@ -286,10 +286,10 @@ namespace Erp.Data.Sales
             /// <summary>数量</summary>
             public const String Quantity = "Quantity";
 
-            /// <summary>价格。采购价</summary>
+            /// <summary>价格。销售价，如果含税，加上去</summary>
             public const String Price = "Price";
 
-            /// <summary>发生时间</summary>
+            /// <summary>发生时间。来自订单</summary>
             public const String OccurTime = "OccurTime";
 
             /// <summary>创建者</summary>
