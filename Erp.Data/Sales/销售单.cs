@@ -146,7 +146,7 @@ namespace Erp.Data.Sales
 
         private String _CreateUser;
         /// <summary>创建者</summary>
-        [Category("物流")]
+        [Category("扩展")]
         [DisplayName("创建者")]
         [Description("创建者")]
         [DataObjectField(false, false, true, 50)]

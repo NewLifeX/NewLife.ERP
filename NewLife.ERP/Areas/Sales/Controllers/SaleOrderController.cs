@@ -1,14 +1,13 @@
-﻿using Erp.Data.Models;
-using Erp.Data.Purchases;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using Erp.Data.Models;
 using Erp.Data.Sales;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
+using NewLife.Cube.ViewModels;
 using NewLife.ERP.Services;
 using NewLife.Web;
-using XCode.Membership;
 using XCode;
-using NewLife.Cube.ViewModels;
+using XCode.Membership;
 
 namespace NewLife.ERP.Areas.Sales.Controllers;
 
@@ -89,6 +88,23 @@ public class SaleOrderController : EntityController<SaleOrder>
                     break;
                 case DataObjectMethodType.Delete:
                     if (entity.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单删除修改！");
+                    break;
+            }
+        }
+        else
+        {
+            switch (type)
+            {
+                case DataObjectMethodType.Insert:
+                    var customer = entity.Customer;
+                    if (customer != null)
+                    {
+                        if (entity.Title.IsNullOrEmpty()) entity.Title = $"{entity.CustomerName}的订单";
+
+                        if (entity.Receiver.IsNullOrEmpty()) entity.Receiver = customer.Contact;
+                        if (entity.Phone.IsNullOrEmpty()) entity.Phone = customer.Phone;
+                        if (entity.Address.IsNullOrEmpty()) entity.Address = customer.Address;
+                    }
                     break;
             }
         }
