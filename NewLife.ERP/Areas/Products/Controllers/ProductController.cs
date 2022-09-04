@@ -1,11 +1,7 @@
-﻿using System.ComponentModel;
-using Erp.Data.Models;
+﻿using Erp.Data.Models;
 using Erp.Data.Products;
-using Erp.Data.Purchases;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
-using NewLife.Cube.ViewModels;
-using NewLife.ERP.Services;
 using NewLife.Web;
 using XCode.Membership;
 
@@ -76,11 +72,12 @@ public class ProductController : EntityController<Product>
 
         // 计算产品的所有子级
         var cat = ProductCategory.FindById(categoryId);
-        var cids = cat?.AllChilds.Select(e => e.Id).ToArray();
+        var cids = cat?.AllChilds.Select(e => e.Id).ToList() ?? new List<Int32>();
+        if (categoryId >= 0) cids.Add(categoryId);
 
         p.RetrieveState = true;
 
-        return Product.Search(code, cids, kind, enable, start, end, p["Q"], p);
+        return Product.Search(code, cids.ToArray(), kind, enable, start, end, p["Q"], p);
     }
 
     protected override Int32 OnUpdate(Product entity)
