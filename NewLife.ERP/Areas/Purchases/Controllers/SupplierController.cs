@@ -19,7 +19,7 @@ public class SupplierController : EntityController<Supplier>
         {
             var df = ListFields.AddListField("Order", "UpdateUser");
             df.DisplayName = "采购单";
-            df.Url = "PurchaseOrder?supplierId={Id}";
+            df.Url = "/Suppliers/PurchaseOrder?supplierId={Id}";
         }
         {
             var df = ListFields.AddListField("Log", "UpdateUser");

@@ -8,6 +8,7 @@ using NewLife.ERP.Services;
 using NewLife.Web;
 using XCode.Membership;
 using XCode;
+using NewLife.Cube.ViewModels;
 
 namespace NewLife.ERP.Areas.Sales.Controllers;
 
@@ -26,14 +27,19 @@ public class SaleOrderController : EntityController<SaleOrder>
         ListFields.RemoveRemarkField();
 
         {
+            var df = ListFields.GetField("CustomerName") as ListField;
+            //df.DisplayName = "客户";
+            df.Url = "/Customers/Customer?Id={CustomerId}";
+        }
+        {
             var df = ListFields.AddListField("Lines", "OccurTime");
             df.DisplayName = "订单明细";
-            df.Url = "SaleOrderLine?orderId={Id}";
+            df.Url = "/Sales/SaleOrderLine?orderId={Id}";
         }
         {
             var df = ListFields.AddListField("History", "OccurTime");
             df.DisplayName = "历史";
-            df.Url = "SaleOrderHistory?orderId={Id}";
+            df.Url = "/Sales/SaleOrderHistory?orderId={Id}";
         }
 
         AddFormFields.RemoveField("Status");

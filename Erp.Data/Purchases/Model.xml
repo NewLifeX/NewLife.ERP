@@ -81,7 +81,7 @@
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="OrderId" DataType="Int32" Description="订单" />
       <Column Name="Action" DataType="String" Description="操作" />
-      <Column Name="Remark" DataType="String" Length="2000" Description="详细信息" />
+      <Column Name="Remark" DataType="String" Length="500" Description="详细信息" />
       <Column Name="TraceId" DataType="String" Description="性能追踪。用于APM性能追踪定位，还原该事件的调用链" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />

@@ -7,6 +7,7 @@ using NewLife.ERP.Services;
 using NewLife.Web;
 using XCode.Membership;
 using XCode;
+using NewLife.Cube.ViewModels;
 
 namespace NewLife.ERP.Areas.Purchases.Controllers;
 
@@ -25,14 +26,22 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
         ListFields.RemoveRemarkField();
 
         {
+            var df = ListFields.GetField("SupplierName") as ListField;
+            df.Url = "/Suppliers/Supplier?Id={SupplierId}";
+        }
+        {
+            var df = ListFields.GetField("WarehouseName") as ListField;
+            df.Url = "/Products/Warehouse?Id={WarehouseId}";
+        }
+        {
             var df = ListFields.AddListField("Lines", "OccurTime");
             df.DisplayName = "订单明细";
-            df.Url = "PurchaseOrderLine?orderId={Id}";
+            df.Url = "/Purchases/PurchaseOrderLine?orderId={Id}";
         }
         {
             var df = ListFields.AddListField("History", "OccurTime");
             df.DisplayName = "历史";
-            df.Url = "PurchaseOrderHistory?orderId={Id}";
+            df.Url = "/Purchases/PurchaseOrderHistory?orderId={Id}";
         }
 
         AddFormFields.RemoveField("Status");
