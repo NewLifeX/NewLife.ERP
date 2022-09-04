@@ -154,9 +154,9 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
             Quantity = list.Sum(e => e.Quantity);
             Price = list.Sum(e => e.Quantity * e.Price) + Freight;
 
-            if (Title.IsNullOrEmpty() || Title.Length < 50)
+            if (Title.IsNullOrEmpty() || Title.StartsWith("[") && Title.Length < 50)
             {
-                var txt = list.OrderByDescending(e => e.Quantity * e.Price).Join("、", e => e.ProductName);
+                var txt = $"[{OccurTime:yyMMdd}]" + list.OrderByDescending(e => e.Quantity * e.Price).Join("、", e => e.ProductName);
                 Title = txt.Cut(50);
             }
         }
