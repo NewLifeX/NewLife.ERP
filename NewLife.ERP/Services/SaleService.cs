@@ -76,7 +76,7 @@ public class SaleService
         {
             if (line.WarehouseId == 0) throw new Exception($"[{line.ProductName}]未指定仓库");
 
-            _stockService.Out(new StockModel
+            _stockService.In(new StockModel
             {
                 ProductId = line.ProductId,
                 WarehouseId = line.WarehouseId,
