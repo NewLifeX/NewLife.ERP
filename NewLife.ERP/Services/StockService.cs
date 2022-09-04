@@ -37,6 +37,8 @@ public class StockService
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
+
+            Remark = model.Remark,
         };
 
         // 修改库存
@@ -90,6 +92,8 @@ public class StockService
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
+
+            Remark = model.Remark,
         };
 
         // 修改库存
@@ -148,6 +152,8 @@ public class StockService
 
             OrderId = model.OrderId,
             OrderTitle = model.OrderTitle,
+
+            Remark = model.Remark,
         };
 
         var hi2 = new StockHistory

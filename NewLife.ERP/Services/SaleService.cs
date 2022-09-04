@@ -1,5 +1,6 @@
 ﻿using Erp.Data.Models;
 using Erp.Data.Sales;
+using NewLife.Serialization;
 
 namespace NewLife.ERP.Services;
 
@@ -38,6 +39,7 @@ public class SaleService
 
                 OrderId = $"Sale-{order.Id}",
                 OrderTitle = order.Title,
+                Remark = order.ToJson(),
             });
         }
 
@@ -47,6 +49,7 @@ public class SaleService
         {
             OrderId = order.Id,
             Action = "销售出库",
+            Remark = order.ToJson(),
         };
         hi.Insert();
 
@@ -80,6 +83,7 @@ public class SaleService
 
                 OrderId = $"Sale-{order.Id}",
                 OrderTitle = order.Title,
+                Remark = order.ToJson(),
             });
         }
 
@@ -89,6 +93,7 @@ public class SaleService
         {
             OrderId = order.Id,
             Action = "取消出库",
+            Remark = order.ToJson(),
         };
         hi.Insert();
 

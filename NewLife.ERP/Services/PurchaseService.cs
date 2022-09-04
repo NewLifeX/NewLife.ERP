@@ -1,5 +1,6 @@
 ﻿using Erp.Data.Models;
 using Erp.Data.Purchases;
+using NewLife.Serialization;
 
 namespace NewLife.ERP.Services;
 
@@ -36,6 +37,7 @@ public class PurchaseService
 
                 OrderId = $"Purchase-{order.Id}",
                 OrderTitle = order.Title,
+                Remark = order.ToJson(),
             });
         }
 
@@ -45,6 +47,7 @@ public class PurchaseService
         {
             OrderId = order.Id,
             Action = "采购入库",
+            Remark = order.ToJson(),
         };
         hi.Insert();
 
@@ -76,6 +79,7 @@ public class PurchaseService
 
                 OrderId = $"Purchase-{order.Id}",
                 OrderTitle = order.Title,
+                Remark = order.ToJson(),
             });
         }
 
@@ -85,10 +89,10 @@ public class PurchaseService
         {
             OrderId = order.Id,
             Action = "取消入库",
+            Remark = order.ToJson(),
         };
         hi.Insert();
 
         return order.Update();
     }
-
 }

@@ -14,4 +14,6 @@ public class StockModel
     public String OrderId { get; set; }
 
     public String OrderTitle { get; set; }
+
+    public String Remark { get; set; }
 }
