@@ -152,7 +152,7 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
         if (list.Count > 0)
         {
             Quantity = list.Sum(e => e.Quantity);
-            Price = list.Sum(e => e.Quantity * e.Price);
+            Price = list.Sum(e => e.Quantity * e.Price) + Freight;
 
             if (Title.IsNullOrEmpty() || Title.Length < 50)
             {

@@ -36,10 +36,10 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
         }
 
         AddFormFields.RemoveField("Status");
-        AddFormFields.RemoveField("Title", "Quantity", "Price", "OccurTime");
+        AddFormFields.RemoveField("Title", "Quantity", "Price");
 
         EditFormFields.RemoveField("Status");
-        EditFormFields.RemoveField("Title", "Quantity", "Price", "OccurTime");
+        EditFormFields.RemoveField("Title", "Quantity", "Price");
     }
 
     public PurchaseOrderController(PurchaseService purchaseService)

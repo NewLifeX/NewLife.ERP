@@ -53,11 +53,11 @@ namespace Erp.Data.Purchases
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Decimal _Price;
-        /// <summary>价格。采购价</summary>
+        /// <summary>价格。采购价，如果含税，加上去</summary>
         [DisplayName("价格")]
-        [Description("价格。采购价")]
+        [Description("价格。采购价，如果含税，加上去")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价格。采购价", "")]
+        [BindColumn("Price", "价格。采购价，如果含税，加上去", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private DateTime _OccurTime;
@@ -219,7 +219,7 @@ namespace Erp.Data.Purchases
             /// <summary>数量</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
-            /// <summary>价格。采购价</summary>
+            /// <summary>价格。采购价，如果含税，加上去</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>发生时间</summary>
@@ -270,7 +270,7 @@ namespace Erp.Data.Purchases
             /// <summary>数量</summary>
             public const String Quantity = "Quantity";
 
-            /// <summary>价格。采购价</summary>
+            /// <summary>价格。采购价，如果含税，加上去</summary>
             public const String Price = "Price";
 
             /// <summary>发生时间</summary>
