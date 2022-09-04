@@ -27,7 +27,7 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
 
         {
             var df = ListFields.GetField("SupplierName") as ListField;
-            df.Url = "/Suppliers/Supplier?Id={SupplierId}";
+            df.Url = "/Purchases/Supplier?Id={SupplierId}";
         }
         {
             var df = ListFields.GetField("WarehouseName") as ListField;

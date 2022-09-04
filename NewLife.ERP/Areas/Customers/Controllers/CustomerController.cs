@@ -18,7 +18,7 @@ public class CustomerController : EntityController<Customer>
         {
             var df = ListFields.AddListField("Order", "CreateUser");
             df.DisplayName = "销售单";
-            df.Url = "../Sales/SaleOrder?customerId={Id}";
+            df.Url = "/Sales/SaleOrder?customerId={Id}";
         }
         {
             var df = ListFields.AddListField("Log", "CreateUser");
