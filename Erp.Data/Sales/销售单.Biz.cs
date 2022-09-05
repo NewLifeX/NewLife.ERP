@@ -36,8 +36,6 @@ public partial class SaleOrder : Entity<SaleOrder>
         // 建议先调用基类方法，基类方法会做一些统一处理
         base.Valid(isNew);
 
-        if (Title.IsNullOrEmpty()) Title = $"{CustomerName}的订单";
-
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
@@ -45,6 +43,7 @@ public partial class SaleOrder : Entity<SaleOrder>
         if (Status <= 0) Status = OrderStatus.录入;
 
         if (OccurTime.Year < 2000) OccurTime = DateTime.Now;
+        if (Title.IsNullOrEmpty()) Title = $"[{OccurTime:yyMMdd}]{CustomerName}的订单";
 
         var customer = Customer;
         if (customer != null)
