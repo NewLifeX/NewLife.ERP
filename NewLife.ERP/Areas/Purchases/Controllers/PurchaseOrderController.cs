@@ -98,6 +98,22 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
                     break;
             }
         }
+        else
+        {
+            switch (type)
+            {
+                case DataObjectMethodType.Insert:
+                    var supplier = entity.Supplier;
+                    if (supplier != null)
+                    {
+                        if (entity.Title.IsNullOrEmpty()) entity.Title = $"[{DateTime.Today:yyMMdd}]{entity.SupplierName}的订单";
+                        if (entity.OccurTime.Year < 2000) entity.OccurTime = DateTime.Today;
+
+                        //if (entity.Receiver.IsNullOrEmpty()) entity.Receiver = supplier.Contact;
+                    }
+                    break;
+            }
+        }
 
         return base.Valid(entity, type, post);
     }

@@ -99,7 +99,7 @@ public class SaleOrderController : EntityController<SaleOrder>
                     var customer = entity.Customer;
                     if (customer != null)
                     {
-                        if (entity.Title.IsNullOrEmpty()) entity.Title = $"{entity.CustomerName}的订单";
+                        if (entity.Title.IsNullOrEmpty()) entity.Title = $"[{DateTime.Today:yyMMdd}]{entity.CustomerName}的订单";
 
                         if (entity.Receiver.IsNullOrEmpty()) entity.Receiver = customer.Contact;
                         if (entity.Phone.IsNullOrEmpty()) entity.Phone = customer.Phone;
