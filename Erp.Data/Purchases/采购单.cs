@@ -14,8 +14,8 @@ namespace Erp.Data.Purchases
     [Serializable]
     [DataObject]
     [Description("采购单。采购订单")]
-    [BindIndex("IX_PurchaseOrder_SupplierId_WarehouseId", false, "SupplierId,WarehouseId")]
-    [BindIndex("IX_PurchaseOrder_WarehouseId", false, "WarehouseId")]
+    [BindIndex("IX_PurchaseOrder_SupplierId_OccurTime", false, "SupplierId,OccurTime")]
+    [BindIndex("IX_PurchaseOrder_WarehouseId_OccurTime", false, "WarehouseId,OccurTime")]
     [BindTable("PurchaseOrder", Description = "采购单。采购订单", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class PurchaseOrder
     {
@@ -53,11 +53,11 @@ namespace Erp.Data.Purchases
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Decimal _Price;
-        /// <summary>价值。总价值</summary>
+        /// <summary>价值。产品总价加上运费</summary>
         [DisplayName("价值")]
-        [Description("价值。总价值")]
+        [Description("价值。产品总价加上运费")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价值。总价值", "")]
+        [BindColumn("Price", "价值。产品总价加上运费", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private Int32 _WarehouseId;
@@ -107,6 +107,22 @@ namespace Erp.Data.Purchases
         [DataObjectField(false, false, true, 50)]
         [BindColumn("Receiver", "收件人", "")]
         public String Receiver { get => _Receiver; set { if (OnPropertyChanging("Receiver", value)) { _Receiver = value; OnPropertyChanged("Receiver"); } } }
+
+        private Decimal _Freight;
+        /// <summary>运费。快递费</summary>
+        [DisplayName("运费")]
+        [Description("运费。快递费")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Freight", "运费。快递费", "")]
+        public Decimal Freight { get => _Freight; set { if (OnPropertyChanging("Freight", value)) { _Freight = value; OnPropertyChanged("Freight"); } } }
+
+        private Boolean _Invoice;
+        /// <summary>发票。已开票</summary>
+        [DisplayName("发票")]
+        [Description("发票。已开票")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Invoice", "发票。已开票", "")]
+        public Boolean Invoice { get => _Invoice; set { if (OnPropertyChanging("Invoice", value)) { _Invoice = value; OnPropertyChanged("Invoice"); } } }
 
         private String _CreateUser;
         /// <summary>创建者</summary>
@@ -211,6 +227,8 @@ namespace Erp.Data.Purchases
                     case "ContractNo": return _ContractNo;
                     case "BillCode": return _BillCode;
                     case "Receiver": return _Receiver;
+                    case "Freight": return _Freight;
+                    case "Invoice": return _Invoice;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
                     case "CreateIP": return _CreateIP;
@@ -238,6 +256,8 @@ namespace Erp.Data.Purchases
                     case "ContractNo": _ContractNo = Convert.ToString(value); break;
                     case "BillCode": _BillCode = Convert.ToString(value); break;
                     case "Receiver": _Receiver = Convert.ToString(value); break;
+                    case "Freight": _Freight = Convert.ToDecimal(value); break;
+                    case "Invoice": _Invoice = value.ToBoolean(); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
                     case "CreateIP": _CreateIP = Convert.ToString(value); break;
@@ -269,7 +289,7 @@ namespace Erp.Data.Purchases
             /// <summary>数量。总件数</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
-            /// <summary>价值。总价值</summary>
+            /// <summary>价值。产品总价加上运费</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>仓库。进入的仓库</summary>
@@ -289,6 +309,12 @@ namespace Erp.Data.Purchases
 
             /// <summary>收件人</summary>
             public static readonly Field Receiver = FindByName("Receiver");
+
+            /// <summary>运费。快递费</summary>
+            public static readonly Field Freight = FindByName("Freight");
+
+            /// <summary>发票。已开票</summary>
+            public static readonly Field Invoice = FindByName("Invoice");
 
             /// <summary>创建者</summary>
             public static readonly Field CreateUser = FindByName("CreateUser");
@@ -335,7 +361,7 @@ namespace Erp.Data.Purchases
             /// <summary>数量。总件数</summary>
             public const String Quantity = "Quantity";
 
-            /// <summary>价值。总价值</summary>
+            /// <summary>价值。产品总价加上运费</summary>
             public const String Price = "Price";
 
             /// <summary>仓库。进入的仓库</summary>
@@ -355,6 +381,12 @@ namespace Erp.Data.Purchases
 
             /// <summary>收件人</summary>
             public const String Receiver = "Receiver";
+
+            /// <summary>运费。快递费</summary>
+            public const String Freight = "Freight";
+
+            /// <summary>发票。已开票</summary>
+            public const String Invoice = "Invoice";
 
             /// <summary>创建者</summary>
             public const String CreateUser = "CreateUser";

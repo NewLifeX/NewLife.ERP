@@ -1,6 +1,7 @@
 ﻿using NewLife;
 using NewLife.Caching;
 using NewLife.Cube;
+using NewLife.ERP.Services;
 using NewLife.Log;
 using XCode;
 
@@ -40,6 +41,11 @@ if (config != null && !config["redisCache"].IsNullOrEmpty())
     services.AddSingleton<ICache>(p => new FullRedis(p, "redisCache") { Name = "Cache", Tracer = star.Tracer });
 else
     services.AddSingleton<ICache>(cache);
+
+// 注册服务
+services.AddSingleton<StockService>();
+services.AddSingleton<PurchaseService>();
+services.AddSingleton<SaleService>();
 
 // 启用接口响应压缩
 services.AddResponseCompression();

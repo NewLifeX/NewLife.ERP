@@ -14,7 +14,7 @@ namespace Erp.Data.Sales
     [Serializable]
     [DataObject]
     [Description("销售单。销售订单")]
-    [BindIndex("IX_SaleOrder_CustomerId", false, "CustomerId")]
+    [BindIndex("IX_SaleOrder_CustomerId_OccurTime", false, "CustomerId,OccurTime")]
     [BindTable("SaleOrder", Description = "销售单。销售订单", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class SaleOrder
     {
@@ -52,11 +52,11 @@ namespace Erp.Data.Sales
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Decimal _Price;
-        /// <summary>价值。总价值</summary>
+        /// <summary>价值。产品总价加上运费</summary>
         [DisplayName("价值")]
-        [Description("价值。总价值")]
+        [Description("价值。产品总价加上运费")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价值。总价值", "")]
+        [BindColumn("Price", "价值。产品总价加上运费", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private Erp.Data.Models.OrderStatus _Status;
@@ -83,21 +83,66 @@ namespace Erp.Data.Sales
         [BindColumn("ContractNo", "合同编号", "")]
         public String ContractNo { get => _ContractNo; set { if (OnPropertyChanging("ContractNo", value)) { _ContractNo = value; OnPropertyChanged("ContractNo"); } } }
 
+        private String _Operator;
+        /// <summary>经办人</summary>
+        [DisplayName("经办人")]
+        [Description("经办人")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Operator", "经办人", "")]
+        public String Operator { get => _Operator; set { if (OnPropertyChanging("Operator", value)) { _Operator = value; OnPropertyChanged("Operator"); } } }
+
+        private Boolean _Invoice;
+        /// <summary>发票。已开票</summary>
+        [DisplayName("发票")]
+        [Description("发票。已开票")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Invoice", "发票。已开票", "")]
+        public Boolean Invoice { get => _Invoice; set { if (OnPropertyChanging("Invoice", value)) { _Invoice = value; OnPropertyChanged("Invoice"); } } }
+
         private String _BillCode;
         /// <summary>快递单号。发货的快递单号，多个逗号隔开</summary>
+        [Category("物流")]
         [DisplayName("快递单号")]
         [Description("快递单号。发货的快递单号，多个逗号隔开")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("BillCode", "快递单号。发货的快递单号，多个逗号隔开", "")]
         public String BillCode { get => _BillCode; set { if (OnPropertyChanging("BillCode", value)) { _BillCode = value; OnPropertyChanged("BillCode"); } } }
 
+        private Decimal _Freight;
+        /// <summary>运费。快递费</summary>
+        [Category("物流")]
+        [DisplayName("运费")]
+        [Description("运费。快递费")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Freight", "运费。快递费", "")]
+        public Decimal Freight { get => _Freight; set { if (OnPropertyChanging("Freight", value)) { _Freight = value; OnPropertyChanged("Freight"); } } }
+
         private String _Receiver;
         /// <summary>收件人</summary>
+        [Category("物流")]
         [DisplayName("收件人")]
         [Description("收件人")]
         [DataObjectField(false, false, true, 50)]
         [BindColumn("Receiver", "收件人", "")]
         public String Receiver { get => _Receiver; set { if (OnPropertyChanging("Receiver", value)) { _Receiver = value; OnPropertyChanged("Receiver"); } } }
+
+        private String _Phone;
+        /// <summary>收件电话</summary>
+        [Category("物流")]
+        [DisplayName("收件电话")]
+        [Description("收件电话")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Phone", "收件电话", "")]
+        public String Phone { get => _Phone; set { if (OnPropertyChanging("Phone", value)) { _Phone = value; OnPropertyChanged("Phone"); } } }
+
+        private String _Address;
+        /// <summary>收件地址</summary>
+        [Category("物流")]
+        [DisplayName("收件地址")]
+        [Description("收件地址")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Address", "收件地址", "")]
+        public String Address { get => _Address; set { if (OnPropertyChanging("Address", value)) { _Address = value; OnPropertyChanged("Address"); } } }
 
         private String _CreateUser;
         /// <summary>创建者</summary>
@@ -199,8 +244,13 @@ namespace Erp.Data.Sales
                     case "Status": return _Status;
                     case "OccurTime": return _OccurTime;
                     case "ContractNo": return _ContractNo;
+                    case "Operator": return _Operator;
+                    case "Invoice": return _Invoice;
                     case "BillCode": return _BillCode;
+                    case "Freight": return _Freight;
                     case "Receiver": return _Receiver;
+                    case "Phone": return _Phone;
+                    case "Address": return _Address;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
                     case "CreateIP": return _CreateIP;
@@ -225,8 +275,13 @@ namespace Erp.Data.Sales
                     case "Status": _Status = (Erp.Data.Models.OrderStatus)value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "ContractNo": _ContractNo = Convert.ToString(value); break;
+                    case "Operator": _Operator = Convert.ToString(value); break;
+                    case "Invoice": _Invoice = value.ToBoolean(); break;
                     case "BillCode": _BillCode = Convert.ToString(value); break;
+                    case "Freight": _Freight = Convert.ToDecimal(value); break;
                     case "Receiver": _Receiver = Convert.ToString(value); break;
+                    case "Phone": _Phone = Convert.ToString(value); break;
+                    case "Address": _Address = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
                     case "CreateIP": _CreateIP = Convert.ToString(value); break;
@@ -258,7 +313,7 @@ namespace Erp.Data.Sales
             /// <summary>数量。总件数</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
-            /// <summary>价值。总价值</summary>
+            /// <summary>价值。产品总价加上运费</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>状态</summary>
@@ -270,11 +325,26 @@ namespace Erp.Data.Sales
             /// <summary>合同编号</summary>
             public static readonly Field ContractNo = FindByName("ContractNo");
 
+            /// <summary>经办人</summary>
+            public static readonly Field Operator = FindByName("Operator");
+
+            /// <summary>发票。已开票</summary>
+            public static readonly Field Invoice = FindByName("Invoice");
+
             /// <summary>快递单号。发货的快递单号，多个逗号隔开</summary>
             public static readonly Field BillCode = FindByName("BillCode");
 
+            /// <summary>运费。快递费</summary>
+            public static readonly Field Freight = FindByName("Freight");
+
             /// <summary>收件人</summary>
             public static readonly Field Receiver = FindByName("Receiver");
+
+            /// <summary>收件电话</summary>
+            public static readonly Field Phone = FindByName("Phone");
+
+            /// <summary>收件地址</summary>
+            public static readonly Field Address = FindByName("Address");
 
             /// <summary>创建者</summary>
             public static readonly Field CreateUser = FindByName("CreateUser");
@@ -321,7 +391,7 @@ namespace Erp.Data.Sales
             /// <summary>数量。总件数</summary>
             public const String Quantity = "Quantity";
 
-            /// <summary>价值。总价值</summary>
+            /// <summary>价值。产品总价加上运费</summary>
             public const String Price = "Price";
 
             /// <summary>状态</summary>
@@ -333,11 +403,26 @@ namespace Erp.Data.Sales
             /// <summary>合同编号</summary>
             public const String ContractNo = "ContractNo";
 
+            /// <summary>经办人</summary>
+            public const String Operator = "Operator";
+
+            /// <summary>发票。已开票</summary>
+            public const String Invoice = "Invoice";
+
             /// <summary>快递单号。发货的快递单号，多个逗号隔开</summary>
             public const String BillCode = "BillCode";
 
+            /// <summary>运费。快递费</summary>
+            public const String Freight = "Freight";
+
             /// <summary>收件人</summary>
             public const String Receiver = "Receiver";
+
+            /// <summary>收件电话</summary>
+            public const String Phone = "Phone";
+
+            /// <summary>收件地址</summary>
+            public const String Address = "Address";
 
             /// <summary>创建者</summary>
             public const String CreateUser = "CreateUser";

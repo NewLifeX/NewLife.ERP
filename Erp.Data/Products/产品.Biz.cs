@@ -22,6 +22,8 @@ public partial class Product : Entity<Product>
         Meta.Modules.Add<UserModule>();
         Meta.Modules.Add<TimeModule>();
         Meta.Modules.Add<IPModule>();
+
+        Meta.Factory.SelectStat = _.Quantity.Sum() & "Sum(Quantity*Price) as Price" & "Sum(Quantity*Weight) as Weight";
     }
 
     /// <summary>验证并修补数据，通过抛出异常的方式提示验证失败。</summary>
@@ -156,6 +158,21 @@ public partial class Product : Entity<Product>
 
         if (!code.IsNullOrEmpty()) exp &= _.Code == code;
         if (categoryId >= 0) exp &= _.CategoryId == categoryId;
+        if (kind > 0) exp &= _.Kind == kind;
+        if (enable != null) exp &= _.Enable == enable;
+
+        exp &= _.UpdateTime.Between(start, end);
+        if (!key.IsNullOrEmpty()) exp &= _.Code.Contains(key) | _.Name.Contains(key) | _.Title.Contains(key) | _.Unit.Contains(key) | _.Specification.Contains(key) | _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
+
+        return FindAll(exp, page);
+    }
+
+    public static IList<Product> Search(String code, Int32[] categoryIds, ProductKinds kind, Boolean? enable, DateTime start, DateTime end, String key, PageParameter page)
+    {
+        var exp = new WhereExpression();
+
+        if (!code.IsNullOrEmpty()) exp &= _.Code == code;
+        if (categoryIds != null && categoryIds.Length > 0) exp &= _.CategoryId.In(categoryIds);
         if (kind > 0) exp &= _.Kind == kind;
         if (enable != null) exp &= _.Enable == enable;
 

@@ -1,28 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Script.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Erp.Data.Products;
 using NewLife;
 using NewLife.Data;
-using NewLife.Log;
-using NewLife.Model;
-using NewLife.Reflection;
-using NewLife.Threading;
-using NewLife.Web;
 using XCode;
-using XCode.Cache;
-using XCode.Configuration;
-using XCode.DataAccessLayer;
 using XCode.Membership;
-using XCode.Shards;
 
 namespace Erp.Data.Sales
 {
@@ -39,6 +21,8 @@ namespace Erp.Data.Sales
             Meta.Modules.Add<UserModule>();
             Meta.Modules.Add<TimeModule>();
             Meta.Modules.Add<IPModule>();
+
+            Meta.Factory.SelectStat = _.Quantity.Sum() & "Sum(Quantity*Price) as Price";
         }
 
         /// <summary>验证并修补数据，通过抛出异常的方式提示验证失败。</summary>
@@ -48,69 +32,52 @@ namespace Erp.Data.Sales
             // 如果没有脏数据，则不需要进行任何处理
             if (!HasDirty) return;
 
+            if (ProductId <= 0) throw new ArgumentNullException(nameof(ProductId), "产品不能为空");
+            if (WarehouseId <= 0) throw new ArgumentNullException(nameof(WarehouseId), "仓库不能为空");
+            if (Quantity <= 0) throw new ArgumentNullException(nameof(Quantity), "数量不能为空");
+
             // 建议先调用基类方法，基类方法会做一些统一处理
             base.Valid(isNew);
 
             // 在新插入数据或者修改了指定字段时进行修正
             // 货币保留6位小数
             Price = Math.Round(Price, 6);
-            // 处理当前已登录用户信息，可以由UserModule过滤器代劳
-            /*var user = ManageProvider.User;
-            if (user != null)
+
+            var order = Order;
+            if (order != null)
             {
-                if (isNew && !Dirtys[nameof(CreateUserID)]) CreateUserID = user.ID;
-                if (!Dirtys[nameof(UpdateUserID)]) UpdateUserID = user.ID;
-            }*/
-            //if (isNew && !Dirtys[nameof(CreateTime)]) CreateTime = DateTime.Now;
-            //if (!Dirtys[nameof(UpdateTime)]) UpdateTime = DateTime.Now;
-            //if (isNew && !Dirtys[nameof(CreateIP)]) CreateIP = ManageProvider.UserHost;
-            //if (!Dirtys[nameof(UpdateIP)]) UpdateIP = ManageProvider.UserHost;
+                if (OccurTime.Year < 2000) OccurTime = order.OccurTime;
+            }
         }
-
-        ///// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //protected override void InitData()
-        //{
-        //    // InitData一般用于当数据表没有数据时添加一些默认数据，该实体类的任何第一次数据库操作都会触发该方法，默认异步调用
-        //    if (Meta.Session.Count > 0) return;
-
-        //    if (XTrace.Debug) XTrace.WriteLine("开始初始化SaleOrderLine[销售单明细]数据……");
-
-        //    var entity = new SaleOrderLine();
-        //    entity.OrderId = 0;
-        //    entity.ProductId = 0;
-        //    entity.Quantity = 0;
-        //    entity.Price = 0.0;
-        //    entity.CreateUser = "abc";
-        //    entity.CreateUserID = 0;
-        //    entity.CreateIP = "abc";
-        //    entity.CreateTime = DateTime.Now;
-        //    entity.UpdateUser = "abc";
-        //    entity.UpdateUserID = 0;
-        //    entity.UpdateIP = "abc";
-        //    entity.UpdateTime = DateTime.Now;
-        //    entity.Remark = "abc";
-        //    entity.Insert();
-
-        //    if (XTrace.Debug) XTrace.WriteLine("完成初始化SaleOrderLine[销售单明细]数据！");
-        //}
-
-        ///// <summary>已重载。基类先调用Valid(true)验证数据，然后在事务保护内调用OnInsert</summary>
-        ///// <returns></returns>
-        //public override Int32 Insert()
-        //{
-        //    return base.Insert();
-        //}
-
-        ///// <summary>已重载。在事务保护范围内处理业务，位于Valid之后</summary>
-        ///// <returns></returns>
-        //protected override Int32 OnDelete()
-        //{
-        //    return base.OnDelete();
-        //}
         #endregion
 
         #region 扩展属性
+        /// <summary>订单</summary>
+        [XmlIgnore, IgnoreDataMember]
+        //[ScriptIgnore]
+        public SaleOrder Order => Extends.Get(nameof(Order), k => SaleOrder.FindById(OrderId));
+
+        /// <summary>订单</summary>
+        [Map(nameof(OrderId), typeof(SaleOrder), "Id")]
+        public String OrderTitle => Order?.Title;
+
+        /// <summary>产品</summary>
+        [XmlIgnore, IgnoreDataMember]
+        //[ScriptIgnore]
+        public Product Product => Extends.Get(nameof(Product), k => Product.FindById(ProductId));
+
+        /// <summary>产品</summary>
+        [Map(nameof(ProductId), typeof(Product), "Id")]
+        public String ProductName => Product?.Name;
+
+        /// <summary>仓库</summary>
+        [XmlIgnore, IgnoreDataMember]
+        //[ScriptIgnore]
+        public Warehouse Warehouse => Extends.Get(nameof(Warehouse), k => Warehouse.FindById(WarehouseId));
+
+        /// <summary>仓库</summary>
+        [Map(nameof(WarehouseId), typeof(Warehouse), "Id")]
+        public String WarehouseName => Warehouse?.Name;
         #endregion
 
         #region 扩展查询
@@ -168,7 +135,7 @@ namespace Erp.Data.Sales
 
             if (orderId >= 0) exp &= _.OrderId == orderId;
             if (productId >= 0) exp &= _.ProductId == productId;
-            exp &= _.UpdateTime.Between(start, end);
+            exp &= _.OccurTime.Between(start, end);
             if (!key.IsNullOrEmpty()) exp &= _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
 
             return FindAll(exp, page);

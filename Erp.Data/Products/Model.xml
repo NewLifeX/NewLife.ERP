@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Tables xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:schemaLocation="https://newlifex.com https://newlifex.com/Model2022.xsd" NameSpace="Erp.Data.Products" ConnName="Erp" Output="" BaseClass="Entity" Version="11.1.2022.0523" Document="https://newlifex.com/xcode/model" xmlns="https://newlifex.com/Model2022.xsd">
-  <Table Name="ProductCategory" Description="产品类别" BaseClass="EntityTree">
+  <Table Name="ProductCategory" Description="产品类别。多层级分类管理产品" BaseClass="EntityTree">
     <Columns>
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
@@ -25,16 +25,16 @@
     <Columns>
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Code" DataType="String" Nullable="False" Description="编码。全局唯一编码，外观或颜色不同的产品，可以使用不同编码" />
-      <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
+      <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称。简短而准确的名字" />
       <Column Name="CategoryId" DataType="Int32" Description="类别" />
       <Column Name="Kind" DataType="Int32" Description="种类。实物、虚拟、组合" Type="Erp.Data.Models.ProductKinds" />
       <Column Name="Title" DataType="String" Length="200" Description="标题。概要描述信息" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
       <Column Name="Quantity" DataType="Int32" Description="数量。真实数量以各仓库库存量为准" />
       <Column Name="Unit" DataType="String" Description="单位" />
-      <Column Name="Price" DataType="Decimal" Description="价格。销售参考价，仅用于评估库存价值" />
-      <Column Name="Weight" DataType="Double" Description="重量" />
-      <Column Name="Dimension" DataType="String" Description="尺寸。长宽高LWH" />
+      <Column Name="Price" DataType="Decimal" Description="价格。销售参考价，用于评估库存价值，以及采购销售默认价格" />
+      <Column Name="Weight" DataType="Double" Description="重量。单位kg" />
+      <Column Name="Dimension" DataType="String" Description="尺寸。长宽高LWH，单位cm" />
       <Column Name="Image" DataType="String" ItemType="Image" Description="图片" />
       <Column Name="Specification" DataType="String" Length="200" Description="规格" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
@@ -81,6 +81,8 @@
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
+      <Column Name="Contact" DataType="String" Description="联系人" />
+      <Column Name="Phone" DataType="String" Description="电话" />
       <Column Name="Address" DataType="String" Description="地址" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
@@ -96,7 +98,7 @@
       <Index Columns="Name" Unique="True" />
     </Indexes>
   </Table>
-  <Table Name="ProductStock" Description="产品库存。产品存放在每一个仓库的数量">
+  <Table Name="ProductStock" Description="产品库存。产品存放在每一个仓库的数量，严格的出入库流程保证库存绝对平衡">
     <Columns>
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="ProductId" DataType="Int32" Description="产品" />
@@ -126,8 +128,10 @@
       <Column Name="Quantity" DataType="Int32" Description="数量。本次操作涉及产品数量，可能是负数" />
       <Column Name="OldQuantity" DataType="Int32" Description="原数量。操作前数量" />
       <Column Name="NewQuantity" DataType="Int32" Description="新数量。操作后数量" />
+      <Column Name="OccurTime" DataType="DateTime" Description="发生时间。实际出入库时间，不同于数据录入时间" />
       <Column Name="OrderId" DataType="String" Description="关联订单。" />
       <Column Name="OrderTitle" DataType="String" Description="订单标题" />
+      <Column Name="TraceId" DataType="String" Description="性能追踪。用于APM性能追踪定位，还原该事件的调用链" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
@@ -135,8 +139,9 @@
       <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
     </Columns>
     <Indexes>
-      <Index Columns="ProductId,WarehouseId,Operation" />
-      <Index Columns="WarehouseId" />
+      <Index Columns="WarehouseId,ProductId" />
+      <Index Columns="ProductId,Operation" />
+      <Index Columns="WarehouseId,Operation" />
       <Index Columns="Operation" />
     </Indexes>
   </Table>

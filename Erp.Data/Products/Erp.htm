@@ -250,7 +250,7 @@
             <td></td>
             <td></td>
             <td>N</td>
-            <td></td>
+            <td>简短而准确的名字</td>
         </tr>
 
         <tr>
@@ -327,7 +327,7 @@
             <td></td>
             <td></td>
             <td>N</td>
-            <td>销售参考价，仅用于评估库存价值</td>
+            <td>销售参考价，用于评估库存价值，以及采购销售默认价格</td>
         </tr>
 
         <tr>
@@ -338,7 +338,7 @@
             <td></td>
             <td></td>
             <td>N</td>
-            <td></td>
+            <td>单位kg</td>
         </tr>
 
         <tr>
@@ -349,7 +349,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td>长宽高LWH</td>
+            <td>长宽高LWH，单位cm</td>
         </tr>
 
         <tr>
@@ -713,6 +713,28 @@
             <td></td>
             <td></td>
             <td>N</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Contact</td>
+            <td>联系人</td>
+            <td>String</td>
+            <td>50</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Phone</td>
+            <td>电话</td>
+            <td>String</td>
+            <td>50</td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td></td>
         </tr>
 
@@ -1081,6 +1103,17 @@
         </tr>
 
         <tr>
+            <td>OccurTime</td>
+            <td>发生时间</td>
+            <td>DateTime</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>实际出入库时间，不同于数据录入时间</td>
+        </tr>
+
+        <tr>
             <td>OrderId</td>
             <td>关联订单</td>
             <td>String</td>
@@ -1100,6 +1133,17 @@
             <td></td>
             <td></td>
             <td></td>
+        </tr>
+
+        <tr>
+            <td>TraceId</td>
+            <td>性能追踪</td>
+            <td>String</td>
+            <td>50</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>用于APM性能追踪定位，还原该事件的调用链</td>
         </tr>
 
         <tr>

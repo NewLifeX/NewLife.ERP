@@ -25,6 +25,13 @@ public class ProductCategoryController : EntityTreeController<ProductCategory>
 
     protected override IEnumerable<ProductCategory> Search(Pager p)
     {
+        var id = p["Id"].ToInt(-1);
+        if (id > 0)
+        {
+            var entity = ProductCategory.FindById(id);
+            if (entity != null) return new[] { entity };
+        }
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 

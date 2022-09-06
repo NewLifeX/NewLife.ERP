@@ -15,7 +15,7 @@ namespace Erp.Data.Purchases
     [DataObject]
     [Description("采购单明细。采购单包含的每一种产品")]
     [BindIndex("IX_PurchaseOrderLine_OrderId", false, "OrderId")]
-    [BindIndex("IX_PurchaseOrderLine_ProductId", false, "ProductId")]
+    [BindIndex("IX_PurchaseOrderLine_ProductId_OccurTime", false, "ProductId,OccurTime")]
     [BindTable("PurchaseOrderLine", Description = "采购单明细。采购单包含的每一种产品", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class PurchaseOrderLine
     {
@@ -53,12 +53,20 @@ namespace Erp.Data.Purchases
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Decimal _Price;
-        /// <summary>价格。采购价</summary>
+        /// <summary>价格。采购价，如果含税，加上去，可修改为0价格</summary>
         [DisplayName("价格")]
-        [Description("价格。采购价")]
+        [Description("价格。采购价，如果含税，加上去，可修改为0价格")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价格。采购价", "")]
+        [BindColumn("Price", "价格。采购价，如果含税，加上去，可修改为0价格", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
+
+        private DateTime _OccurTime;
+        /// <summary>发生时间。来自订单</summary>
+        [DisplayName("发生时间")]
+        [Description("发生时间。来自订单")]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("OccurTime", "发生时间。来自订单", "")]
+        public DateTime OccurTime { get => _OccurTime; set { if (OnPropertyChanging("OccurTime", value)) { _OccurTime = value; OnPropertyChanged("OccurTime"); } } }
 
         private String _CreateUser;
         /// <summary>创建者</summary>
@@ -157,6 +165,7 @@ namespace Erp.Data.Purchases
                     case "ProductId": return _ProductId;
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
+                    case "OccurTime": return _OccurTime;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
                     case "CreateIP": return _CreateIP;
@@ -178,6 +187,7 @@ namespace Erp.Data.Purchases
                     case "ProductId": _ProductId = value.ToInt(); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
+                    case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
                     case "CreateIP": _CreateIP = Convert.ToString(value); break;
@@ -209,8 +219,11 @@ namespace Erp.Data.Purchases
             /// <summary>数量</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
-            /// <summary>价格。采购价</summary>
+            /// <summary>价格。采购价，如果含税，加上去，可修改为0价格</summary>
             public static readonly Field Price = FindByName("Price");
+
+            /// <summary>发生时间。来自订单</summary>
+            public static readonly Field OccurTime = FindByName("OccurTime");
 
             /// <summary>创建者</summary>
             public static readonly Field CreateUser = FindByName("CreateUser");
@@ -257,8 +270,11 @@ namespace Erp.Data.Purchases
             /// <summary>数量</summary>
             public const String Quantity = "Quantity";
 
-            /// <summary>价格。采购价</summary>
+            /// <summary>价格。采购价，如果含税，加上去，可修改为0价格</summary>
             public const String Price = "Price";
+
+            /// <summary>发生时间。来自订单</summary>
+            public const String OccurTime = "OccurTime";
 
             /// <summary>创建者</summary>
             public const String CreateUser = "CreateUser";

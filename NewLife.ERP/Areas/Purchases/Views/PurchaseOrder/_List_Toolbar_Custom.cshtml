@@ -1,0 +1,21 @@
+﻿@using Erp.Data.Purchases
+@using NewLife.Common;
+@using NewLife.Cube
+@using XCode
+@{
+    var user = ViewBag.User as IUser ?? User.Identity as IUser;
+    var fact = ViewBag.Factory as IEntityFactory;
+    var set = ViewBag.PageSetting as PageSetting;
+    var page = ViewBag.Page as Pager;
+
+    var supplier = Supplier.FindById(page["supplierId"].ToInt(-1));
+    if (supplier == null) supplier = PurchaseOrder.FindById(page["Id"].ToInt(-1))?.Supplier;
+}
+@if (supplier != null)
+{
+    <a href="/Purchases/Supplier?id=@supplier.Id" title="返回">@supplier</a>
+}
+@*<button type="button" class="btn btn-purple btn-sm">
+    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+    自定义按钮
+</button>*@

@@ -1,0 +1,22 @@
+﻿@using Erp.Data.Customers
+@using Erp.Data.Sales
+@using NewLife.Common;
+@using NewLife.Cube
+@using XCode
+@{
+    var user = ViewBag.User as IUser ?? User.Identity as IUser;
+    var fact = ViewBag.Factory as IEntityFactory;
+    var set = ViewBag.PageSetting as PageSetting;
+    var page = ViewBag.Page as Pager;
+
+    var customer = Customer.FindById(page["customerId"].ToInt(-1));
+    if (customer == null) customer = SaleOrder.FindById(page["Id"].ToInt(-1))?.Customer;
+}
+@if (customer != null)
+{
+    <a href="/Customers/Customer?id=@customer.Id" title="返回">@customer</a>
+}
+@*<button type="button" class="btn btn-purple btn-sm">
+    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+    自定义按钮
+</button>*@

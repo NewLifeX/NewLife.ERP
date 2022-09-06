@@ -43,11 +43,19 @@ namespace Erp.Data.Purchases
         [BindColumn("Action", "操作", "")]
         public String Action { get => _Action; set { if (OnPropertyChanging("Action", value)) { _Action = value; OnPropertyChanged("Action"); } } }
 
+        private DateTime _OccurTime;
+        /// <summary>发生时间。来自订单</summary>
+        [DisplayName("发生时间")]
+        [Description("发生时间。来自订单")]
+        [DataObjectField(false, false, true, 0)]
+        [BindColumn("OccurTime", "发生时间。来自订单", "")]
+        public DateTime OccurTime { get => _OccurTime; set { if (OnPropertyChanging("OccurTime", value)) { _OccurTime = value; OnPropertyChanged("OccurTime"); } } }
+
         private String _Remark;
         /// <summary>详细信息</summary>
         [DisplayName("详细信息")]
         [Description("详细信息")]
-        [DataObjectField(false, false, true, 2000)]
+        [DataObjectField(false, false, true, 500)]
         [BindColumn("Remark", "详细信息", "")]
         public String Remark { get => _Remark; set { if (OnPropertyChanging("Remark", value)) { _Remark = value; OnPropertyChanged("Remark"); } } }
 
@@ -109,6 +117,7 @@ namespace Erp.Data.Purchases
                     case "Id": return _Id;
                     case "OrderId": return _OrderId;
                     case "Action": return _Action;
+                    case "OccurTime": return _OccurTime;
                     case "Remark": return _Remark;
                     case "TraceId": return _TraceId;
                     case "CreateUser": return _CreateUser;
@@ -125,6 +134,7 @@ namespace Erp.Data.Purchases
                     case "Id": _Id = value.ToInt(); break;
                     case "OrderId": _OrderId = value.ToInt(); break;
                     case "Action": _Action = Convert.ToString(value); break;
+                    case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "Remark": _Remark = Convert.ToString(value); break;
                     case "TraceId": _TraceId = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
@@ -149,6 +159,9 @@ namespace Erp.Data.Purchases
 
             /// <summary>操作</summary>
             public static readonly Field Action = FindByName("Action");
+
+            /// <summary>发生时间。来自订单</summary>
+            public static readonly Field OccurTime = FindByName("OccurTime");
 
             /// <summary>详细信息</summary>
             public static readonly Field Remark = FindByName("Remark");
@@ -182,6 +195,9 @@ namespace Erp.Data.Purchases
 
             /// <summary>操作</summary>
             public const String Action = "Action";
+
+            /// <summary>发生时间。来自订单</summary>
+            public const String OccurTime = "OccurTime";
 
             /// <summary>详细信息</summary>
             public const String Remark = "Remark";

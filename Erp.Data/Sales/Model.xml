@@ -6,12 +6,17 @@
       <Column Name="CustomerId" DataType="Int32" Description="客户" />
       <Column Name="Title" DataType="String" Master="True" Length="200" Description="标题。概要描述信息" />
       <Column Name="Quantity" DataType="Int32" Description="数量。总件数" />
-      <Column Name="Price" DataType="Decimal" Description="价值。总价值" />
+      <Column Name="Price" DataType="Decimal" Description="价值。产品总价加上运费" />
       <Column Name="Status" DataType="Int32" Description="状态" Type="Erp.Data.Models.OrderStatus" />
       <Column Name="OccurTime" DataType="DateTime" Description="发生时间" />
       <Column Name="ContractNo" DataType="String" Description="合同编号" />
-      <Column Name="BillCode" DataType="String" Description="快递单号。发货的快递单号，多个逗号隔开" />
-      <Column Name="Receiver" DataType="String" Description="收件人" />
+      <Column Name="Operator" DataType="String" Description="经办人" />
+      <Column Name="Invoice" DataType="Boolean" Description="发票。已开票" />
+      <Column Name="BillCode" DataType="String" Description="快递单号。发货的快递单号，多个逗号隔开" Category="物流" />
+      <Column Name="Freight" DataType="Decimal" Description="运费。快递费" Category="物流" />
+      <Column Name="Receiver" DataType="String" Description="收件人" Category="物流" />
+      <Column Name="Phone" DataType="String" Description="收件电话" Category="物流" />
+      <Column Name="Address" DataType="String" Description="收件地址" Category="物流" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
@@ -23,7 +28,7 @@
       <Column Name="Remark" DataType="String" Length="500" Description="备注" Category="扩展" />
     </Columns>
     <Indexes>
-      <Index Columns="CustomerId" />
+      <Index Columns="CustomerId,OccurTime" />
     </Indexes>
   </Table>
   <Table Name="SaleOrderLine" Description="销售单明细。销售单包含的每一种产品">
@@ -31,8 +36,10 @@
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="OrderId" DataType="Int32" Description="订单" />
       <Column Name="ProductId" DataType="Int32" Description="产品" />
+      <Column Name="WarehouseId" DataType="Int32" Description="仓库。出货的仓库" />
       <Column Name="Quantity" DataType="Int32" Description="数量" />
-      <Column Name="Price" DataType="Decimal" Description="价格。采购价" />
+      <Column Name="Price" DataType="Decimal" Description="价格。销售价，如果含税，加上去，可修改为0价格" />
+      <Column Name="OccurTime" DataType="DateTime" Description="发生时间。来自订单" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />
@@ -45,7 +52,7 @@
     </Columns>
     <Indexes>
       <Index Columns="OrderId" />
-      <Index Columns="ProductId" />
+      <Index Columns="ProductId,OccurTime" />
     </Indexes>
   </Table>
   <Table Name="SaleOrderHistory" Description="销售单历史。销售单变化历史" InsertOnly="True">
@@ -53,7 +60,8 @@
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="OrderId" DataType="Int32" Description="订单" />
       <Column Name="Action" DataType="String" Description="操作" />
-      <Column Name="Remark" DataType="String" Length="2000" Description="详细信息" />
+      <Column Name="OccurTime" DataType="DateTime" Description="发生时间。来自订单" />
+      <Column Name="Remark" DataType="String" Length="500" Description="详细信息" />
       <Column Name="TraceId" DataType="String" Description="性能追踪。用于APM性能追踪定位，还原该事件的调用链" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />

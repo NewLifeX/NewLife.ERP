@@ -43,6 +43,22 @@ namespace Erp.Data.Products
         [BindColumn("Enable", "启用", "")]
         public Boolean Enable { get => _Enable; set { if (OnPropertyChanging("Enable", value)) { _Enable = value; OnPropertyChanged("Enable"); } } }
 
+        private String _Contact;
+        /// <summary>联系人</summary>
+        [DisplayName("联系人")]
+        [Description("联系人")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Contact", "联系人", "")]
+        public String Contact { get => _Contact; set { if (OnPropertyChanging("Contact", value)) { _Contact = value; OnPropertyChanged("Contact"); } } }
+
+        private String _Phone;
+        /// <summary>电话</summary>
+        [DisplayName("电话")]
+        [Description("电话")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Phone", "电话", "")]
+        public String Phone { get => _Phone; set { if (OnPropertyChanging("Phone", value)) { _Phone = value; OnPropertyChanged("Phone"); } } }
+
         private String _Address;
         /// <summary>地址</summary>
         [DisplayName("地址")]
@@ -146,6 +162,8 @@ namespace Erp.Data.Products
                     case "Id": return _Id;
                     case "Name": return _Name;
                     case "Enable": return _Enable;
+                    case "Contact": return _Contact;
+                    case "Phone": return _Phone;
                     case "Address": return _Address;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
@@ -166,6 +184,8 @@ namespace Erp.Data.Products
                     case "Id": _Id = value.ToInt(); break;
                     case "Name": _Name = Convert.ToString(value); break;
                     case "Enable": _Enable = value.ToBoolean(); break;
+                    case "Contact": _Contact = Convert.ToString(value); break;
+                    case "Phone": _Phone = Convert.ToString(value); break;
                     case "Address": _Address = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
@@ -194,6 +214,12 @@ namespace Erp.Data.Products
 
             /// <summary>启用</summary>
             public static readonly Field Enable = FindByName("Enable");
+
+            /// <summary>联系人</summary>
+            public static readonly Field Contact = FindByName("Contact");
+
+            /// <summary>电话</summary>
+            public static readonly Field Phone = FindByName("Phone");
 
             /// <summary>地址</summary>
             public static readonly Field Address = FindByName("Address");
@@ -239,6 +265,12 @@ namespace Erp.Data.Products
 
             /// <summary>启用</summary>
             public const String Enable = "Enable";
+
+            /// <summary>联系人</summary>
+            public const String Contact = "Contact";
+
+            /// <summary>电话</summary>
+            public const String Phone = "Phone";
 
             /// <summary>地址</summary>
             public const String Address = "Address";

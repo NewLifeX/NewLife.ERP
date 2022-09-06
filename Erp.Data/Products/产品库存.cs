@@ -10,13 +10,13 @@ using XCode.DataAccessLayer;
 
 namespace Erp.Data.Products
 {
-    /// <summary>产品库存。产品存放在每一个仓库的数量</summary>
+    /// <summary>产品库存。产品存放在每一个仓库的数量，严格的出入库流程保证库存绝对平衡</summary>
     [Serializable]
     [DataObject]
-    [Description("产品库存。产品存放在每一个仓库的数量")]
+    [Description("产品库存。产品存放在每一个仓库的数量，严格的出入库流程保证库存绝对平衡")]
     [BindIndex("IU_ProductStock_ProductId_WarehouseId", true, "ProductId,WarehouseId")]
     [BindIndex("IX_ProductStock_WarehouseId", false, "WarehouseId")]
-    [BindTable("ProductStock", Description = "产品库存。产品存放在每一个仓库的数量", ConnName = "Erp", DbType = DatabaseType.None)]
+    [BindTable("ProductStock", Description = "产品库存。产品存放在每一个仓库的数量，严格的出入库流程保证库存绝对平衡", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class ProductStock
     {
         #region 属性

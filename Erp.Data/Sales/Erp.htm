@@ -101,7 +101,7 @@
             <td></td>
             <td></td>
             <td>N</td>
-            <td>总价值</td>
+            <td>产品总价加上运费</td>
         </tr>
 
         <tr>
@@ -138,6 +138,28 @@
         </tr>
 
         <tr>
+            <td>Operator</td>
+            <td>经办人</td>
+            <td>String</td>
+            <td>50</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Invoice</td>
+            <td>发票</td>
+            <td>Boolean</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>N</td>
+            <td>已开票</td>
+        </tr>
+
+        <tr>
             <td>BillCode</td>
             <td>快递单号</td>
             <td>String</td>
@@ -149,8 +171,41 @@
         </tr>
 
         <tr>
+            <td>Freight</td>
+            <td>运费</td>
+            <td>Decimal</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>N</td>
+            <td>快递费</td>
+        </tr>
+
+        <tr>
             <td>Receiver</td>
             <td>收件人</td>
+            <td>String</td>
+            <td>50</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Phone</td>
+            <td>收件电话</td>
+            <td>String</td>
+            <td>50</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>Address</td>
+            <td>收件地址</td>
             <td>String</td>
             <td>50</td>
             <td></td>
@@ -309,6 +364,17 @@
         </tr>
 
         <tr>
+            <td>WarehouseId</td>
+            <td>仓库</td>
+            <td>Int32</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>N</td>
+            <td>出货的仓库</td>
+        </tr>
+
+        <tr>
             <td>Quantity</td>
             <td>数量</td>
             <td>Int32</td>
@@ -327,7 +393,18 @@
             <td></td>
             <td></td>
             <td>N</td>
-            <td>采购价</td>
+            <td>销售价，如果含税，加上去，可修改为0价格</td>
+        </tr>
+
+        <tr>
+            <td>OccurTime</td>
+            <td>发生时间</td>
+            <td>DateTime</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>来自订单</td>
         </tr>
 
         <tr>
@@ -480,10 +557,21 @@
         </tr>
 
         <tr>
+            <td>OccurTime</td>
+            <td>发生时间</td>
+            <td>DateTime</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>来自订单</td>
+        </tr>
+
+        <tr>
             <td>Remark</td>
             <td>详细信息</td>
             <td>String</td>
-            <td>2000</td>
+            <td>500</td>
             <td></td>
             <td></td>
             <td></td>

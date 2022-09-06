@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using Erp.Data.Models;
+﻿using Erp.Data.Models;
 using Erp.Data.Products;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
 using NewLife.Cube.ViewModels;
 using NewLife.Data;
 using NewLife.Web;
-using XCode;
+using XCode.Membership;
 
 namespace NewLife.ERP.Areas.Products.Controllers;
 
@@ -40,6 +39,16 @@ public class ProductController : EntityController<Product>
             df.Url = "StockHistory?productId={Id}";
         }
         {
+            var df = ListFields.AddListField("Purchase", "Weight");
+            df.DisplayName = "采购记录";
+            df.Url = "/Purchases/PurchaseOrderLine?productId={Id}";
+        }
+        {
+            var df = ListFields.AddListField("Sale", "Weight");
+            df.DisplayName = "销售记录";
+            df.Url = "/Sales/SaleOrderLine?productId={Id}";
+        }
+        {
             var df = ListFields.AddListField("Log", "CreateUser");
             df.DisplayName = "日志";
             df.Url = "/Admin/Log?category=产品&linkId={Id}";
@@ -63,7 +72,14 @@ public class ProductController : EntityController<Product>
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return Product.Search(code, categoryId, kind, enable, start, end, p["Q"], p);
+        // 计算产品的所有子级
+        var cat = ProductCategory.FindById(categoryId);
+        var cids = cat?.AllChilds.Select(e => e.Id).ToList() ?? new List<Int32>();
+        if (categoryId >= 0) cids.Add(categoryId);
+
+        p.RetrieveState = true;
+
+        return Product.Search(code, cids.ToArray(), kind, enable, start, end, p["Q"], p);
     }
 
     public ActionResult Search(Int32 roleId = 0, Int32 departmentId = 0, String key = null)
@@ -134,5 +150,29 @@ public class ProductController : EntityController<Product>
         }
 
         return rs;
+    }
+
+    /// <summary>更新库存</summary>
+    /// <returns></returns>
+    [EntityAuthorize(PermissionFlags.Update)]
+    public ActionResult RefreshStock()
+    {
+        var count = 0;
+        var ids = GetRequest("keys").SplitAsInt();
+        if (ids.Length > 0)
+        {
+            foreach (var id in ids)
+            {
+                var entity = Product.FindById(id);
+                if (entity != null)
+                {
+                    entity.Fix();
+
+                    count += entity.Update();
+                }
+            }
+        }
+
+        return JsonRefresh($"共更新[{count}]个");
     }
 }
