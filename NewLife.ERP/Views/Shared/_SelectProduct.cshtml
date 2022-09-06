@@ -1,17 +1,19 @@
-﻿@model SelectUserModel
+﻿@model SelectProductModel
+@using Erp.Data.Products
 @using NewLife;
 @using NewLife.Web;
 @using XCode;
 @using System.Linq;
 @using NewLife.Cube.ViewModels;
+@using NewLife.ERP.Models;
 @{
     var id = Model.Id;
     var page = ViewBag.Page as Pager;
 
-    if (id.IsNullOrEmpty()) { id = "userId"; }
-    var userId = Model.UserId;
-    if (userId <= 0) userId = page[id].ToInt();
-    var showValue = XCode.Membership.User.FindByID(userId)?.ToString();
+    if (id.IsNullOrEmpty()) { id = "productId"; }
+    var productId = Model.ProductId;
+    if (productId <= 0) productId = page[id].ToInt();
+    var showValue = Product.FindById(productId)?.ToString();
 
     var set = NewLife.Cube.Setting.Current;
     var res = set.ResourceUrl;
@@ -22,8 +24,8 @@
 <div class="form-group" style="position:relative">
     <div class="col-lg-12">
         <div class="input-group">
-            <input type="hidden" name="@id" id="@id" value="@userId" />
-            <input type="text" class="form-control" id="@(id)_select" placeholder="搜索用户" value="@showValue">
+            <input type="hidden" name="@id" id="@id" value="@productId" />
+            <input type="text" class="form-control" id="@(id)_select" placeholder="搜索产品" value="@showValue">
             <div class="input-group-btn">
                 <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
             </div>
@@ -35,9 +37,9 @@
 <script type="text/javascript">
     $(function () {
         $("#@(id)_select").bsSuggest({
-            url: "/cube/UserSearch?roleid=@Model.RoleId&department=@Model.DepartmentId&key=",
+            url: "/Products/Product/Search?categoryId=@Model.CategoryId&key=",
             getDataMethod:"url",
-            effectiveFieldsAlias: { id:"编号",code:"代码",name: "名称",displayName:'昵称',departmentName:'部门'},
+            effectiveFieldsAlias: { id:"编号",code:"代码",name: "名称",title:'标题'},
             ignorecase: true,
             showHeader: true,
             delayUntilKeyup: true, //获取数据的方式为 firstByUrl 时，延迟到有输入/获取到焦点时才请求数据

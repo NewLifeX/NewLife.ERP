@@ -6,9 +6,9 @@
     var id = (Object)Model + "";
     var page = ViewBag.Page as Pager;
 
-    if (id.IsNullOrEmpty()) { id = "departmentId"; }
-    var departmentId = page[id];
-    var showValue = Department.FindByID(departmentId.ToInt())?.ToString();
+    if (id.IsNullOrEmpty()) { id = "supplierId"; }
+    var supplierId = page[id];
+    var showValue = Department.FindByID(supplierId.ToInt())?.ToString();
 
     var set = NewLife.Cube.Setting.Current;
     var res = set.ResourceUrl;
@@ -19,8 +19,8 @@
 <div class="form-group" style="position:relative">
     <div class="col-lg-12">
         <div class="input-group">
-            <input type="hidden" name="@id" id="@id" value="@departmentId" />
-            <input type="text" class="form-control" id="@(id)_select" placeholder="搜索部门" value="@showValue">
+            <input type="hidden" name="@id" id="@id" value="@supplierId" />
+            <input type="text" class="form-control" id="@(id)_select" placeholder="搜索供应商" value="@showValue">
             <div class="input-group-btn">
                 <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
             </div>
@@ -32,9 +32,9 @@
 <script type="text/javascript">
     $(function () {
         $("#@(id)_select").bsSuggest({
-            url: "/cube/DepartmentSearch?key=",
+            url: "/Purchases/Supplier/Search?key=",
             getDataMethod:"url",
-            effectiveFieldsAlias: { id:"编号",code:"代码",name: "名称",fullName:'全名',manager:'管理者'},
+            effectiveFieldsAlias: { id:"编号",name: "名称",fullName:'全名',contact:'联系人'},
             ignorecase: true,
             showHeader: true,
             delayUntilKeyup: true, //获取数据的方式为 firstByUrl 时，延迟到有输入/获取到焦点时才请求数据

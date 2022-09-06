@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
 using NewLife.Data;
 using NewLife.Web;
-using XCode;
 
 namespace NewLife.ERP.Areas.Purchases.Controllers;
 
@@ -46,29 +45,17 @@ public class SupplierController : EntityController<Supplier>
         return Supplier.Search(start, end, p["Q"], p);
     }
 
-    public ActionResult Search(Int32 roleId = 0, Int32 departmentId = 0, String key = null)
+    public ActionResult Search(String key = null)
     {
-        var exp = new WhereExpression();
-        if (roleId > 0) exp &= _.RoleID == roleId;
-        if (departmentId > 0) exp &= _.DepartmentID == departmentId;
-        exp &= _.Enable == true;
-        if (!key.IsNullOrEmpty()) exp &= _.Code.StartsWith(key) | _.Name.StartsWith(key) | _.DisplayName.StartsWith(key) | _.Mobile.StartsWith(key);
-
         var page = new PageParameter { PageSize = 20 };
-
-        // 默认排序
-        if (page.Sort.IsNullOrEmpty()) page.Sort = _.Name;
-
-        var list = XCode.Membership.User.FindAll(exp, page);
+        var list = Supplier.Search(DateTime.MinValue, DateTime.MinValue, key, page);
 
         return Json(0, null, list.Select(e => new
         {
-            e.ID,
-            e.Code,
+            e.Id,
             e.Name,
-            e.DisplayName,
-            //e.DepartmentID,
-            DepartmentName = e.Department?.ToString(),
+            e.FullName,
+            e.Contact,
         }).ToArray());
     }
 }
