@@ -9,6 +9,8 @@
       <Column Name="Contact" DataType="String" Description="联系人" />
       <Column Name="Phone" DataType="String" Description="电话" />
       <Column Name="Address" DataType="String" Description="地址" />
+      <Column Name="PinYin" DataType="String" Description="拼音。仅用于快速搜索" />
+      <Column Name="PinYin2" DataType="String" Description="拼音2。仅用于快速搜索" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />

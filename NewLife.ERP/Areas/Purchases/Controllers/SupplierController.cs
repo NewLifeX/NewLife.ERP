@@ -14,7 +14,8 @@ public class SupplierController : EntityController<Supplier>
     {
         LogOnChange = true;
 
-        ListFields.RemoveField("Phone", "Address");
+        //ListFields.RemoveField("Phone", "Address");
+        ListFields.RemoveField("PinYin", "PinYin2");
         ListFields.RemoveCreateField();
         ListFields.RemoveRemarkField();
 

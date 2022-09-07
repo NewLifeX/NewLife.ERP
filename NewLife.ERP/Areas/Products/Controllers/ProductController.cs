@@ -21,7 +21,7 @@ public class ProductController : EntityController<Product>
         ListFields.RemoveCreateField();
         ListFields.RemoveUpdateField();
         ListFields.RemoveRemarkField();
-        ListFields.RemoveField("Image", "Specification");
+        ListFields.RemoveField("Image", "Specification", "PinYin", "PinYin2");
 
         //{
         //    var df = ListFields.GetField("Units") as ListField;

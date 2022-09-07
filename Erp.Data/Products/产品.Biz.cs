@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Erp.Data.Models;
 using NewLife;
+using NewLife.Common;
 using NewLife.Data;
 using XCode;
 using XCode.Membership;
@@ -43,20 +44,9 @@ public partial class Product : Entity<Product>
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
-        // 处理当前已登录用户信息，可以由UserModule过滤器代劳
-        /*var user = ManageProvider.User;
-        if (user != null)
-        {
-            if (isNew && !Dirtys[nameof(CreateUserID)]) CreateUserID = user.ID;
-            if (!Dirtys[nameof(UpdateUserID)]) UpdateUserID = user.ID;
-        }*/
-        //if (isNew && !Dirtys[nameof(CreateTime)]) CreateTime = DateTime.Now;
-        //if (!Dirtys[nameof(UpdateTime)]) UpdateTime = DateTime.Now;
-        //if (isNew && !Dirtys[nameof(CreateIP)]) CreateIP = ManageProvider.UserHost;
-        //if (!Dirtys[nameof(UpdateIP)]) UpdateIP = ManageProvider.UserHost;
 
-        // 检查唯一索引
-        // CheckExist(isNew, nameof(Code));
+        if (PinYin.IsNullOrEmpty() || Dirtys[nameof(Name)]) PinYin = NewLife.Common.PinYin.GetFirst(Name);
+        if (PinYin2.IsNullOrEmpty() || Dirtys[nameof(Name)]) PinYin2 = NewLife.Common.PinYin.Get(Name);
     }
 
     /// <summary>首次连接数据库时初始化数据，仅用于实体类重载，用户不应该调用该方法</summary>
@@ -162,7 +152,7 @@ public partial class Product : Entity<Product>
         if (enable != null) exp &= _.Enable == enable;
 
         exp &= _.UpdateTime.Between(start, end);
-        if (!key.IsNullOrEmpty()) exp &= _.Code.Contains(key) | _.Name.Contains(key) | _.Title.Contains(key) | _.Unit.Contains(key) | _.Specification.Contains(key) | _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
+        if (!key.IsNullOrEmpty()) exp &= _.Code.Contains(key) | _.Name.Contains(key) | _.Title.Contains(key) | _.Unit.Contains(key) | _.Specification.Contains(key) | _.PinYin.Contains(key) | _.PinYin2.Contains(key) | _.Remark.Contains(key);
 
         return FindAll(exp, page);
     }
@@ -177,7 +167,7 @@ public partial class Product : Entity<Product>
         if (enable != null) exp &= _.Enable == enable;
 
         exp &= _.UpdateTime.Between(start, end);
-        if (!key.IsNullOrEmpty()) exp &= _.Code.Contains(key) | _.Name.Contains(key) | _.Title.Contains(key) | _.Unit.Contains(key) | _.Specification.Contains(key) | _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
+        if (!key.IsNullOrEmpty()) exp &= _.Code.Contains(key) | _.Name.Contains(key) | _.Title.Contains(key) | _.Unit.Contains(key) | _.Specification.Contains(key) | _.PinYin.Contains(key) | _.PinYin2.Contains(key) | _.Remark.Contains(key);
 
         return FindAll(exp, page);
     }

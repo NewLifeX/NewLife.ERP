@@ -75,6 +75,22 @@ namespace Erp.Data.Customers
         [BindColumn("Address", "地址", "")]
         public String Address { get => _Address; set { if (OnPropertyChanging("Address", value)) { _Address = value; OnPropertyChanged("Address"); } } }
 
+        private String _PinYin;
+        /// <summary>拼音。仅用于快速搜索</summary>
+        [DisplayName("拼音")]
+        [Description("拼音。仅用于快速搜索")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("PinYin", "拼音。仅用于快速搜索", "")]
+        public String PinYin { get => _PinYin; set { if (OnPropertyChanging("PinYin", value)) { _PinYin = value; OnPropertyChanged("PinYin"); } } }
+
+        private String _PinYin2;
+        /// <summary>拼音2。仅用于快速搜索</summary>
+        [DisplayName("拼音2")]
+        [Description("拼音2。仅用于快速搜索")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("PinYin2", "拼音2。仅用于快速搜索", "")]
+        public String PinYin2 { get => _PinYin2; set { if (OnPropertyChanging("PinYin2", value)) { _PinYin2 = value; OnPropertyChanged("PinYin2"); } } }
+
         private String _CreateUser;
         /// <summary>创建者</summary>
         [Category("扩展")]
@@ -174,6 +190,8 @@ namespace Erp.Data.Customers
                     case "Contact": return _Contact;
                     case "Phone": return _Phone;
                     case "Address": return _Address;
+                    case "PinYin": return _PinYin;
+                    case "PinYin2": return _PinYin2;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
                     case "CreateIP": return _CreateIP;
@@ -197,6 +215,8 @@ namespace Erp.Data.Customers
                     case "Contact": _Contact = Convert.ToString(value); break;
                     case "Phone": _Phone = Convert.ToString(value); break;
                     case "Address": _Address = Convert.ToString(value); break;
+                    case "PinYin": _PinYin = Convert.ToString(value); break;
+                    case "PinYin2": _PinYin2 = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
                     case "CreateIP": _CreateIP = Convert.ToString(value); break;
@@ -236,6 +256,12 @@ namespace Erp.Data.Customers
 
             /// <summary>地址</summary>
             public static readonly Field Address = FindByName("Address");
+
+            /// <summary>拼音。仅用于快速搜索</summary>
+            public static readonly Field PinYin = FindByName("PinYin");
+
+            /// <summary>拼音2。仅用于快速搜索</summary>
+            public static readonly Field PinYin2 = FindByName("PinYin2");
 
             /// <summary>创建者</summary>
             public static readonly Field CreateUser = FindByName("CreateUser");
@@ -290,6 +316,12 @@ namespace Erp.Data.Customers
 
             /// <summary>地址</summary>
             public const String Address = "Address";
+
+            /// <summary>拼音。仅用于快速搜索</summary>
+            public const String PinYin = "PinYin";
+
+            /// <summary>拼音2。仅用于快速搜索</summary>
+            public const String PinYin2 = "PinYin2";
 
             /// <summary>创建者</summary>
             public const String CreateUser = "CreateUser";
