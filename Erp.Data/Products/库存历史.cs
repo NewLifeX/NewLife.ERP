@@ -103,11 +103,11 @@ namespace Erp.Data.Products
         public String OrderTitle { get => _OrderTitle; set { if (OnPropertyChanging("OrderTitle", value)) { _OrderTitle = value; OnPropertyChanged("OrderTitle"); } } }
 
         private String _TraceId;
-        /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
-        [DisplayName("性能追踪")]
-        [Description("性能追踪。用于APM性能追踪定位，还原该事件的调用链")]
+        /// <summary>追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+        [DisplayName("追踪")]
+        [Description("追踪。用于APM性能追踪定位，还原该事件的调用链")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("TraceId", "性能追踪。用于APM性能追踪定位，还原该事件的调用链", "")]
+        [BindColumn("TraceId", "追踪。用于APM性能追踪定位，还原该事件的调用链", "")]
         public String TraceId { get => _TraceId; set { if (OnPropertyChanging("TraceId", value)) { _TraceId = value; OnPropertyChanged("TraceId"); } } }
 
         private String _CreateUser;
@@ -245,7 +245,7 @@ namespace Erp.Data.Products
             /// <summary>订单标题</summary>
             public static readonly Field OrderTitle = FindByName("OrderTitle");
 
-            /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+            /// <summary>追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
             public static readonly Field TraceId = FindByName("TraceId");
 
             /// <summary>创建者</summary>
@@ -299,7 +299,7 @@ namespace Erp.Data.Products
             /// <summary>订单标题</summary>
             public const String OrderTitle = "OrderTitle";
 
-            /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+            /// <summary>追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
             public const String TraceId = "TraceId";
 
             /// <summary>创建者</summary>

@@ -30,8 +30,8 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
     /// <param name="isNew">是否插入</param>
     public override void Valid(Boolean isNew)
     {
-        // 如果没有脏数据，则不需要进行任何处理
-        if (!HasDirty) return;
+        //// 如果没有脏数据，则不需要进行任何处理
+        //if (!HasDirty) return;
 
         if (ProductId <= 0) throw new ArgumentNullException(nameof(ProductId), "产品不能为空");
         if (Quantity <= 0) throw new ArgumentNullException(nameof(Quantity), "数量不能为空");
@@ -47,6 +47,8 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         if (order != null)
         {
             if (OccurTime.Year < 2000) OccurTime = order.OccurTime;
+            WarehouseId = order.WarehouseId;
+            SupplierId = order.SupplierId;
         }
     }
     #endregion
@@ -69,6 +71,24 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
     /// <summary>产品</summary>
     [Map(nameof(ProductId), typeof(Product), "Id")]
     public String ProductName => Product?.Name;
+
+    /// <summary>供应商</summary>
+    [XmlIgnore, IgnoreDataMember]
+    //[ScriptIgnore]
+    public Supplier Supplier => Extends.Get(nameof(Supplier), k => Supplier.FindById(SupplierId));
+
+    /// <summary>供应商</summary>
+    [Map(nameof(SupplierId), typeof(Supplier), "Id")]
+    public String SupplierName => Supplier?.Name;
+
+    /// <summary>仓库</summary>
+    [XmlIgnore, IgnoreDataMember]
+    //[ScriptIgnore]
+    public Warehouse Warehouse => Extends.Get(nameof(Warehouse), k => Warehouse.FindById(WarehouseId));
+
+    /// <summary>仓库</summary>
+    [Map(nameof(WarehouseId), typeof(Warehouse), "Id")]
+    public String WarehouseName => Warehouse?.Name;
     #endregion
 
     #region 扩展查询

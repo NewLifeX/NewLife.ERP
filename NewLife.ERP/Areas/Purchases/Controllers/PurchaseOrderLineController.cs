@@ -2,6 +2,7 @@
 using Erp.Data.Models;
 using Erp.Data.Purchases;
 using NewLife.Cube;
+using NewLife.Cube.ViewModels;
 using NewLife.Web;
 
 namespace NewLife.ERP.Areas.Purchases.Controllers;
@@ -15,6 +16,19 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
         LogOnChange = true;
 
         ListFields.RemoveRemarkField();
+
+        {
+            var df = ListFields.GetField("SupplierName") as ListField;
+            df.Url = "/Purchases/Supplier?Id={SupplierId}";
+        }
+        {
+            var df = ListFields.GetField("WarehouseName") as ListField;
+            df.Url = "/Products/Warehouse?Id={WarehouseId}";
+        }
+        {
+            var df = ListFields.GetField("ProductName") as ListField;
+            df.Url = "/Products/Product?Id={ProductId}";
+        }
     }
 
     protected override IEnumerable<PurchaseOrderLine> Search(Pager p)

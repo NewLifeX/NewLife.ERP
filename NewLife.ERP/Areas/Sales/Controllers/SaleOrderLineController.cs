@@ -1,9 +1,9 @@
-﻿using Erp.Data.Purchases;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using Erp.Data.Models;
 using Erp.Data.Sales;
 using NewLife.Cube;
+using NewLife.Cube.ViewModels;
 using NewLife.Web;
-using Erp.Data.Models;
 
 namespace NewLife.ERP.Areas.Sales.Controllers;
 
@@ -16,6 +16,19 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
         LogOnChange = true;
 
         ListFields.RemoveRemarkField();
+
+        {
+            var df = ListFields.GetField("CustomerName") as ListField;
+            df.Url = "/Customers/Customer?Id={CustomerId}";
+        }
+        {
+            var df = ListFields.GetField("WarehouseName") as ListField;
+            df.Url = "/Products/Warehouse?Id={WarehouseId}";
+        }
+        {
+            var df = ListFields.GetField("ProductName") as ListField;
+            df.Url = "/Products/Product?Id={ProductId}";
+        }
     }
 
     protected override IEnumerable<SaleOrderLine> Search(Pager p)

@@ -16,6 +16,9 @@ namespace Erp.Data.Purchases
     [Description("采购单明细。采购单包含的每一种产品")]
     [BindIndex("IX_PurchaseOrderLine_OrderId", false, "OrderId")]
     [BindIndex("IX_PurchaseOrderLine_ProductId_OccurTime", false, "ProductId,OccurTime")]
+    [BindIndex("IX_PurchaseOrderLine_SupplierId_OccurTime", false, "SupplierId,OccurTime")]
+    [BindIndex("IX_PurchaseOrderLine_SupplierId_ProductId_OccurTime", false, "SupplierId,ProductId,OccurTime")]
+    [BindIndex("IX_PurchaseOrderLine_WarehouseId_OccurTime", false, "WarehouseId,OccurTime")]
     [BindTable("PurchaseOrderLine", Description = "采购单明细。采购单包含的每一种产品", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class PurchaseOrderLine
     {
@@ -59,6 +62,22 @@ namespace Erp.Data.Purchases
         [DataObjectField(false, false, false, 0)]
         [BindColumn("Price", "价格。采购价，如果含税，加上去，可修改为0价格", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
+
+        private Int32 _SupplierId;
+        /// <summary>供应商</summary>
+        [DisplayName("供应商")]
+        [Description("供应商")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("SupplierId", "供应商", "")]
+        public Int32 SupplierId { get => _SupplierId; set { if (OnPropertyChanging("SupplierId", value)) { _SupplierId = value; OnPropertyChanged("SupplierId"); } } }
+
+        private Int32 _WarehouseId;
+        /// <summary>仓库。进入的仓库</summary>
+        [DisplayName("仓库")]
+        [Description("仓库。进入的仓库")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("WarehouseId", "仓库。进入的仓库", "")]
+        public Int32 WarehouseId { get => _WarehouseId; set { if (OnPropertyChanging("WarehouseId", value)) { _WarehouseId = value; OnPropertyChanged("WarehouseId"); } } }
 
         private DateTime _OccurTime;
         /// <summary>发生时间。来自订单</summary>
@@ -165,6 +184,8 @@ namespace Erp.Data.Purchases
                     case "ProductId": return _ProductId;
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
+                    case "SupplierId": return _SupplierId;
+                    case "WarehouseId": return _WarehouseId;
                     case "OccurTime": return _OccurTime;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
@@ -187,6 +208,8 @@ namespace Erp.Data.Purchases
                     case "ProductId": _ProductId = value.ToInt(); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
+                    case "SupplierId": _SupplierId = value.ToInt(); break;
+                    case "WarehouseId": _WarehouseId = value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
@@ -221,6 +244,12 @@ namespace Erp.Data.Purchases
 
             /// <summary>价格。采购价，如果含税，加上去，可修改为0价格</summary>
             public static readonly Field Price = FindByName("Price");
+
+            /// <summary>供应商</summary>
+            public static readonly Field SupplierId = FindByName("SupplierId");
+
+            /// <summary>仓库。进入的仓库</summary>
+            public static readonly Field WarehouseId = FindByName("WarehouseId");
 
             /// <summary>发生时间。来自订单</summary>
             public static readonly Field OccurTime = FindByName("OccurTime");
@@ -272,6 +301,12 @@ namespace Erp.Data.Purchases
 
             /// <summary>价格。采购价，如果含税，加上去，可修改为0价格</summary>
             public const String Price = "Price";
+
+            /// <summary>供应商</summary>
+            public const String SupplierId = "SupplierId";
+
+            /// <summary>仓库。进入的仓库</summary>
+            public const String WarehouseId = "WarehouseId";
 
             /// <summary>发生时间。来自订单</summary>
             public const String OccurTime = "OccurTime";

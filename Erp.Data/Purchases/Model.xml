@@ -62,6 +62,8 @@
       <Column Name="ProductId" DataType="Int32" Description="产品" />
       <Column Name="Quantity" DataType="Int32" Description="数量" />
       <Column Name="Price" DataType="Decimal" Description="价格。采购价，如果含税，加上去，可修改为0价格" />
+      <Column Name="SupplierId" DataType="Int32" Description="供应商" />
+      <Column Name="WarehouseId" DataType="Int32" Description="仓库。进入的仓库" />
       <Column Name="OccurTime" DataType="DateTime" Description="发生时间。来自订单" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
@@ -76,6 +78,9 @@
     <Indexes>
       <Index Columns="OrderId" />
       <Index Columns="ProductId,OccurTime" />
+      <Index Columns="SupplierId,OccurTime" />
+      <Index Columns="SupplierId,ProductId,OccurTime" />
+      <Index Columns="WarehouseId,OccurTime" />
     </Indexes>
   </Table>
   <Table Name="PurchaseOrderHistory" Description="采购单历史。采购单变化历史" InsertOnly="True">
@@ -85,7 +90,7 @@
       <Column Name="Action" DataType="String" Description="操作" />
       <Column Name="OccurTime" DataType="DateTime" Description="发生时间。来自订单" />
       <Column Name="Remark" DataType="String" Length="500" Description="详细信息" />
-      <Column Name="TraceId" DataType="String" Description="性能追踪。用于APM性能追踪定位，还原该事件的调用链" />
+      <Column Name="TraceId" DataType="String" Description="追踪。用于APM性能追踪定位，还原该事件的调用链" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />
       <Column Name="CreateIP" DataType="String" Description="创建地址" Category="扩展" />

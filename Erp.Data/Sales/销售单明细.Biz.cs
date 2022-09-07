@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Erp.Data.Customers;
 using Erp.Data.Products;
 using NewLife;
 using NewLife.Data;
@@ -30,8 +31,8 @@ namespace Erp.Data.Sales
         /// <param name="isNew">是否插入</param>
         public override void Valid(Boolean isNew)
         {
-            // 如果没有脏数据，则不需要进行任何处理
-            if (!HasDirty) return;
+            //// 如果没有脏数据，则不需要进行任何处理
+            //if (!HasDirty) return;
 
             if (ProductId <= 0) throw new ArgumentNullException(nameof(ProductId), "产品不能为空");
             if (WarehouseId <= 0) throw new ArgumentNullException(nameof(WarehouseId), "仓库不能为空");
@@ -48,6 +49,7 @@ namespace Erp.Data.Sales
             if (order != null)
             {
                 if (OccurTime.Year < 2000) OccurTime = order.OccurTime;
+                CustomerId = order.CustomerId;
             }
         }
         #endregion
@@ -70,6 +72,15 @@ namespace Erp.Data.Sales
         /// <summary>产品</summary>
         [Map(nameof(ProductId), typeof(Product), "Id")]
         public String ProductName => Product?.Name;
+
+        /// <summary>客户</summary>
+        [XmlIgnore, IgnoreDataMember]
+        //[ScriptIgnore]
+        public Customer Customer => Extends.Get(nameof(Customer), k => Customer.FindById(CustomerId));
+
+        /// <summary>客户</summary>
+        [Map(nameof(CustomerId), typeof(Customer), "Id")]
+        public String CustomerName => Customer?.Name;
 
         /// <summary>仓库</summary>
         [XmlIgnore, IgnoreDataMember]

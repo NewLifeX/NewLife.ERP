@@ -61,11 +61,11 @@ namespace Erp.Data.Purchases
         public String Remark { get => _Remark; set { if (OnPropertyChanging("Remark", value)) { _Remark = value; OnPropertyChanged("Remark"); } } }
 
         private String _TraceId;
-        /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
-        [DisplayName("性能追踪")]
-        [Description("性能追踪。用于APM性能追踪定位，还原该事件的调用链")]
+        /// <summary>追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+        [DisplayName("追踪")]
+        [Description("追踪。用于APM性能追踪定位，还原该事件的调用链")]
         [DataObjectField(false, false, true, 50)]
-        [BindColumn("TraceId", "性能追踪。用于APM性能追踪定位，还原该事件的调用链", "")]
+        [BindColumn("TraceId", "追踪。用于APM性能追踪定位，还原该事件的调用链", "")]
         public String TraceId { get => _TraceId; set { if (OnPropertyChanging("TraceId", value)) { _TraceId = value; OnPropertyChanged("TraceId"); } } }
 
         private String _CreateUser;
@@ -167,7 +167,7 @@ namespace Erp.Data.Purchases
             /// <summary>详细信息</summary>
             public static readonly Field Remark = FindByName("Remark");
 
-            /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+            /// <summary>追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
             public static readonly Field TraceId = FindByName("TraceId");
 
             /// <summary>创建者</summary>
@@ -203,7 +203,7 @@ namespace Erp.Data.Purchases
             /// <summary>详细信息</summary>
             public const String Remark = "Remark";
 
-            /// <summary>性能追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
+            /// <summary>追踪。用于APM性能追踪定位，还原该事件的调用链</summary>
             public const String TraceId = "TraceId";
 
             /// <summary>创建者</summary>
