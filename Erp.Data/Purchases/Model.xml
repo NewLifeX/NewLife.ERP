@@ -91,6 +91,7 @@
     </Columns>
     <Indexes>
       <Index Columns="OrderId" />
+      <Index Columns="OccurTime" />
     </Indexes>
   </Table>
 </Tables>

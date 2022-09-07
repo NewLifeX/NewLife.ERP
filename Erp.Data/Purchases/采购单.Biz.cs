@@ -125,7 +125,7 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
 
         if (supplierId >= 0) exp &= _.SupplierId == supplierId;
         if (warehouseId >= 0) exp &= _.WarehouseId == warehouseId;
-        if (productId >= 0) exp &= _.Id.In(PurchaseOrderLine.SearchSql(productId));
+        if (productId > 0) exp &= _.Id.In(PurchaseOrderLine.SearchSql(productId, start, end));
         exp &= _.OccurTime.Between(start, end);
         if (!key.IsNullOrEmpty()) exp &= _.Title.Contains(key) | _.ContractNo.Contains(key) | _.BillCode.Contains(key) | _.Receiver.Contains(key) | _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
 

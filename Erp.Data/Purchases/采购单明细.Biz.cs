@@ -132,11 +132,12 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         return FindAll(exp, page);
     }
 
-    public static SelectBuilder SearchSql(Int32 productId)
+    public static SelectBuilder SearchSql(Int32 productId, DateTime start, DateTime end)
     {
         var exp = new WhereExpression();
 
         if (productId >= 0) exp &= _.ProductId == productId;
+        exp &= _.OccurTime.Between(start, end);
 
         return FindSQL(exp, null, _.OrderId);
     }

@@ -4,6 +4,7 @@ using Erp.Data.Products;
 using NewLife;
 using NewLife.Data;
 using XCode;
+using XCode.DataAccessLayer;
 using XCode.Membership;
 
 namespace Erp.Data.Sales
@@ -139,6 +140,16 @@ namespace Erp.Data.Sales
             if (!key.IsNullOrEmpty()) exp &= _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
 
             return FindAll(exp, page);
+        }
+
+        public static SelectBuilder SearchSql(Int32 productId, DateTime start, DateTime end)
+        {
+            var exp = new WhereExpression();
+
+            if (productId >= 0) exp &= _.ProductId == productId;
+            exp &= _.OccurTime.Between(start, end);
+
+            return FindSQL(exp, null, _.OrderId);
         }
 
         // Select Count(Id) as Id,Category From SaleOrderLine Where CreateTime>'2020-01-24 00:00:00' Group By Category Order By Id Desc limit 20

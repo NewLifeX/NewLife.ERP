@@ -15,6 +15,7 @@ namespace Erp.Data.Purchases
     [DataObject]
     [Description("采购单历史。采购单变化历史")]
     [BindIndex("IX_PurchaseOrderHistory_OrderId", false, "OrderId")]
+    [BindIndex("IX_PurchaseOrderHistory_OccurTime", false, "OccurTime")]
     [BindTable("PurchaseOrderHistory", Description = "采购单历史。采购单变化历史", ConnName = "Erp", DbType = DatabaseType.None)]
     public partial class PurchaseOrderHistory
     {
