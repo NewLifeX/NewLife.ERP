@@ -113,17 +113,19 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
     /// <summary>高级查询</summary>
     /// <param name="supplierId">供应商</param>
     /// <param name="warehouseId">仓库。进入的仓库</param>
+    /// <param name="productId">产品</param>
     /// <param name="start">更新时间开始</param>
     /// <param name="end">更新时间结束</param>
     /// <param name="key">关键字</param>
     /// <param name="page">分页参数信息。可携带统计和数据权限扩展查询等信息</param>
     /// <returns>实体列表</returns>
-    public static IList<PurchaseOrder> Search(Int32 supplierId, Int32 warehouseId, DateTime start, DateTime end, String key, PageParameter page)
+    public static IList<PurchaseOrder> Search(Int32 supplierId, Int32 warehouseId, Int32 productId, DateTime start, DateTime end, String key, PageParameter page)
     {
         var exp = new WhereExpression();
 
         if (supplierId >= 0) exp &= _.SupplierId == supplierId;
         if (warehouseId >= 0) exp &= _.WarehouseId == warehouseId;
+        if (productId >= 0) exp &= _.Id.In(PurchaseOrderLine.SearchSql(productId));
         exp &= _.OccurTime.Between(start, end);
         if (!key.IsNullOrEmpty()) exp &= _.Title.Contains(key) | _.ContractNo.Contains(key) | _.BillCode.Contains(key) | _.Receiver.Contains(key) | _.CreateUser.Contains(key) | _.CreateIP.Contains(key) | _.UpdateUser.Contains(key) | _.UpdateIP.Contains(key) | _.Remark.Contains(key);
 
