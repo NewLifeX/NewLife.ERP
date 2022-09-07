@@ -19,12 +19,12 @@ public class CustomerController : EntityController<Customer>
         ListFields.RemoveRemarkField();
 
         {
-            var df = ListFields.AddListField("Order", "CreateUser");
+            var df = ListFields.AddListField("Order", "UpdateUser");
             df.DisplayName = "销售单";
             df.Url = "/Sales/SaleOrder?customerId={Id}";
         }
         {
-            var df = ListFields.AddListField("Log", "CreateUser");
+            var df = ListFields.AddListField("Log", "UpdateUser");
             df.DisplayName = "日志";
             df.Url = "/Admin/Log?category=供应商&linkId={Id}";
         }
