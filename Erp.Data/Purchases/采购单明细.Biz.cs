@@ -43,13 +43,7 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
 
-        var order = Order;
-        if (order != null)
-        {
-            if (OccurTime.Year < 2000) OccurTime = order.OccurTime;
-            WarehouseId = order.WarehouseId;
-            SupplierId = order.SupplierId;
-        }
+        Fix(Order);
     }
     #endregion
 
@@ -174,5 +168,17 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
     #endregion
 
     #region 业务操作
+    public Boolean Fix(PurchaseOrder order)
+    {
+        order ??= Order;
+        if (order != null)
+        {
+            if (OccurTime.Year < 2000) OccurTime = order.OccurTime;
+            WarehouseId = order.WarehouseId;
+            SupplierId = order.SupplierId;
+        }
+
+        return HasDirty;
+    }
     #endregion
 }

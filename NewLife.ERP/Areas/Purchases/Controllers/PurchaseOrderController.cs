@@ -128,7 +128,8 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
 
     /// <summary>批量入库</summary>
     /// <returns></returns>
-    [EntityAuthorize(PermissionFlags.Update)]
+    [EntityAuthorize((PermissionFlags)16)]
+    [DisplayName("入库")]
     public ActionResult SetIn()
     {
         var count = 0;
@@ -152,7 +153,8 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
 
     /// <summary>批量取消入库</summary>
     /// <returns></returns>
-    [EntityAuthorize(PermissionFlags.Update)]
+    [EntityAuthorize((PermissionFlags)32)]
+    [DisplayName("取消入库")]
     public ActionResult CancelIn()
     {
         var count = 0;
@@ -169,6 +171,29 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
             }
 
             tran.Commit();
+        }
+
+        return JsonRefresh($"共处理[{count}]个订单");
+    }
+
+    /// <summary>批量修正数据</summary>
+    /// <returns></returns>
+    [EntityAuthorize(PermissionFlags.Update)]
+    public ActionResult Fix()
+    {
+        var count = 0;
+        var ids = GetRequest("keys").SplitAsInt();
+        if (ids.Length > 0)
+        {
+            foreach (var id in ids)
+            {
+                var entity = PurchaseOrder.FindById(id);
+                if (entity != null)
+                {
+                    entity.Fix();
+                    count += entity.Update();
+                }
+            }
         }
 
         return JsonRefresh($"共处理[{count}]个订单");

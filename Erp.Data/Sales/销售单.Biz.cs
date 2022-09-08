@@ -144,6 +144,12 @@ public partial class SaleOrder : Entity<SaleOrder>
                 var txt = $"[{OccurTime:yyMMdd}]" + list.OrderByDescending(e => e.Quantity * e.Price).Join("、", e => e.ProductName);
                 Title = txt.Cut(50);
             }
+
+            foreach (var item in list)
+            {
+                if (item.Fix(this))
+                    item.Update();
+            }
         }
     }
     #endregion

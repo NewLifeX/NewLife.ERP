@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Erp.Data.Models;
+using Erp.Data.Purchases;
 using Erp.Data.Sales;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
@@ -122,7 +123,8 @@ public class SaleOrderController : EntityController<SaleOrder>
 
     /// <summary>批量出库</summary>
     /// <returns></returns>
-    [EntityAuthorize(PermissionFlags.Update)]
+    [EntityAuthorize((PermissionFlags)16)]
+    [DisplayName("出库")]
     public ActionResult SetOut()
     {
         var count = 0;
@@ -146,7 +148,8 @@ public class SaleOrderController : EntityController<SaleOrder>
 
     /// <summary>批量取消出库</summary>
     /// <returns></returns>
-    [EntityAuthorize(PermissionFlags.Update)]
+    [EntityAuthorize((PermissionFlags)32)]
+    [DisplayName("取消出库")]
     public ActionResult CancelOut()
     {
         var count = 0;
@@ -163,6 +166,29 @@ public class SaleOrderController : EntityController<SaleOrder>
             }
 
             tran.Commit();
+        }
+
+        return JsonRefresh($"共处理[{count}]个订单");
+    }
+
+    /// <summary>批量修正数据</summary>
+    /// <returns></returns>
+    [EntityAuthorize(PermissionFlags.Update)]
+    public ActionResult Fix()
+    {
+        var count = 0;
+        var ids = GetRequest("keys").SplitAsInt();
+        if (ids.Length > 0)
+        {
+            foreach (var id in ids)
+            {
+                var entity = PurchaseOrder.FindById(id);
+                if (entity != null)
+                {
+                    entity.Fix();
+                    count += entity.Update();
+                }
+            }
         }
 
         return JsonRefresh($"共处理[{count}]个订单");

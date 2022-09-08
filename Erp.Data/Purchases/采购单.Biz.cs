@@ -149,7 +149,6 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
     {
         // 明细
         var list = PurchaseOrderLine.FindAllByOrderId(Id);
-
         if (list.Count > 0)
         {
             Quantity = list.Sum(e => e.Quantity);
@@ -159,6 +158,12 @@ public partial class PurchaseOrder : Entity<PurchaseOrder>
             {
                 var txt = $"[{OccurTime:yyMMdd}]" + list.OrderByDescending(e => e.Quantity * e.Price).Join("、", e => e.ProductName);
                 Title = txt.Cut(50);
+            }
+
+            foreach (var item in list)
+            {
+                if (item.Fix(this))
+                    item.Update();
             }
         }
     }
