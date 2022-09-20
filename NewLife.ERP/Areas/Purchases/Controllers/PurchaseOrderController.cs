@@ -8,6 +8,7 @@ using NewLife.Web;
 using XCode.Membership;
 using XCode;
 using NewLife.Cube.ViewModels;
+using Erp.Data.Sales;
 
 namespace NewLife.ERP.Areas.Purchases.Controllers;
 
@@ -42,6 +43,10 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
             var df = ListFields.AddListField("History", "OccurTime");
             df.DisplayName = "历史";
             df.Url = "/Purchases/PurchaseOrderHistory?orderId={Id}";
+        }
+        {
+            var df = ListFields.GetField("OccurTime") as ListField;
+            df.GetValue = e => (e as PurchaseOrder).OccurTime.ToString("yyyy-MM-dd");
         }
 
         AddFormFields.RemoveField("Status");

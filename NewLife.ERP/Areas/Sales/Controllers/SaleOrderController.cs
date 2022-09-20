@@ -41,6 +41,10 @@ public class SaleOrderController : EntityController<SaleOrder>
             df.DisplayName = "历史";
             df.Url = "/Sales/SaleOrderHistory?orderId={Id}";
         }
+        {
+            var df = ListFields.GetField("OccurTime") as ListField;
+            df.GetValue = e => (e as SaleOrder).OccurTime.ToString("yyyy-MM-dd");
+        }
 
         AddFormFields.RemoveField("Status");
         AddFormFields.RemoveField("Quantity", "Price");
