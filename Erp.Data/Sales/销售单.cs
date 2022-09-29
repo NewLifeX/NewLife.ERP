@@ -83,6 +83,14 @@ namespace Erp.Data.Sales
         [BindColumn("ContractNo", "合同编号", "")]
         public String ContractNo { get => _ContractNo; set { if (OnPropertyChanging("ContractNo", value)) { _ContractNo = value; OnPropertyChanged("ContractNo"); } } }
 
+        private String _Payment;
+        /// <summary>付款方式</summary>
+        [DisplayName("付款方式")]
+        [Description("付款方式")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Payment", "付款方式", "")]
+        public String Payment { get => _Payment; set { if (OnPropertyChanging("Payment", value)) { _Payment = value; OnPropertyChanged("Payment"); } } }
+
         private String _Operator;
         /// <summary>经办人</summary>
         [DisplayName("经办人")]
@@ -244,6 +252,7 @@ namespace Erp.Data.Sales
                     case "Status": return _Status;
                     case "OccurTime": return _OccurTime;
                     case "ContractNo": return _ContractNo;
+                    case "Payment": return _Payment;
                     case "Operator": return _Operator;
                     case "Invoice": return _Invoice;
                     case "BillCode": return _BillCode;
@@ -275,6 +284,7 @@ namespace Erp.Data.Sales
                     case "Status": _Status = (Erp.Data.Models.OrderStatus)value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "ContractNo": _ContractNo = Convert.ToString(value); break;
+                    case "Payment": _Payment = Convert.ToString(value); break;
                     case "Operator": _Operator = Convert.ToString(value); break;
                     case "Invoice": _Invoice = value.ToBoolean(); break;
                     case "BillCode": _BillCode = Convert.ToString(value); break;
@@ -324,6 +334,9 @@ namespace Erp.Data.Sales
 
             /// <summary>合同编号</summary>
             public static readonly Field ContractNo = FindByName("ContractNo");
+
+            /// <summary>付款方式</summary>
+            public static readonly Field Payment = FindByName("Payment");
 
             /// <summary>经办人</summary>
             public static readonly Field Operator = FindByName("Operator");
@@ -402,6 +415,9 @@ namespace Erp.Data.Sales
 
             /// <summary>合同编号</summary>
             public const String ContractNo = "ContractNo";
+
+            /// <summary>付款方式</summary>
+            public const String Payment = "Payment";
 
             /// <summary>经办人</summary>
             public const String Operator = "Operator";

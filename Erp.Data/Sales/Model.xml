@@ -10,6 +10,7 @@
       <Column Name="Status" DataType="Int32" Description="状态" Type="Erp.Data.Models.OrderStatus" />
       <Column Name="OccurTime" DataType="DateTime" Description="发生时间" />
       <Column Name="ContractNo" DataType="String" Description="合同编号" />
+      <Column Name="Payment" DataType="String" Description="付款方式" />
       <Column Name="Operator" DataType="String" Description="经办人" />
       <Column Name="Invoice" DataType="Boolean" Description="发票。已开票" />
       <Column Name="BillCode" DataType="String" Description="快递单号。发货的快递单号，多个逗号隔开" Category="物流" />

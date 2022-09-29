@@ -92,6 +92,14 @@ namespace Erp.Data.Purchases
         [BindColumn("ContractNo", "合同编号", "")]
         public String ContractNo { get => _ContractNo; set { if (OnPropertyChanging("ContractNo", value)) { _ContractNo = value; OnPropertyChanged("ContractNo"); } } }
 
+        private String _Payment;
+        /// <summary>付款方式</summary>
+        [DisplayName("付款方式")]
+        [Description("付款方式")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Payment", "付款方式", "")]
+        public String Payment { get => _Payment; set { if (OnPropertyChanging("Payment", value)) { _Payment = value; OnPropertyChanged("Payment"); } } }
+
         private String _BillCode;
         /// <summary>快递单号。发货的快递单号，多个逗号隔开</summary>
         [DisplayName("快递单号")]
@@ -225,6 +233,7 @@ namespace Erp.Data.Purchases
                     case "Status": return _Status;
                     case "OccurTime": return _OccurTime;
                     case "ContractNo": return _ContractNo;
+                    case "Payment": return _Payment;
                     case "BillCode": return _BillCode;
                     case "Receiver": return _Receiver;
                     case "Freight": return _Freight;
@@ -254,6 +263,7 @@ namespace Erp.Data.Purchases
                     case "Status": _Status = (Erp.Data.Models.OrderStatus)value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "ContractNo": _ContractNo = Convert.ToString(value); break;
+                    case "Payment": _Payment = Convert.ToString(value); break;
                     case "BillCode": _BillCode = Convert.ToString(value); break;
                     case "Receiver": _Receiver = Convert.ToString(value); break;
                     case "Freight": _Freight = Convert.ToDecimal(value); break;
@@ -303,6 +313,9 @@ namespace Erp.Data.Purchases
 
             /// <summary>合同编号</summary>
             public static readonly Field ContractNo = FindByName("ContractNo");
+
+            /// <summary>付款方式</summary>
+            public static readonly Field Payment = FindByName("Payment");
 
             /// <summary>快递单号。发货的快递单号，多个逗号隔开</summary>
             public static readonly Field BillCode = FindByName("BillCode");
@@ -375,6 +388,9 @@ namespace Erp.Data.Purchases
 
             /// <summary>合同编号</summary>
             public const String ContractNo = "ContractNo";
+
+            /// <summary>付款方式</summary>
+            public const String Payment = "Payment";
 
             /// <summary>快递单号。发货的快递单号，多个逗号隔开</summary>
             public const String BillCode = "BillCode";
