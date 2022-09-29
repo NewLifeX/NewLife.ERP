@@ -75,6 +75,14 @@ namespace Erp.Data.Customers
         [BindColumn("Address", "地址", "")]
         public String Address { get => _Address; set { if (OnPropertyChanging("Address", value)) { _Address = value; OnPropertyChanged("Address"); } } }
 
+        private String _Tags;
+        /// <summary>标签。多标签逗号隔开</summary>
+        [DisplayName("标签")]
+        [Description("标签。多标签逗号隔开")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Tags", "标签。多标签逗号隔开", "")]
+        public String Tags { get => _Tags; set { if (OnPropertyChanging("Tags", value)) { _Tags = value; OnPropertyChanged("Tags"); } } }
+
         private String _PinYin;
         /// <summary>拼音。仅用于快速搜索</summary>
         [DisplayName("拼音")]
@@ -190,6 +198,7 @@ namespace Erp.Data.Customers
                     case "Contact": return _Contact;
                     case "Phone": return _Phone;
                     case "Address": return _Address;
+                    case "Tags": return _Tags;
                     case "PinYin": return _PinYin;
                     case "PinYin2": return _PinYin2;
                     case "CreateUser": return _CreateUser;
@@ -215,6 +224,7 @@ namespace Erp.Data.Customers
                     case "Contact": _Contact = Convert.ToString(value); break;
                     case "Phone": _Phone = Convert.ToString(value); break;
                     case "Address": _Address = Convert.ToString(value); break;
+                    case "Tags": _Tags = Convert.ToString(value); break;
                     case "PinYin": _PinYin = Convert.ToString(value); break;
                     case "PinYin2": _PinYin2 = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
@@ -256,6 +266,9 @@ namespace Erp.Data.Customers
 
             /// <summary>地址</summary>
             public static readonly Field Address = FindByName("Address");
+
+            /// <summary>标签。多标签逗号隔开</summary>
+            public static readonly Field Tags = FindByName("Tags");
 
             /// <summary>拼音。仅用于快速搜索</summary>
             public static readonly Field PinYin = FindByName("PinYin");
@@ -316,6 +329,9 @@ namespace Erp.Data.Customers
 
             /// <summary>地址</summary>
             public const String Address = "Address";
+
+            /// <summary>标签。多标签逗号隔开</summary>
+            public const String Tags = "Tags";
 
             /// <summary>拼音。仅用于快速搜索</summary>
             public const String PinYin = "PinYin";

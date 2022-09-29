@@ -42,6 +42,9 @@ public partial class Customer : Entity<Customer>
         // 建议先调用基类方法，基类方法会做一些统一处理
         base.Valid(isNew);
 
+        var ts = Tags?.Split(",", "，", ";", "；");
+        if (ts != null && ts.Length > 0) Tags = $",{ts.Join(",")},";
+
         if (PinYin.IsNullOrEmpty() || Dirtys[nameof(Name)]) PinYin = NewLife.Common.PinYin.GetFirst(Name);
         if (PinYin2.IsNullOrEmpty() || Dirtys[nameof(Name)] || Dirtys[nameof(FullName)]) PinYin2 = NewLife.Common.PinYin.Get(FullName ?? Name);
     }
@@ -115,7 +118,7 @@ public partial class Customer : Entity<Customer>
 
         if (!name.IsNullOrEmpty()) exp &= _.Name == name;
         exp &= _.UpdateTime.Between(start, end);
-        if (!key.IsNullOrEmpty()) exp &= _.FullName.Contains(key) | _.PinYin.Contains(key) | _.PinYin2.Contains(key) | _.Remark.Contains(key);
+        if (!key.IsNullOrEmpty()) exp &= _.Name.Contains(key) | _.FullName.Contains(key) | _.Tags.Contains($",{key},") | _.PinYin.Contains(key) | _.PinYin2.Contains(key) | _.Remark.Contains(key);
 
         return FindAll(exp, page);
     }
