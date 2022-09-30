@@ -73,13 +73,14 @@ public class PurchaseOrderController : EntityController<PurchaseOrder>
         var supplierId = p["supplierId"].ToInt(-1);
         var warehouseId = p["warehouseId"].ToInt(-1);
         var productId = p["productId"].ToInt(-1);
+        var status = (OrderStatus)p["status"].ToInt();
 
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
         p.RetrieveState = true;
 
-        return PurchaseOrder.Search(supplierId, warehouseId, productId, start, end, p["Q"], p);
+        return PurchaseOrder.Search(supplierId, warehouseId, productId, status, start, end, p["Q"], p);
     }
 
     static String[] _protects = new[] { "SupplierId", "WarehouseId", "OccurTime" };

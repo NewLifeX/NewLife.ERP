@@ -69,13 +69,14 @@ public class SaleOrderController : EntityController<SaleOrder>
 
         var customerId = p["customerId"].ToInt(-1);
         var productId = p["productId"].ToInt(-1);
+        var status = (OrderStatus)p["status"].ToInt();
 
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
         p.RetrieveState = true;
 
-        return SaleOrder.Search(customerId, productId, start, end, p["Q"], p);
+        return SaleOrder.Search(customerId, productId, status, start, end, p["Q"], p);
     }
 
     static String[] _protects = new[] { "CustomerId", "OccurTime" };
