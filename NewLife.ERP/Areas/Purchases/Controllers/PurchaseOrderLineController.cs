@@ -40,7 +40,7 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
         var end = p["dtEnd"].ToDateTime();
 
         var order = PurchaseOrder.FindById(orderId);
-        if (order != null && order.Status != OrderStatus.录入) PageSetting.EnableAdd = false;
+        if (order != null && order.Status != OrderStatus.录入中) PageSetting.EnableAdd = false;
 
         p.RetrieveState = true;
 
@@ -51,7 +51,7 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
     {
         if (post)
         {
-            if (entity.Order.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单禁止修改！");
+            if (entity.Order.Status != OrderStatus.录入中) throw new InvalidOperationException("该状态下订单禁止修改！");
 
             // 新建时使用产品价格，但是后面可以修改为0价格
             if (type == DataObjectMethodType.Insert)

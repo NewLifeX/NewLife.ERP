@@ -41,7 +41,7 @@ public partial class SaleOrder : Entity<SaleOrder>
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
 
-        if (Status <= 0) Status = OrderStatus.录入;
+        if (Status <= 0) Status = OrderStatus.录入中;
 
         if (OccurTime.Year < 2000) OccurTime = DateTime.Now;
         if (Title.IsNullOrEmpty()) Title = $"[{OccurTime:yyMMdd}]{CustomerName}的订单";

@@ -26,7 +26,7 @@ public class PurchaseService
     public Int32 SetIn(PurchaseOrder order)
     {
         if (order == null) throw new ArgumentNullException(nameof(order));
-        if (order.Status != OrderStatus.录入) throw new InvalidOperationException($"订单[{order}]的状态[{order.Status}]异常");
+        if (order.Status != OrderStatus.录入中) throw new InvalidOperationException($"订单[{order}]的状态[{order.Status}]异常");
         if (order.WarehouseId == 0) throw new Exception("未指定仓库");
 
         using var span = _tracer?.NewSpan("erp:Purchase:SetIn", order);
@@ -50,7 +50,7 @@ public class PurchaseService
             });
         }
 
-        order.Status = OrderStatus.入库;
+        order.Status = OrderStatus.已入库;
 
         var hi = new PurchaseOrderHistory
         {
@@ -75,7 +75,7 @@ public class PurchaseService
     public Int32 CancelIn(PurchaseOrder order)
     {
         if (order == null) throw new ArgumentNullException(nameof(order));
-        if (order.Status == OrderStatus.录入) throw new InvalidOperationException("订单未入库");
+        if (order.Status == OrderStatus.录入中) throw new InvalidOperationException("订单未入库");
         if (order.WarehouseId == 0) throw new Exception("未指定仓库");
 
         using var span = _tracer?.NewSpan("erp:Purchase:CancelIn", order);
@@ -96,7 +96,7 @@ public class PurchaseService
             });
         }
 
-        order.Status = OrderStatus.录入;
+        order.Status = OrderStatus.录入中;
 
         var hi = new PurchaseOrderHistory
         {

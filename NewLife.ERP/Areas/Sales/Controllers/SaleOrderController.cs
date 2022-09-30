@@ -89,11 +89,11 @@ public class SaleOrderController : EntityController<SaleOrder>
                     var order = entity as IEntity;
                     if (order.Dirtys.Any(d => d.EqualIgnoreCase(_protects)))
                     {
-                        if (entity.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单禁止修改！");
+                        if (entity.Status != OrderStatus.录入中) throw new InvalidOperationException("该状态下订单禁止修改！");
                     }
                     break;
                 case DataObjectMethodType.Delete:
-                    if (entity.Status != OrderStatus.录入) throw new InvalidOperationException("该状态下订单删除修改！");
+                    if (entity.Status != OrderStatus.录入中) throw new InvalidOperationException("该状态下订单删除修改！");
                     break;
             }
         }

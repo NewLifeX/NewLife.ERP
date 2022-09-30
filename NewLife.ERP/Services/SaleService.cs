@@ -26,7 +26,7 @@ public class SaleService
     public Int32 SetOut(SaleOrder order)
     {
         if (order == null) throw new ArgumentNullException(nameof(order));
-        if (order.Status != OrderStatus.录入) throw new InvalidOperationException($"订单[{order}]的状态[{order.Status}]异常");
+        if (order.Status != OrderStatus.录入中) throw new InvalidOperationException($"订单[{order}]的状态[{order.Status}]异常");
         //if (order.WarehouseId == 0) throw new Exception("未指定仓库");
 
         using var span = _tracer?.NewSpan("erp:Sale:SetOut", order);
@@ -52,7 +52,7 @@ public class SaleService
             });
         }
 
-        order.Status = OrderStatus.出库;
+        order.Status = OrderStatus.已出库;
 
         var hi = new SaleOrderHistory
         {
@@ -77,7 +77,7 @@ public class SaleService
     public Int32 CancelOut(SaleOrder order)
     {
         if (order == null) throw new ArgumentNullException(nameof(order));
-        if (order.Status == OrderStatus.录入) throw new InvalidOperationException("订单未入库");
+        if (order.Status == OrderStatus.录入中) throw new InvalidOperationException("订单未入库");
         //if (order.WarehouseId == 0) throw new Exception("未指定仓库");
 
         using var span = _tracer?.NewSpan("erp:Sale:CancelOut", order);
@@ -100,7 +100,7 @@ public class SaleService
             });
         }
 
-        order.Status = OrderStatus.录入;
+        order.Status = OrderStatus.录入中;
 
         var hi = new SaleOrderHistory
         {
