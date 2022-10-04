@@ -16,11 +16,20 @@
     var order = Model;
     var lines = SaleOrderLine.FindAllByOrderId(order.Id);
 
+    // 是否显示金额
     var money = req.Query["money"].ToString().ToInt(-1) == 1;
+
+    // 公司标识取最高价格产品所在仓库
+    var company = cfg.Company;
+    var wh = lines.Where(e => e.Warehouse != null && !e.Warehouse.Company.IsNullOrEmpty()).OrderByDescending(e => e.Amount).FirstOrDefault().Warehouse;
+    if (wh != null)
+    {
+        company = wh.Company;
+    }
 }
 <div class="table-responsive" style="margin: auto; width: 800px">
     <div class="text-center">
-        <h1>@(cfg.Company)发货清单</h1>
+        <h1>@(company)发货清单</h1>
     </div>
     <div>
         <div class="col-md-12">
@@ -105,7 +114,14 @@
     <div>
         <div class="col-md-12">
             <label class="col-md-2">备注：</label>
-            <label class="col-md-4">@order.Remark</label>
+            <label class="col-md-10">@order.Remark</label>
         </div>
+        @if (wh != null)
+        {
+            <div class="col-md-12">
+                <label class="col-md-2">地址：</label>
+                <label class="col-md-10">@wh.Address</label>
+            </div>
+        }
     </div>
 </div>

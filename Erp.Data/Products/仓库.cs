@@ -43,6 +43,14 @@ namespace Erp.Data.Products
         [BindColumn("Enable", "启用", "")]
         public Boolean Enable { get => _Enable; set { if (OnPropertyChanging("Enable", value)) { _Enable = value; OnPropertyChanged("Enable"); } } }
 
+        private String _Company;
+        /// <summary>公司。发货单标识</summary>
+        [DisplayName("公司")]
+        [Description("公司。发货单标识")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Company", "公司。发货单标识", "")]
+        public String Company { get => _Company; set { if (OnPropertyChanging("Company", value)) { _Company = value; OnPropertyChanged("Company"); } } }
+
         private String _Contact;
         /// <summary>联系人</summary>
         [DisplayName("联系人")]
@@ -162,6 +170,7 @@ namespace Erp.Data.Products
                     case "Id": return _Id;
                     case "Name": return _Name;
                     case "Enable": return _Enable;
+                    case "Company": return _Company;
                     case "Contact": return _Contact;
                     case "Phone": return _Phone;
                     case "Address": return _Address;
@@ -184,6 +193,7 @@ namespace Erp.Data.Products
                     case "Id": _Id = value.ToInt(); break;
                     case "Name": _Name = Convert.ToString(value); break;
                     case "Enable": _Enable = value.ToBoolean(); break;
+                    case "Company": _Company = Convert.ToString(value); break;
                     case "Contact": _Contact = Convert.ToString(value); break;
                     case "Phone": _Phone = Convert.ToString(value); break;
                     case "Address": _Address = Convert.ToString(value); break;
@@ -214,6 +224,9 @@ namespace Erp.Data.Products
 
             /// <summary>启用</summary>
             public static readonly Field Enable = FindByName("Enable");
+
+            /// <summary>公司。发货单标识</summary>
+            public static readonly Field Company = FindByName("Company");
 
             /// <summary>联系人</summary>
             public static readonly Field Contact = FindByName("Contact");
@@ -265,6 +278,9 @@ namespace Erp.Data.Products
 
             /// <summary>启用</summary>
             public const String Enable = "Enable";
+
+            /// <summary>公司。发货单标识</summary>
+            public const String Company = "Company";
 
             /// <summary>联系人</summary>
             public const String Contact = "Contact";

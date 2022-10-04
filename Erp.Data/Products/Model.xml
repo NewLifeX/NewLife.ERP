@@ -83,6 +83,7 @@
       <Column Name="Id" DataType="Int32" Identity="True" PrimaryKey="True" Description="编号" />
       <Column Name="Name" DataType="String" Master="True" Nullable="False" Description="名称" />
       <Column Name="Enable" DataType="Boolean" Description="启用" />
+      <Column Name="Company" DataType="String" Description="公司。发货单标识" />
       <Column Name="Contact" DataType="String" Description="联系人" />
       <Column Name="Phone" DataType="String" Description="电话" />
       <Column Name="Address" DataType="String" Description="地址" />
