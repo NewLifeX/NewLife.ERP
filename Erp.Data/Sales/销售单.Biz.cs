@@ -29,8 +29,8 @@ public partial class SaleOrder : Entity<SaleOrder>
     /// <param name="isNew">是否插入</param>
     public override void Valid(Boolean isNew)
     {
-        // 如果没有脏数据，则不需要进行任何处理
-        if (!HasDirty) return;
+        //// 如果没有脏数据，则不需要进行任何处理
+        //if (!HasDirty) return;
 
         if (CustomerId <= 0) throw new ArgumentNullException(nameof(CustomerId), "客户不能为空");
 
