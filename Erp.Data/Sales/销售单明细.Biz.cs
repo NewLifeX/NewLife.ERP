@@ -45,7 +45,7 @@ public partial class SaleOrderLine : Entity<SaleOrderLine>
         if (isNew)
         {
             // 新建时使用产品价格，但是后面可以修改为0价格
-            if (Amount <= 0 && Product != null) Amount = Quantity * Product.Price;
+            if (Price <= 0 && Product != null) Price = Product.Price;
         }
 
         if (CustomerId == 0 && Order != null) CustomerId = Order.CustomerId;
@@ -53,7 +53,7 @@ public partial class SaleOrderLine : Entity<SaleOrderLine>
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
-        Amount = Math.Round(Amount, 6);
+        Amount = Math.Round(Quantity * Price, 6);
 
         Fix(Order);
     }
