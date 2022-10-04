@@ -1,8 +1,10 @@
 ﻿using NewLife;
 using NewLife.Caching;
+using NewLife.Configuration;
 using NewLife.Cube;
 using NewLife.ERP.Services;
 using NewLife.Log;
+using NewLife.Yun;
 using XCode;
 
 //!!! 标准Web项目模板，新生命团队强烈推荐
@@ -42,10 +44,17 @@ if (config != null && !config["redisCache"].IsNullOrEmpty())
 else
     services.AddSingleton<ICache>(cache);
 
+var jsonConfig = new JsonConfigProvider { FileName = "appsettings.json" };
+
 // 注册服务
 services.AddSingleton<StockService>();
 services.AddSingleton<PurchaseService>();
 services.AddSingleton<SaleService>();
+services.AddSingleton<CustomerService>();
+
+var map = new BaiduMap { Log = XTrace.Log, AppKey = jsonConfig["MapKey"] };
+services.AddSingleton<IMap>(map);
+services.AddSingleton<MapService>();
 
 // 启用接口响应压缩
 services.AddResponseCompression();

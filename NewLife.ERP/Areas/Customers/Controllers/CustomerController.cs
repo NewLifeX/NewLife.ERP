@@ -1,8 +1,11 @@
 ﻿using Erp.Data.Customers;
+using Erp.Data.Sales;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
 using NewLife.Data;
+using NewLife.ERP.Services;
 using NewLife.Web;
+using XCode.Membership;
 
 namespace NewLife.ERP.Areas.Customers.Controllers;
 
@@ -10,6 +13,8 @@ namespace NewLife.ERP.Areas.Customers.Controllers;
 [Menu(80)]
 public class CustomerController : EntityController<Customer>
 {
+    private readonly CustomerService _customerService;
+
     static CustomerController()
     {
         LogOnChange = true;
@@ -30,6 +35,11 @@ public class CustomerController : EntityController<Customer>
         }
     }
 
+    public CustomerController(CustomerService customerService)
+    {
+        _customerService = customerService;
+    }
+
     protected override IEnumerable<Customer> Search(Pager p)
     {
         var id = p["Id"].ToInt(-1);
@@ -39,10 +49,13 @@ public class CustomerController : EntityController<Customer>
             if (entity != null) return new[] { entity };
         }
 
+        var rids = p["areaId"].SplitAsInt("/");
+        var areaCode = (rids == null || rids.Length == 0) ? 0 : rids[^1];
+
         var start = p["dtStart"].ToDateTime();
         var end = p["dtEnd"].ToDateTime();
 
-        return Customer.Search(start, end, p["Q"], p);
+        return Customer.Search(null, areaCode, start, end, p["Q"], p);
     }
 
     public ActionResult Search(String key = null)
@@ -57,5 +70,29 @@ public class CustomerController : EntityController<Customer>
             e.FullName,
             e.Contact,
         }).ToArray());
+    }
+
+    /// <summary>批量修正数据</summary>
+    /// <returns></returns>
+    [EntityAuthorize(PermissionFlags.Update)]
+    public ActionResult Fix()
+    {
+        var count = 0;
+        var ids = GetRequest("keys").SplitAsInt();
+        if (ids.Length > 0)
+        {
+            foreach (var id in ids)
+            {
+                var entity = Customer.FindById(id);
+                if (entity != null)
+                {
+                    //entity.Fix();
+                    //count += entity.Update();
+                    count += _customerService.Fix(entity);
+                }
+            }
+        }
+
+        return JsonRefresh($"共处理[{count}]个");
     }
 }

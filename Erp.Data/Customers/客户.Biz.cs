@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using NewLife;
-using NewLife.Common;
 using NewLife.Data;
 using NewLife.Log;
 using XCode;
@@ -70,6 +69,9 @@ public partial class Customer : Entity<Customer>
     #endregion
 
     #region 扩展属性
+    /// <summary>地区</summary>
+    [Map(nameof(AreaCode))]
+    public String AreaName => Area.FindByID(AreaCode)?.Path;
     #endregion
 
     #region 扩展查询
@@ -107,16 +109,31 @@ public partial class Customer : Entity<Customer>
     #region 高级查询
     /// <summary>高级查询</summary>
     /// <param name="name">名称</param>
+    /// <param name="areaCode">地区</param>
     /// <param name="start">更新时间开始</param>
     /// <param name="end">更新时间结束</param>
     /// <param name="key">关键字</param>
     /// <param name="page">分页参数信息。可携带统计和数据权限扩展查询等信息</param>
     /// <returns>实体列表</returns>
-    public static IList<Customer> Search(String name, DateTime start, DateTime end, String key, PageParameter page)
+    public static IList<Customer> Search(String name, Int32 areaCode, DateTime start, DateTime end, String key, PageParameter page)
     {
         var exp = new WhereExpression();
 
         if (!name.IsNullOrEmpty()) exp &= _.Name == name;
+        if (areaCode > 0)
+        {
+            if (areaCode > 999999)
+                exp &= _.AreaCode == areaCode;
+            else
+            {
+                var endCode = areaCode + 1;
+                if (areaCode % 10000 == 0)
+                    endCode = areaCode + 10000;
+                else if (areaCode % 100 == 0)
+                    endCode = areaCode + 100;
+                exp &= _.AreaCode >= areaCode * 1000 & _.AreaCode < endCode * 1000;
+            }
+        }
         exp &= _.UpdateTime.Between(start, end);
         if (!key.IsNullOrEmpty()) exp &= _.Name.Contains(key) | _.FullName.Contains(key) | _.Tags.Contains($",{key},") | _.PinYin.Contains(key) | _.PinYin2.Contains(key) | _.Remark.Contains(key);
 
@@ -135,5 +152,9 @@ public partial class Customer : Entity<Customer>
     #endregion
 
     #region 业务操作
+    public void Fix()
+    {
+
+    }
     #endregion
 }

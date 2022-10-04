@@ -1,0 +1,12 @@
+﻿@using Erp.Data.Models
+@using Erp.Data.Purchases
+@using NewLife;
+@using NewLife.ERP.Models
+@using NewLife.Web;
+@using XCode;
+@{
+    var fact = ViewBag.Factory as IEntityFactory;
+    var page = ViewBag.Page as Pager;
+}
+@await Html.PartialAsync("_Area3", "")
+@await Html.PartialAsync("_DateRange")

@@ -67,6 +67,14 @@ namespace Erp.Data.Customers
         [BindColumn("Phone", "电话", "")]
         public String Phone { get => _Phone; set { if (OnPropertyChanging("Phone", value)) { _Phone = value; OnPropertyChanged("Phone"); } } }
 
+        private Int32 _AreaCode;
+        /// <summary>地区。行政区划代码</summary>
+        [DisplayName("地区")]
+        [Description("地区。行政区划代码")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("AreaCode", "地区。行政区划代码", "")]
+        public Int32 AreaCode { get => _AreaCode; set { if (OnPropertyChanging("AreaCode", value)) { _AreaCode = value; OnPropertyChanged("AreaCode"); } } }
+
         private String _Address;
         /// <summary>地址</summary>
         [DisplayName("地址")]
@@ -74,6 +82,14 @@ namespace Erp.Data.Customers
         [DataObjectField(false, false, true, 50)]
         [BindColumn("Address", "地址", "")]
         public String Address { get => _Address; set { if (OnPropertyChanging("Address", value)) { _Address = value; OnPropertyChanged("Address"); } } }
+
+        private String _Address2;
+        /// <summary>标准地址。格式化后的标准地址</summary>
+        [DisplayName("标准地址")]
+        [Description("标准地址。格式化后的标准地址")]
+        [DataObjectField(false, false, true, 50)]
+        [BindColumn("Address2", "标准地址。格式化后的标准地址", "")]
+        public String Address2 { get => _Address2; set { if (OnPropertyChanging("Address2", value)) { _Address2 = value; OnPropertyChanged("Address2"); } } }
 
         private String _Tags;
         /// <summary>标签。多标签逗号隔开</summary>
@@ -197,7 +213,9 @@ namespace Erp.Data.Customers
                     case "Enable": return _Enable;
                     case "Contact": return _Contact;
                     case "Phone": return _Phone;
+                    case "AreaCode": return _AreaCode;
                     case "Address": return _Address;
+                    case "Address2": return _Address2;
                     case "Tags": return _Tags;
                     case "PinYin": return _PinYin;
                     case "PinYin2": return _PinYin2;
@@ -223,7 +241,9 @@ namespace Erp.Data.Customers
                     case "Enable": _Enable = value.ToBoolean(); break;
                     case "Contact": _Contact = Convert.ToString(value); break;
                     case "Phone": _Phone = Convert.ToString(value); break;
+                    case "AreaCode": _AreaCode = value.ToInt(); break;
                     case "Address": _Address = Convert.ToString(value); break;
+                    case "Address2": _Address2 = Convert.ToString(value); break;
                     case "Tags": _Tags = Convert.ToString(value); break;
                     case "PinYin": _PinYin = Convert.ToString(value); break;
                     case "PinYin2": _PinYin2 = Convert.ToString(value); break;
@@ -264,8 +284,14 @@ namespace Erp.Data.Customers
             /// <summary>电话</summary>
             public static readonly Field Phone = FindByName("Phone");
 
+            /// <summary>地区。行政区划代码</summary>
+            public static readonly Field AreaCode = FindByName("AreaCode");
+
             /// <summary>地址</summary>
             public static readonly Field Address = FindByName("Address");
+
+            /// <summary>标准地址。格式化后的标准地址</summary>
+            public static readonly Field Address2 = FindByName("Address2");
 
             /// <summary>标签。多标签逗号隔开</summary>
             public static readonly Field Tags = FindByName("Tags");
@@ -327,8 +353,14 @@ namespace Erp.Data.Customers
             /// <summary>电话</summary>
             public const String Phone = "Phone";
 
+            /// <summary>地区。行政区划代码</summary>
+            public const String AreaCode = "AreaCode";
+
             /// <summary>地址</summary>
             public const String Address = "Address";
+
+            /// <summary>标准地址。格式化后的标准地址</summary>
+            public const String Address2 = "Address2";
 
             /// <summary>标签。多标签逗号隔开</summary>
             public const String Tags = "Tags";
