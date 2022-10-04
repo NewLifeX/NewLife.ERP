@@ -37,9 +37,16 @@ public class SaleOrderController : EntityController<SaleOrder>
             df.Url = "/Sales/SaleOrderLine?orderId={Id}";
         }
         {
-            var df = ListFields.AddListField("InvoicePage", "OccurTime");
+            var df = ListFields.AddListField("InvoicePage1", "OccurTime");
             df.DisplayName = "发货单";
-            df.Url = "/Sales/SaleOrder/Invoice?Id={Id}";
+            df.Url = "/Sales/SaleOrder/Invoice?Id={Id}&money=1";
+            df.Target = "_blank";
+        }
+        {
+            var df = ListFields.AddListField("InvoicePage2", "OccurTime");
+            df.DisplayName = "发货单（无价格）";
+            df.Url = "/Sales/SaleOrder/Invoice?Id={Id}&money=0";
+            df.Target = "_blank";
         }
         {
             var df = ListFields.AddListField("History", "OccurTime");
