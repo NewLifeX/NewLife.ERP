@@ -85,6 +85,8 @@ public partial class Product : Entity<Product>
         };
         entity.Insert();
     }
+
+    public override String ToString() => Name;
     #endregion
 
     #region 扩展属性

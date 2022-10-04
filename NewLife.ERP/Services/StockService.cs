@@ -89,8 +89,10 @@ public class StockService
         // 开启事务保护
         using var tran = ProductStock.Meta.CreateTrans();
 
+        var product = Product.FindById(model.ProductId);
+        var warehouse = Warehouse.FindById(model.WarehouseId);
         var ps = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, model.WarehouseId);
-        if (ps == null) throw new Exception("产品在指定仓库中不存在！");
+        if (ps == null) throw new Exception($"产品[{product}]在指定仓库[{warehouse}]中不存在！");
 
         var qty = Math.Abs(model.Quantity);
         if (ps.Quantity < qty) throw new Exception($"[{ps.ProductName}]在[{ps.WarehouseName}]仓库的库存不足");
@@ -119,7 +121,7 @@ public class StockService
         hi.Insert();
 
         // 修正产品关联数据
-        var product = ps.Product;
+        //var product = ps.Product;
         if (product != null)
         {
             product.Fix();
@@ -149,8 +151,10 @@ public class StockService
         // 开启事务保护
         using var tran = ProductStock.Meta.CreateTrans();
 
+        var product = Product.FindById(model.ProductId);
+        var warehouse = Warehouse.FindById(model.WarehouseId);
         var ps = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, model.WarehouseId);
-        if (ps == null) throw new Exception("产品在指定仓库中不存在！");
+        if (ps == null) throw new Exception($"产品[{product}]在指定仓库[{warehouse}]中不存在！");
 
         var ps2 = ProductStock.FindByProductIdAndWarehouseId(model.ProductId, destWarehourseId);
         ps2 ??= new ProductStock { ProductId = model.ProductId, WarehouseId = destWarehourseId };

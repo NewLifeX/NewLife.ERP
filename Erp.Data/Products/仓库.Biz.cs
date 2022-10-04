@@ -54,6 +54,8 @@ public partial class Warehouse : Entity<Warehouse>
         };
         entity.Insert();
     }
+
+    public override String ToString() => Name;
     #endregion
 
     #region 扩展属性
