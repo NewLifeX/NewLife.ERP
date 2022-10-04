@@ -53,6 +53,7 @@ public partial class SaleOrder : Entity<SaleOrder>
             if (!isNew && flag || Receiver.IsNullOrEmpty()) Receiver = customer.Contact;
             if (!isNew && flag || Phone.IsNullOrEmpty()) Phone = customer.Phone;
             if (!isNew && flag || Address.IsNullOrEmpty()) Address = customer.Address;
+            if (!isNew && flag || AreaCode == 0) AreaCode = customer.AreaCode;
         }
     }
     #endregion
@@ -66,6 +67,10 @@ public partial class SaleOrder : Entity<SaleOrder>
     /// <summary>客户</summary>
     [Map(nameof(CustomerId), typeof(Customer), "Id")]
     public String CustomerName => Customer?.Name;
+
+    /// <summary>地区</summary>
+    [Map(nameof(AreaCode))]
+    public String AreaName => Area.FindByID(AreaCode)?.Path;
     #endregion
 
     #region 扩展查询

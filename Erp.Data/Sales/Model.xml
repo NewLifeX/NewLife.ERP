@@ -17,6 +17,7 @@
       <Column Name="Freight" DataType="Decimal" Description="运费。快递费" Category="物流" />
       <Column Name="Receiver" DataType="String" Description="收件人" Category="物流" />
       <Column Name="Phone" DataType="String" Description="收件电话" Category="物流" />
+      <Column Name="AreaCode" DataType="Int32" Description="地区。行政区划代码" />
       <Column Name="Address" DataType="String" Description="收件地址" Category="物流" />
       <Column Name="CreateUser" DataType="String" Description="创建者" Category="扩展" />
       <Column Name="CreateUserID" DataType="Int32" Description="创建人" Category="扩展" />

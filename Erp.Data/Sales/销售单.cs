@@ -143,6 +143,14 @@ namespace Erp.Data.Sales
         [BindColumn("Phone", "收件电话", "")]
         public String Phone { get => _Phone; set { if (OnPropertyChanging("Phone", value)) { _Phone = value; OnPropertyChanged("Phone"); } } }
 
+        private Int32 _AreaCode;
+        /// <summary>地区。行政区划代码</summary>
+        [DisplayName("地区")]
+        [Description("地区。行政区划代码")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("AreaCode", "地区。行政区划代码", "")]
+        public Int32 AreaCode { get => _AreaCode; set { if (OnPropertyChanging("AreaCode", value)) { _AreaCode = value; OnPropertyChanged("AreaCode"); } } }
+
         private String _Address;
         /// <summary>收件地址</summary>
         [Category("物流")]
@@ -259,6 +267,7 @@ namespace Erp.Data.Sales
                     case "Freight": return _Freight;
                     case "Receiver": return _Receiver;
                     case "Phone": return _Phone;
+                    case "AreaCode": return _AreaCode;
                     case "Address": return _Address;
                     case "CreateUser": return _CreateUser;
                     case "CreateUserID": return _CreateUserID;
@@ -291,6 +300,7 @@ namespace Erp.Data.Sales
                     case "Freight": _Freight = Convert.ToDecimal(value); break;
                     case "Receiver": _Receiver = Convert.ToString(value); break;
                     case "Phone": _Phone = Convert.ToString(value); break;
+                    case "AreaCode": _AreaCode = value.ToInt(); break;
                     case "Address": _Address = Convert.ToString(value); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
                     case "CreateUserID": _CreateUserID = value.ToInt(); break;
@@ -355,6 +365,9 @@ namespace Erp.Data.Sales
 
             /// <summary>收件电话</summary>
             public static readonly Field Phone = FindByName("Phone");
+
+            /// <summary>地区。行政区划代码</summary>
+            public static readonly Field AreaCode = FindByName("AreaCode");
 
             /// <summary>收件地址</summary>
             public static readonly Field Address = FindByName("Address");
@@ -436,6 +449,9 @@ namespace Erp.Data.Sales
 
             /// <summary>收件电话</summary>
             public const String Phone = "Phone";
+
+            /// <summary>地区。行政区划代码</summary>
+            public const String AreaCode = "AreaCode";
 
             /// <summary>收件地址</summary>
             public const String Address = "Address";
