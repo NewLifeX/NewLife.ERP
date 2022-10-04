@@ -51,7 +51,12 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
-        Amount = Math.Round(Quantity * Price, 6);
+
+        // 允许手工设置总金额
+        if (Price > 0)
+            Amount = Math.Round(Quantity * Price, 6);
+        else
+            Amount = Math.Round(Amount, 6);
 
         Fix(Order);
     }
