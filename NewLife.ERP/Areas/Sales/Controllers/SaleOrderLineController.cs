@@ -15,6 +15,7 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
     {
         LogOnChange = true;
 
+        ListFields.RemoveField("OrderTitle");
         ListFields.RemoveRemarkField();
 
         {
@@ -28,6 +29,10 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
         {
             var df = ListFields.GetField("ProductName") as ListField;
             df.Url = "/Products/Product?Id={ProductId}";
+        }
+        {
+            var df = ListFields.GetField("OccurTime") as ListField;
+            df.GetValue = e => (e as SaleOrderLine).OccurTime.ToString("yyyy-MM-dd");
         }
     }
 
@@ -44,6 +49,8 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
 
         p.RetrieveState = true;
 
+        //if (orderId > 0) ListFields.RemoveField("OrderTitle");
+
         return SaleOrderLine.Search(orderId, productId, start, end, p["Q"], p);
     }
 
@@ -53,11 +60,11 @@ public class SaleOrderLineController : EntityController<SaleOrderLine>
         {
             if (entity.Order.Status != OrderStatus.录入中) throw new InvalidOperationException("该状态下订单禁止修改！");
 
-            // 新建时使用产品价格，但是后面可以修改为0价格
-            if (type == DataObjectMethodType.Insert)
-            {
-                if (entity.Price <= 0 && entity.Product != null) entity.Price = entity.Product.Price;
-            }
+            //// 新建时使用产品价格，但是后面可以修改为0价格
+            //if (type == DataObjectMethodType.Insert)
+            //{
+            //    if (entity.Amount <= 0 && entity.Product != null) entity.Amount = entity.Quantity * entity.Product.Price;
+            //}
         }
 
         return base.Valid(entity, type, post);

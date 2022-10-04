@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Erp.Data.Models;
 using Erp.Data.Purchases;
+using Erp.Data.Sales;
 using NewLife.Cube;
 using NewLife.Cube.ViewModels;
 using NewLife.Web;
@@ -28,6 +29,10 @@ public class PurchaseOrderLineController : EntityController<PurchaseOrderLine>
         {
             var df = ListFields.GetField("ProductName") as ListField;
             df.Url = "/Products/Product?Id={ProductId}";
+        }
+        {
+            var df = ListFields.GetField("OccurTime") as ListField;
+            df.GetValue = e => (e as PurchaseOrderLine).OccurTime.ToString("yyyy-MM-dd");
         }
     }
 

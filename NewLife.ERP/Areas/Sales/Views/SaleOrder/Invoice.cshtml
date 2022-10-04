@@ -66,7 +66,7 @@
                     <td>@(prd?.Title ?? prd?.Name)</td>
                     <td class="text-center">@item.Quantity @prd?.Unit</td>
                     <td class="text-center">@prd?.Price.ToString("c")</td>
-                    <td class="text-center">@item.Price.ToString("c")</td>
+                    <td class="text-center">@item.Amount.ToString("c")</td>
                     <td>@item.Remark</td>
                 </tr>
             }
@@ -77,7 +77,7 @@
                 <td class="text-right">合计：</td>
                 <td class="text-center">@order.Quantity.ToString("n0")</td>
                 <td></td>
-                <td class="text-center">@order.Price.ToString("c")</td>
+                <td class="text-center">@order.Amount.ToString("c")</td>
                 <td></td>
             </tr>
         </tfoot>

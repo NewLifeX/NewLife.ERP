@@ -39,7 +39,7 @@ public partial class SaleOrder : Entity<SaleOrder>
 
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
-        Price = Math.Round(Price, 6);
+        Amount = Math.Round(Amount, 6);
 
         if (Status <= 0) Status = OrderStatus.录入中;
 
@@ -140,11 +140,11 @@ public partial class SaleOrder : Entity<SaleOrder>
         if (list.Count > 0)
         {
             Quantity = list.Sum(e => e.Quantity);
-            Price = list.Sum(e => e.Quantity * e.Price) + Freight;
+            Amount = list.Sum(e => e.Amount) + Freight;
 
             if (Title.IsNullOrEmpty() || Title.StartsWith("[") && Title.Length < 50)
             {
-                var txt = $"[{OccurTime:yyMMdd}]" + list.OrderByDescending(e => e.Quantity * e.Price).Join("、", e => e.ProductName);
+                var txt = $"[{OccurTime:yyMMdd}]" + list.OrderByDescending(e => e.Amount).Join("、", e => e.ProductName);
                 Title = txt.Cut(50);
             }
 
