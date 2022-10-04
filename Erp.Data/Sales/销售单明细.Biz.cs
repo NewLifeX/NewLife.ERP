@@ -201,7 +201,7 @@ public partial class SaleOrderLine : Entity<SaleOrderLine>
         order ??= Order;
         if (order != null)
         {
-            if (OccurTime.Year < 2000) OccurTime = order.OccurTime;
+            OccurTime = order.OccurTime;
             CustomerId = order.CustomerId;
         }
 
