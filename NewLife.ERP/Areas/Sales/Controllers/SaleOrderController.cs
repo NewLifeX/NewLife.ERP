@@ -221,6 +221,7 @@ public class SaleOrderController : EntityController<SaleOrder>
 
         var set = PageSetting;
         set.EnableNavbar = false;
+        set.EnableFooter = false;
 
         return View(entity);
     }
