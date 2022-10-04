@@ -79,6 +79,14 @@ namespace Erp.Data.Sales
         [BindColumn("Amount", "金额。实际总价，含税", "")]
         public Decimal Amount { get => _Amount; set { if (OnPropertyChanging("Amount", value)) { _Amount = value; OnPropertyChanged("Amount"); } } }
 
+        private Boolean _IsSample;
+        /// <summary>样单。样单价格为0</summary>
+        [DisplayName("样单")]
+        [Description("样单。样单价格为0")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("IsSample", "样单。样单价格为0", "")]
+        public Boolean IsSample { get => _IsSample; set { if (OnPropertyChanging("IsSample", value)) { _IsSample = value; OnPropertyChanged("IsSample"); } } }
+
         private Int32 _CustomerId;
         /// <summary>客户</summary>
         [DisplayName("客户")]
@@ -194,6 +202,7 @@ namespace Erp.Data.Sales
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
                     case "Amount": return _Amount;
+                    case "IsSample": return _IsSample;
                     case "CustomerId": return _CustomerId;
                     case "OccurTime": return _OccurTime;
                     case "CreateUser": return _CreateUser;
@@ -219,6 +228,7 @@ namespace Erp.Data.Sales
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
                     case "Amount": _Amount = Convert.ToDecimal(value); break;
+                    case "IsSample": _IsSample = value.ToBoolean(); break;
                     case "CustomerId": _CustomerId = value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
                     case "CreateUser": _CreateUser = Convert.ToString(value); break;
@@ -260,6 +270,9 @@ namespace Erp.Data.Sales
 
             /// <summary>金额。实际总价，含税</summary>
             public static readonly Field Amount = FindByName("Amount");
+
+            /// <summary>样单。样单价格为0</summary>
+            public static readonly Field IsSample = FindByName("IsSample");
 
             /// <summary>客户</summary>
             public static readonly Field CustomerId = FindByName("CustomerId");
@@ -320,6 +333,9 @@ namespace Erp.Data.Sales
 
             /// <summary>金额。实际总价，含税</summary>
             public const String Amount = "Amount";
+
+            /// <summary>样单。样单价格为0</summary>
+            public const String IsSample = "IsSample";
 
             /// <summary>客户</summary>
             public const String CustomerId = "CustomerId";

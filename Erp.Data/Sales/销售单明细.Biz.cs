@@ -2,7 +2,6 @@
 using System.Xml.Serialization;
 using Erp.Data.Customers;
 using Erp.Data.Products;
-using Erp.Data.Purchases;
 using NewLife;
 using NewLife.Data;
 using XCode;
@@ -45,7 +44,7 @@ public partial class SaleOrderLine : Entity<SaleOrderLine>
         if (isNew)
         {
             // 新建时使用产品价格，但是后面可以修改为0价格
-            if (Price <= 0 && Product != null) Price = Product.Price;
+            if (!IsSample && Price <= 0 && Product != null) Price = Product.Price;
         }
 
         if (CustomerId == 0 && Order != null) CustomerId = Order.CustomerId;
