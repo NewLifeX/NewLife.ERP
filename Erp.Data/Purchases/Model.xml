@@ -32,7 +32,6 @@
       <Column Name="SupplierId" DataType="Int32" Description="供应商" />
       <Column Name="Title" DataType="String" Master="True" Length="200" Description="标题。概要描述信息" />
       <Column Name="Quantity" DataType="Int32" Description="数量。总件数" />
-      <Column Name="Price" DataType="Decimal" Description="价值。产品总价加上运费，已废弃" />
       <Column Name="Amount" DataType="Decimal" Description="金额。实际总价，含税和运费" />
       <Column Name="WarehouseId" DataType="Int32" Description="仓库。进入的仓库" />
       <Column Name="Status" DataType="Int32" Description="状态" Type="Erp.Data.Models.OrderStatus" />
