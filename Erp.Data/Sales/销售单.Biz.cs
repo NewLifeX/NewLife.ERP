@@ -139,6 +139,12 @@ public partial class SaleOrder : Entity<SaleOrder>
 
         if (list.Count > 0)
         {
+            foreach (var item in list)
+            {
+                if (item.Fix(this))
+                    item.Update();
+            }
+         
             Quantity = list.Sum(e => e.Quantity);
             Amount = list.Sum(e => e.Amount) + Freight;
 
@@ -146,12 +152,6 @@ public partial class SaleOrder : Entity<SaleOrder>
             {
                 var txt = $"[{OccurTime:yyMMdd}]" + list.OrderByDescending(e => e.Amount).Join("、", e => e.ProductName);
                 Title = txt.Cut(50);
-            }
-
-            foreach (var item in list)
-            {
-                if (item.Fix(this))
-                    item.Update();
             }
         }
     }

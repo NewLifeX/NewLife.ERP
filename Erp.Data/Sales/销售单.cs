@@ -52,11 +52,11 @@ namespace Erp.Data.Sales
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Decimal _Price;
-        /// <summary>价值。产品总价加上运费</summary>
+        /// <summary>价值。产品总价加上运费，已废弃</summary>
         [DisplayName("价值")]
-        [Description("价值。产品总价加上运费")]
+        [Description("价值。产品总价加上运费，已废弃")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价值。产品总价加上运费", "")]
+        [BindColumn("Price", "价值。产品总价加上运费，已废弃", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
         private Decimal _Amount;
@@ -333,7 +333,7 @@ namespace Erp.Data.Sales
             /// <summary>数量。总件数</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
-            /// <summary>价值。产品总价加上运费</summary>
+            /// <summary>价值。产品总价加上运费，已废弃</summary>
             public static readonly Field Price = FindByName("Price");
 
             /// <summary>金额。实际总价，含税和运费</summary>
@@ -417,7 +417,7 @@ namespace Erp.Data.Sales
             /// <summary>数量。总件数</summary>
             public const String Quantity = "Quantity";
 
-            /// <summary>价值。产品总价加上运费</summary>
+            /// <summary>价值。产品总价加上运费，已废弃</summary>
             public const String Price = "Price";
 
             /// <summary>金额。实际总价，含税和运费</summary>

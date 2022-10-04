@@ -199,7 +199,7 @@ public class SaleOrderController : EntityController<SaleOrder>
         {
             foreach (var id in ids)
             {
-                var entity = PurchaseOrder.FindById(id);
+                var entity = SaleOrder.FindById(id);
                 if (entity != null)
                 {
                     entity.Fix();
