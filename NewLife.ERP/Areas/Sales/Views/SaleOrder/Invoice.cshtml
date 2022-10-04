@@ -15,13 +15,14 @@
 
     var order = Model;
     var lines = SaleOrderLine.FindAllByOrderId(order.Id);
+    var lines2 = lines.OrderByDescending(e => e.Amount).ThenByDescending(e => e.Price).ToList();
 
     // 是否显示金额
     var money = req.Query["money"].ToString().ToInt(-1) == 1;
 
     // 公司标识取最高价格产品所在仓库
     var company = cfg.Company;
-    var wh = lines.Where(e => e.Warehouse != null && !e.Warehouse.Company.IsNullOrEmpty()).OrderByDescending(e => e.Amount).FirstOrDefault().Warehouse;
+    var wh = lines2.Where(e => e.Warehouse != null && !e.Warehouse.Company.IsNullOrEmpty()).FirstOrDefault()?.Warehouse;
     if (wh != null)
     {
         company = wh.Company;
@@ -69,7 +70,7 @@
             @{
                 var idx = 0;
             }
-            @foreach (var item in lines)
+            @foreach (var item in lines2)
             {
                 idx++;
                 var prd = item.Product;
