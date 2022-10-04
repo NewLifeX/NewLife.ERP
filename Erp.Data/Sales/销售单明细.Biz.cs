@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using Erp.Data.Customers;
 using Erp.Data.Products;
 using NewLife;
+using NewLife.Algorithms;
 using NewLife.Data;
 using XCode;
 using XCode.DataAccessLayer;
@@ -207,6 +208,19 @@ public partial class SaleOrderLine : Entity<SaleOrderLine>
         if (Amount == 0) Amount = Quantity * Price;
 
         return HasDirty;
+    }
+
+    public void Clone(SaleOrderLine line)
+    {
+        ProductId = line.ProductId;
+        WarehouseId = line.WarehouseId;
+        Quantity = line.Quantity;
+        Price = line.Price;
+        Amount = line.Amount;
+        IsSample = line.IsSample;
+        CustomerId = line.CustomerId;
+        OccurTime = line.OccurTime;
+        Remark = line.Remark;
     }
     #endregion
 }

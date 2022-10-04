@@ -155,5 +155,25 @@ public partial class SaleOrder : Entity<SaleOrder>
             }
         }
     }
+
+    public void Clone(SaleOrder order)
+    {
+        CustomerId = order.CustomerId;
+        Title = order.Title;
+        Quantity = order.Quantity;
+        Amount = order.Amount;
+        Status = order.Status;
+        OccurTime = order.OccurTime;
+        ContractNo = order.ContractNo;
+        Payment = order.Payment;
+        Operator = order.Operator;
+        Invoice = order.Invoice;
+        //BillCode = order.BillCode;
+        Freight = order.Freight;
+        //Receiver = order.Receiver;
+        //Phone = order.Phone;
+        //Address = order.Address;
+        Remark = order.Remark;
+    }
     #endregion
 }

@@ -54,6 +54,12 @@ public class SaleOrderController : EntityController<SaleOrder>
             df.Url = "/Sales/SaleOrderHistory?orderId={Id}";
         }
         {
+            var df = ListFields.AddListField("CloneOrder", "OccurTime");
+            df.DisplayName = "克隆订单";
+            df.HeaderTitle = df.Title = "克隆该订单，用于重复出货给不同客户";
+            df.Url = "/Sales/SaleOrder/CloneOrder?Id={Id}";
+        }
+        {
             var df = ListFields.GetField("OccurTime") as ListField;
             df.GetValue = e => (e as SaleOrder).OccurTime.ToString("yyyy-MM-dd");
         }
@@ -186,6 +192,37 @@ public class SaleOrderController : EntityController<SaleOrder>
         }
 
         return JsonRefresh($"共处理[{count}]个订单");
+    }
+
+    /// <summary>克隆订单</summary>
+    /// <returns></returns>
+    [EntityAuthorize(PermissionFlags.Insert)]
+    public ActionResult CloneOrder(Int32 id)
+    {
+        var order = SaleOrder.FindById(id);
+        if (order == null) throw new ArgumentNullException(nameof(id));
+
+        using var tran = SaleOrder.Meta.CreateTrans();
+
+        var order2 = new SaleOrder();
+        //order2.CopyFrom(order);
+        //order2.Id = 0;
+        order2.Clone(order);
+        order2.Status = OrderStatus.录入中;
+        order2.Insert();
+
+        foreach (var item in SaleOrderLine.FindAllByOrderId(order.Id))
+        {
+            var line = new SaleOrderLine();
+            line.Clone(item);
+            //line.Id = 0;
+            line.OrderId = order2.Id;
+            line.Insert();
+        }
+
+        tran.Commit();
+
+        return RedirectToAction("Edit", new { id = order2.Id });
     }
 
     /// <summary>批量修正数据</summary>
