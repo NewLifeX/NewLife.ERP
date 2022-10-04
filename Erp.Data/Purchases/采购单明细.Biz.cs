@@ -53,7 +53,7 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         Price = Math.Round(Price, 6);
 
         // 允许手工设置总金额
-        if (Price > 0)
+        if (Price > 0 && Amount <= 0 && !Dirtys[nameof(Amount)])
             Amount = Math.Round(Quantity * Price, 6);
         else
             Amount = Math.Round(Amount, 6);
