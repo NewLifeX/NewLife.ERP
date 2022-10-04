@@ -27,6 +27,9 @@
     {
         company = wh.Company;
     }
+
+    var customer = order.Customer;
+    var customerName = customer?.FullName ?? customer?.Name;
 }
 <div class="table-responsive" style="margin: auto; width: 800px">
     <div class="text-center">
@@ -39,7 +42,7 @@
         </div>
         <div class="col-md-8">
             <label class="col-md-3">客户单位：</label>
-            <label class="col-md-9">@order.Customer?.Name</label>
+            <label class="col-md-9">@customerName</label>
         </div>
         <div class="col-md-4">
             <label class="col-md-6">联系人：</label>
