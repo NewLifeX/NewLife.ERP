@@ -60,7 +60,7 @@ public partial class SaleOrderLine : Entity<SaleOrderLine>
         else
             Amount = Math.Round(Amount, 6);
 
-        Fix(Order);
+        //Fix(Order);
     }
 
     protected override SaleOrderLine CreateInstance(Boolean forEdit = false)

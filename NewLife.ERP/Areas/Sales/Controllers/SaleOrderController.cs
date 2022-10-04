@@ -205,8 +205,6 @@ public class SaleOrderController : EntityController<SaleOrder>
         using var tran = SaleOrder.Meta.CreateTrans();
 
         var order2 = new SaleOrder();
-        //order2.CopyFrom(order);
-        //order2.Id = 0;
         order2.Clone(order);
         order2.Status = OrderStatus.录入中;
         order2.Insert();
@@ -215,7 +213,6 @@ public class SaleOrderController : EntityController<SaleOrder>
         {
             var line = new SaleOrderLine();
             line.Clone(item);
-            //line.Id = 0;
             line.OrderId = order2.Id;
             line.Insert();
         }

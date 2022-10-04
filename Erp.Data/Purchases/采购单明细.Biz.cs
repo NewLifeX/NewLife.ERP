@@ -58,7 +58,7 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         else
             Amount = Math.Round(Amount, 6);
 
-        Fix(Order);
+        //Fix(Order);
     }
     #endregion
 

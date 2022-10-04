@@ -49,9 +49,10 @@ public partial class SaleOrder : Entity<SaleOrder>
         var customer = Customer;
         if (customer != null)
         {
-            if (Receiver.IsNullOrEmpty()) Receiver = customer.Contact;
-            if (Phone.IsNullOrEmpty()) Phone = customer.Phone;
-            if (Address.IsNullOrEmpty()) Address = customer.Address;
+            var flag = Dirtys[nameof(CustomerId)];
+            if (!isNew && flag || Receiver.IsNullOrEmpty()) Receiver = customer.Contact;
+            if (!isNew && flag || Phone.IsNullOrEmpty()) Phone = customer.Phone;
+            if (!isNew && flag || Address.IsNullOrEmpty()) Address = customer.Address;
         }
     }
     #endregion
@@ -136,7 +137,6 @@ public partial class SaleOrder : Entity<SaleOrder>
     {
         // 明细
         var list = SaleOrderLine.FindAllByOrderId(Id);
-
         if (list.Count > 0)
         {
             foreach (var item in list)
