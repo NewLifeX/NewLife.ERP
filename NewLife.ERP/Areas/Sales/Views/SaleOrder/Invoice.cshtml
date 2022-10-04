@@ -1,0 +1,91 @@
+﻿@model Erp.Data.Sales.SaleOrder;
+@using Erp.Data.Sales
+@{
+    //Layout = null;
+
+    var cfg = NewLife.Common.SysConfig.Current;
+
+    var title = ViewBag.Title + "";
+    if (title != "" && !title.EndsWith(" - ")) { title += " - "; }
+    title += cfg.DisplayName;
+
+    var set = NewLife.Cube.Setting.Current;
+
+    var order = Model;
+    var lines = SaleOrderLine.FindAllByOrderId(order.Id);
+}
+<div class="table-responsive" style="margin: auto; width: 800px">
+    <div class="text-center">
+        <h1>@(cfg.Company)发货清单</h1>
+    </div>
+    <div>
+        <div class="col-md-12">
+            <label class="col-md-2">日&nbsp;&nbsp;&nbsp;&nbsp;期：</label>
+            <label class="col-md-4">@order.OccurTime.ToString("yyyy-MM-dd")</label>
+        </div>
+        <div class="col-md-8">
+            <label class="col-md-3">客户单位：</label>
+            <label class="col-md-9">@order.Customer?.Name</label>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-6">联系人：</label>
+            <label class="col-md-6">@order.Receiver</label>
+        </div>
+        <div class="col-md-8">
+            <label class="col-md-3">联系地址：</label>
+            <label class="col-md-9">@order.Address</label>
+        </div>
+        <div class="col-md-4">
+            <label class="col-md-6">联系电话：</label>
+            <label class="col-md-6">@order.Phone</label>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover table-striped table-condensed table-data-list">
+        <thead>
+            <tr>
+                <td class="text-center">序号</td>
+                <td class="text-center">编码</td>
+                <td class="text-center">产品</td>
+                <td class="text-center">数量</td>
+                <td class="text-center">单价</td>
+                <td class="text-center">金额</td>
+                <td class="text-center">备注</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var idx = 0;
+            }
+            @foreach (var item in lines)
+            {
+                idx++;
+                var prd = item.Product;
+                <tr>
+                    <td class="text-center">@idx</td>
+                    <td>@prd?.Code</td>
+                    <td>@(prd?.Title ?? prd?.Name)</td>
+                    <td class="text-center">@item.Quantity @prd?.Unit</td>
+                    <td class="text-center">@prd?.Price.ToString("c")</td>
+                    <td class="text-center">@item.Price.ToString("c")</td>
+                    <td>@item.Remark</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"></td>
+                <td class="text-right">合计：</td>
+                <td class="text-center">@order.Quantity.ToString("n0")</td>
+                <td></td>
+                <td class="text-center">@order.Price.ToString("c")</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    <div>
+        <div class="col-md-12">
+            <label class="col-md-2">备注：</label>
+            <label class="col-md-4">@order.Remark</label>
+        </div>
+    </div>
+</div>

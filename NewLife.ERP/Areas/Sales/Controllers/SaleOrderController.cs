@@ -37,6 +37,11 @@ public class SaleOrderController : EntityController<SaleOrder>
             df.Url = "/Sales/SaleOrderLine?orderId={Id}";
         }
         {
+            var df = ListFields.AddListField("InvoicePage", "OccurTime");
+            df.DisplayName = "发货单";
+            df.Url = "/Sales/SaleOrder/Invoice?Id={Id}";
+        }
+        {
             var df = ListFields.AddListField("History", "OccurTime");
             df.DisplayName = "历史";
             df.Url = "/Sales/SaleOrderHistory?orderId={Id}";
@@ -197,5 +202,19 @@ public class SaleOrderController : EntityController<SaleOrder>
         }
 
         return JsonRefresh($"共处理[{count}]个订单");
+    }
+
+    /// <summary>发货单</summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [EntityAuthorize(PermissionFlags.Detail)]
+    public ActionResult Invoice(Int32 id)
+    {
+        var entity = SaleOrder.FindById(id);
+
+        var set = PageSetting;
+        set.EnableNavbar = false;
+
+        return View(entity);
     }
 }
