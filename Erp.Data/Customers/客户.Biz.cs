@@ -131,7 +131,7 @@ public partial class Customer : Entity<Customer>
                     endCode = areaCode + 10000;
                 else if (areaCode % 100 == 0)
                     endCode = areaCode + 100;
-                exp &= _.AreaCode >= areaCode * 1000 & _.AreaCode < endCode * 1000;
+                exp &= _.AreaCode >= areaCode & _.AreaCode < endCode;
             }
         }
         exp &= _.UpdateTime.Between(start, end);

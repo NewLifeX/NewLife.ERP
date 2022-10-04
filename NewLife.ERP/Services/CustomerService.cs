@@ -18,7 +18,7 @@ public class CustomerService
         var geo = _mapService.Parse(customer.Address);
         if (geo == null) return 0;
 
-        customer.AreaCode = geo.Towncode > 0 ? geo.Towncode : geo.Code;
+        customer.AreaCode = geo.Code;
         customer.Address2 = geo.Address;
 
         return customer.Update();
