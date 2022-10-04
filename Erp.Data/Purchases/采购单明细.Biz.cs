@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Erp.Data.Customers;
 using Erp.Data.Products;
 using NewLife;
 using NewLife.Data;
@@ -23,7 +24,7 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         Meta.Modules.Add<TimeModule>();
         Meta.Modules.Add<IPModule>();
 
-        Meta.Factory.SelectStat = _.Quantity.Sum() & "Sum(Quantity*Price) as Price";
+        //Meta.Factory.SelectStat = _.Quantity.Sum() & "Sum(Quantity*Price) as Price";
     }
 
     /// <summary>验证并修补数据，通过抛出异常的方式提示验证失败。</summary>
@@ -39,9 +40,18 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
         // 建议先调用基类方法，基类方法会做一些统一处理
         base.Valid(isNew);
 
+        if (isNew)
+        {
+            // 新建时使用产品价格，但是后面可以修改为0价格
+            if (Amount <= 0 && Product != null) Amount = Quantity * Product.Price;
+        }
+
+        if (SupplierId == 0 && Order != null) SupplierId = Order.SupplierId;
+
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
         Price = Math.Round(Price, 6);
+        Amount = Math.Round(Amount, 6);
 
         Fix(Order);
     }
@@ -177,6 +187,8 @@ public partial class PurchaseOrderLine : Entity<PurchaseOrderLine>
             WarehouseId = order.WarehouseId;
             SupplierId = order.SupplierId;
         }
+
+        if (Amount == 0) Amount = Quantity * Price;
 
         return HasDirty;
     }

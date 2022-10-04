@@ -53,12 +53,20 @@ namespace Erp.Data.Purchases
         public Int32 Quantity { get => _Quantity; set { if (OnPropertyChanging("Quantity", value)) { _Quantity = value; OnPropertyChanged("Quantity"); } } }
 
         private Decimal _Price;
-        /// <summary>价值。产品总价加上运费</summary>
+        /// <summary>价值。产品总价加上运费，已废弃</summary>
         [DisplayName("价值")]
-        [Description("价值。产品总价加上运费")]
+        [Description("价值。产品总价加上运费，已废弃")]
         [DataObjectField(false, false, false, 0)]
-        [BindColumn("Price", "价值。产品总价加上运费", "")]
+        [BindColumn("Price", "价值。产品总价加上运费，已废弃", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
+
+        private Decimal _Amount;
+        /// <summary>金额。实际总价，含税和运费</summary>
+        [DisplayName("金额")]
+        [Description("金额。实际总价，含税和运费")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Amount", "金额。实际总价，含税和运费", "")]
+        public Decimal Amount { get => _Amount; set { if (OnPropertyChanging("Amount", value)) { _Amount = value; OnPropertyChanged("Amount"); } } }
 
         private Int32 _WarehouseId;
         /// <summary>仓库。进入的仓库</summary>
@@ -229,6 +237,7 @@ namespace Erp.Data.Purchases
                     case "Title": return _Title;
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
+                    case "Amount": return _Amount;
                     case "WarehouseId": return _WarehouseId;
                     case "Status": return _Status;
                     case "OccurTime": return _OccurTime;
@@ -259,6 +268,7 @@ namespace Erp.Data.Purchases
                     case "Title": _Title = Convert.ToString(value); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
+                    case "Amount": _Amount = Convert.ToDecimal(value); break;
                     case "WarehouseId": _WarehouseId = value.ToInt(); break;
                     case "Status": _Status = (Erp.Data.Models.OrderStatus)value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
@@ -299,8 +309,11 @@ namespace Erp.Data.Purchases
             /// <summary>数量。总件数</summary>
             public static readonly Field Quantity = FindByName("Quantity");
 
-            /// <summary>价值。产品总价加上运费</summary>
+            /// <summary>价值。产品总价加上运费，已废弃</summary>
             public static readonly Field Price = FindByName("Price");
+
+            /// <summary>金额。实际总价，含税和运费</summary>
+            public static readonly Field Amount = FindByName("Amount");
 
             /// <summary>仓库。进入的仓库</summary>
             public static readonly Field WarehouseId = FindByName("WarehouseId");
@@ -374,8 +387,11 @@ namespace Erp.Data.Purchases
             /// <summary>数量。总件数</summary>
             public const String Quantity = "Quantity";
 
-            /// <summary>价值。产品总价加上运费</summary>
+            /// <summary>价值。产品总价加上运费，已废弃</summary>
             public const String Price = "Price";
+
+            /// <summary>金额。实际总价，含税和运费</summary>
+            public const String Amount = "Amount";
 
             /// <summary>仓库。进入的仓库</summary>
             public const String WarehouseId = "WarehouseId";

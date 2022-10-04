@@ -63,6 +63,14 @@ namespace Erp.Data.Purchases
         [BindColumn("Price", "价格。采购价，如果含税，加上去，可修改为0价格", "")]
         public Decimal Price { get => _Price; set { if (OnPropertyChanging("Price", value)) { _Price = value; OnPropertyChanged("Price"); } } }
 
+        private Decimal _Amount;
+        /// <summary>金额。实际总价，含税</summary>
+        [DisplayName("金额")]
+        [Description("金额。实际总价，含税")]
+        [DataObjectField(false, false, false, 0)]
+        [BindColumn("Amount", "金额。实际总价，含税", "")]
+        public Decimal Amount { get => _Amount; set { if (OnPropertyChanging("Amount", value)) { _Amount = value; OnPropertyChanged("Amount"); } } }
+
         private Int32 _SupplierId;
         /// <summary>供应商</summary>
         [DisplayName("供应商")]
@@ -184,6 +192,7 @@ namespace Erp.Data.Purchases
                     case "ProductId": return _ProductId;
                     case "Quantity": return _Quantity;
                     case "Price": return _Price;
+                    case "Amount": return _Amount;
                     case "SupplierId": return _SupplierId;
                     case "WarehouseId": return _WarehouseId;
                     case "OccurTime": return _OccurTime;
@@ -208,6 +217,7 @@ namespace Erp.Data.Purchases
                     case "ProductId": _ProductId = value.ToInt(); break;
                     case "Quantity": _Quantity = value.ToInt(); break;
                     case "Price": _Price = Convert.ToDecimal(value); break;
+                    case "Amount": _Amount = Convert.ToDecimal(value); break;
                     case "SupplierId": _SupplierId = value.ToInt(); break;
                     case "WarehouseId": _WarehouseId = value.ToInt(); break;
                     case "OccurTime": _OccurTime = value.ToDateTime(); break;
@@ -244,6 +254,9 @@ namespace Erp.Data.Purchases
 
             /// <summary>价格。采购价，如果含税，加上去，可修改为0价格</summary>
             public static readonly Field Price = FindByName("Price");
+
+            /// <summary>金额。实际总价，含税</summary>
+            public static readonly Field Amount = FindByName("Amount");
 
             /// <summary>供应商</summary>
             public static readonly Field SupplierId = FindByName("SupplierId");
@@ -301,6 +314,9 @@ namespace Erp.Data.Purchases
 
             /// <summary>价格。采购价，如果含税，加上去，可修改为0价格</summary>
             public const String Price = "Price";
+
+            /// <summary>金额。实际总价，含税</summary>
+            public const String Amount = "Amount";
 
             /// <summary>供应商</summary>
             public const String SupplierId = "SupplierId";

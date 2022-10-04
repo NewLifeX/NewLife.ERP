@@ -144,14 +144,14 @@ public partial class SaleOrder : Entity<SaleOrder>
                 if (item.Fix(this))
                     item.Update();
             }
-         
+
             Quantity = list.Sum(e => e.Quantity);
             Amount = list.Sum(e => e.Amount) + Freight;
 
-            if (Title.IsNullOrEmpty() || Title.StartsWith("[") && Title.Length < 50)
+            if (Title.IsNullOrEmpty() || Title.StartsWith("["))
             {
                 var txt = $"[{OccurTime:yyMMdd}]" + list.OrderByDescending(e => e.Amount).Join("、", e => e.ProductName);
-                Title = txt.Cut(50);
+                Title = txt.Cut(25);
             }
         }
     }

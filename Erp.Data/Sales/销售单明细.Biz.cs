@@ -52,6 +52,7 @@ public partial class SaleOrderLine : Entity<SaleOrderLine>
 
         // 在新插入数据或者修改了指定字段时进行修正
         // 货币保留6位小数
+        Price = Math.Round(Price, 6);
         Amount = Math.Round(Amount, 6);
 
         Fix(Order);
@@ -197,11 +198,9 @@ public partial class SaleOrderLine : Entity<SaleOrderLine>
         {
             if (OccurTime.Year < 2000) OccurTime = order.OccurTime;
             CustomerId = order.CustomerId;
-
-#if DEBUG
-            if (Amount == 0) Amount = Quantity * Price;
-#endif
         }
+
+        if (Amount == 0) Amount = Quantity * Price;
 
         return HasDirty;
     }

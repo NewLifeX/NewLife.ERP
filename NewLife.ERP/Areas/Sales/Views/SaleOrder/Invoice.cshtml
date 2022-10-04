@@ -71,7 +71,8 @@
                     <td class="text-center">@item.Quantity @prd?.Unit</td>
                     @if (money)
                     {
-                        <td class="text-center">@prd?.Price.ToString("c")</td>
+                        var price = item.Price > 0 ? item.Price : (prd?.Price ?? 0);
+                        <td class="text-center">@price.ToString("c")</td>
                         <td class="text-center">@item.Amount.ToString("c")</td>
                     }
                     else
