@@ -135,7 +135,7 @@ public partial class Customer : Entity<Customer>
             }
         }
         exp &= _.UpdateTime.Between(start, end);
-        if (!key.IsNullOrEmpty()) exp &= _.Name.Contains(key) | _.FullName.Contains(key) | _.Tags.Contains($",{key},") | _.PinYin.Contains(key) | _.PinYin2.Contains(key) | _.Phone.Contains(key) | _.Address.Contains(key) | _.Remark.Contains(key);
+        if (!key.IsNullOrEmpty()) exp &= _.Name.Contains(key) | _.FullName.Contains(key) | _.Tags.Contains($",{key},") | _.PinYin.Contains(key) | _.PinYin2.Contains(key) | _.Contact.Contains(key) | _.Phone.Contains(key) | _.Address.Contains(key) | _.Remark.Contains(key);
 
         return FindAll(exp, page);
     }

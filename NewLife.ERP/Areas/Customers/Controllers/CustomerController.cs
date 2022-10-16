@@ -19,7 +19,7 @@ public class CustomerController : EntityController<Customer>
     {
         LogOnChange = true;
 
-        ListFields.RemoveField("PinYin", "PinYin2");
+        ListFields.RemoveField("PinYin", "PinYin2", "Address2", "Tags");
         ListFields.RemoveCreateField();
         ListFields.RemoveRemarkField();
 
