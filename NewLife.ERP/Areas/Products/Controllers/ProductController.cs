@@ -32,12 +32,12 @@ public class ProductController : EntityController<Product>
         {
             var df = ListFields.AddListField("Stock", "Weight");
             df.DisplayName = "库存";
-            df.Url = "ProductStock?productId={Id}";
+            df.Url = "/Products/ProductStock?productId={Id}";
         }
         {
             var df = ListFields.AddListField("History", "Weight");
             df.DisplayName = "库存历史";
-            df.Url = "StockHistory?productId={Id}";
+            df.Url = "/Products/StockHistory?productId={Id}";
         }
         {
             var df = ListFields.AddListField("Purchase", "Weight");

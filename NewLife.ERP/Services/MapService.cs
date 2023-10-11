@@ -1,5 +1,5 @@
 ﻿using NewLife.Data;
-using NewLife.Yun;
+using NewLife.Map;
 
 namespace NewLife.ERP.Services;
 
@@ -16,7 +16,7 @@ public class MapService
     {
         if (address.IsNullOrEmpty()) return null;
 
-        var addr = _map.GetGeoAsync(address, null, true).Result;
+        var addr = _map.GetGeoAsync(address, null, null, true).Result;
 
         return addr;
     }

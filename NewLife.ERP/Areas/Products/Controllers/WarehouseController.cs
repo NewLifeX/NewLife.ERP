@@ -17,12 +17,12 @@ public class WarehouseController : EntityController<Warehouse>
         {
             var df = ListFields.AddListField("Stock", "CreateUser");
             df.DisplayName = "库存";
-            df.Url = "ProductStock?warehouseId={Id}";
+            df.Url = "/Products/ProductStock?warehouseId={Id}";
         }
         {
             var df = ListFields.AddListField("History", "CreateUser");
             df.DisplayName = "库存历史";
-            df.Url = "StockHistory?warehouseId={Id}";
+            df.Url = "/Products/StockHistory?warehouseId={Id}";
         }
         {
             var df = ListFields.AddListField("Log", "CreateUser");

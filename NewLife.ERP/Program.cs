@@ -1,10 +1,10 @@
-﻿using NewLife;
-using NewLife.Caching;
+﻿using NewLife.Caching;
+using NewLife.Caching.Services;
 using NewLife.Configuration;
 using NewLife.Cube;
 using NewLife.ERP.Services;
 using NewLife.Log;
-using NewLife.Yun;
+using NewLife.Map;
 using XCode;
 
 //!!! 标准Web项目模板，新生命团队强烈推荐
@@ -20,7 +20,7 @@ if (set.IsNew)
     set.LogPath = "../Log";
     set.Save();
 }
-var set2 = NewLife.Cube.Setting.Current;
+var set2 = CubeSetting.Current;
 if (set2.IsNew)
 {
     set2.UploadPath = "../Uploads";
@@ -38,11 +38,7 @@ var star = services.AddStardust(null);
 var config = star.Config;
 
 // 默认内存缓存，如有配置可使用Redis缓存
-var cache = new MemoryCache();
-if (config != null && !config["redisCache"].IsNullOrEmpty())
-    services.AddSingleton<ICache>(p => new FullRedis(p, "redisCache") { Name = "Cache", Tracer = star.Tracer });
-else
-    services.AddSingleton<ICache>(cache);
+services.AddSingleton<ICacheProvider, RedisCacheProvider>();
 
 var jsonConfig = new JsonConfigProvider { FileName = "appsettings.json" };
 

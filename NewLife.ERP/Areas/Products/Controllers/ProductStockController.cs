@@ -24,12 +24,12 @@ public class ProductStockController : ReadOnlyEntityController<ProductStock>
         {
             var df = ListFields.AddListField("Move", null, "Quantity");
             df.DisplayName = "移库";
-            df.Url = "ProductStock/Move?id={Id}";
+            df.Url = "/Products/ProductStock/Move?id={Id}";
         }
         {
             var df = ListFields.AddListField("History", "CreateUser");
             df.DisplayName = "库存历史";
-            df.Url = "StockHistory?productId={ProductId}&warehouseId={WarehouseId}";
+            df.Url = "/Products/StockHistory?productId={ProductId}&warehouseId={WarehouseId}";
         }
     }
 

@@ -7,7 +7,7 @@
     <AssemblyTitle>新生命ERP</AssemblyTitle>
     <Description>数据管理平台</Description>
     <Company>新生命开发团队</Company>
-    <Copyright>©2002-2022 NewLife</Copyright>
+    <Copyright>©2002-2023 NewLife</Copyright>
     <VersionPrefix>1.0</VersionPrefix>
     <VersionSuffix>$([System.DateTime]::Now.ToString(`yyyy.MMdd`))</VersionSuffix>
     <Version>$(VersionPrefix).$(VersionSuffix)</Version>
@@ -25,10 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NewLife.Cube.Core" Version="5.5.2022.1101" />
-    <PackageReference Include="NewLife.Map" Version="2.2.2022.1101" />
-    <PackageReference Include="NewLife.Redis" Version="5.0.2022.1101" />
-    <PackageReference Include="NewLife.Stardust.Extensions" Version="2.4.2022.1101" />
+    <PackageReference Include="NewLife.Cube.Core" Version="5.6.2023.1008" />
+    <PackageReference Include="NewLife.Map" Version="2.3.2023.806" />
+    <PackageReference Include="NewLife.Redis" Version="5.5.2023.1001" />
+    <PackageReference Include="NewLife.Stardust.Extensions" Version="2.9.2023.1001" />
   </ItemGroup>
 
   <ItemGroup>

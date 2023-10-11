@@ -19,7 +19,7 @@ public class ProductCategoryController : EntityTreeController<ProductCategory>
             var df = ListFields.GetField("Products") as ListField;
             df.DisplayName = "{Products}";
             df.Title = "管理产品";
-            df.Url = "Product?categoryId={Id}";
+            df.Url = "/Products/Product?categoryId={Id}";
         }
     }
 
