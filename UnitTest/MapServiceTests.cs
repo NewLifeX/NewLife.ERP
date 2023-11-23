@@ -2,6 +2,7 @@
 using NewLife.ERP.Services;
 using NewLife.Log;
 using NewLife.Yun;
+using NewLife.Map;
 
 namespace UnitTest;
 
